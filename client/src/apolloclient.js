@@ -5,6 +5,16 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 
+// import { WebSocketLink } from 'apollo-link-ws';
+
+// Create a WebSocket link:
+// const wsLink = new WebSocketLink({
+//   uri: `ws://localhost:5000/`,
+//   options: {
+//     reconnect: true
+//   }
+// });
+
 const appCache = new InMemoryCache()
 
 const errorLink = onError(({ graphQLErrors }) => {
