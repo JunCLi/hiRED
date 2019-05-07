@@ -105,11 +105,11 @@ CREATE TABLE hired.feed_items (
     id integer NOT NULL,
     user_id integer NOT NULL,
     date_created timestamp with time zone NOT NULL,
-    title text NOT NULL,
-    content text NOT NULL,
-    likes integer NOT NULL,
-    location text NOT NULL,
-    direct_link text NOT NULL
+    title text,
+    content text,
+    likes integer,
+    location text,
+    direct_link text
 );
 
 
@@ -144,8 +144,8 @@ ALTER SEQUENCE hired.feed_items_id_seq OWNED BY hired.feed_items.id;
 CREATE TABLE hired.feedback (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    issue_type text NOT NULL,
-    issue_content text NOT NULL
+    issue_type text,
+    issue_content text
 );
 
 
@@ -246,6 +246,41 @@ ALTER SEQUENCE hired.linkedin_id_seq OWNED BY hired.linkedin.id;
 
 
 --
+-- Name: mentors; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.mentors (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    status boolean
+);
+
+
+ALTER TABLE hired.mentors OWNER TO postgres;
+
+--
+-- Name: mentors_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.mentors_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.mentors_id_seq OWNER TO postgres;
+
+--
+-- Name: mentors_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.mentors_id_seq OWNED BY hired.mentors.id;
+
+
+--
 -- Name: messages; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -253,7 +288,7 @@ CREATE TABLE hired.messages (
     id integer NOT NULL,
     user_id integer NOT NULL,
     conversation_id integer NOT NULL,
-    content text NOT NULL,
+    content text,
     date_created timestamp with time zone NOT NULL
 );
 
@@ -289,12 +324,12 @@ ALTER SEQUENCE hired.messages_id_seq OWNED BY hired.messages.id;
 CREATE TABLE hired.portfolio (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    title text NOT NULL,
-    description text NOT NULL,
-    type text NOT NULL,
-    custom_link text NOT NULL,
-    api_link text NOT NULL,
-    thumbnail text NOT NULL
+    title text,
+    description text,
+    type text,
+    custom_link text,
+    api_link text,
+    thumbnail text
 );
 
 
@@ -328,8 +363,8 @@ ALTER SEQUENCE hired.portfolio_id_seq OWNED BY hired.portfolio.id;
 
 CREATE TABLE hired.tags (
     id integer NOT NULL,
-    type text NOT NULL,
-    name text NOT NULL
+    type text,
+    name text
 );
 
 
@@ -363,15 +398,13 @@ ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.tags.id;
 
 CREATE TABLE hired.users (
     id integer NOT NULL,
-    first_name text NOT NULL,
-    last_name text NOT NULL,
-    campus text NOT NULL,
-    mentor boolean NOT NULL,
-    location text NOT NULL,
+    fullname text NOT NULL,
+    campus text,
+    location text,
     password text NOT NULL,
-    role text NOT NULL,
-    current_job text NOT NULL,
-    avatar text NOT NULL,
+    role text,
+    current_job text,
+    avatar text,
     date_created timestamp with time zone NOT NULL
 );
 
@@ -440,6 +473,13 @@ ALTER TABLE ONLY hired.github ALTER COLUMN id SET DEFAULT nextval('hired.github_
 --
 
 ALTER TABLE ONLY hired.linkedin ALTER COLUMN id SET DEFAULT nextval('hired.linkedin_id_seq'::regclass);
+
+
+--
+-- Name: mentors id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.mentors ALTER COLUMN id SET DEFAULT nextval('hired.mentors_id_seq'::regclass);
 
 
 --
@@ -516,6 +556,14 @@ ALTER TABLE ONLY hired.github
 
 ALTER TABLE ONLY hired.linkedin
     ADD CONSTRAINT linkedin_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mentors mentors_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.mentors
+    ADD CONSTRAINT mentors_pkey PRIMARY KEY (id);
 
 
 --

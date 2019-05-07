@@ -64,6 +64,14 @@ COPY hired.linkedin (id, user_id, feed_item_id, date_pulled) FROM stdin;
 
 
 --
+-- Data for Name: mentors; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.mentors (id, user_id, status) FROM stdin;
+\.
+
+
+--
 -- Data for Name: messages; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
@@ -91,7 +99,7 @@ COPY hired.tags (id, type, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: vincent
 --
 
-COPY hired.users (id, first_name, last_name, campus, mentor, location, password, role, current_job, avatar, date_created) FROM stdin;
+COPY hired.users (id, fullname, campus, location, password, role, current_job, avatar, date_created) FROM stdin;
 \.
 
 
@@ -135,6 +143,13 @@ SELECT pg_catalog.setval('hired.github_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
+
+
+--
+-- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.mentors_id_seq', 1, false);
 
 
 --
