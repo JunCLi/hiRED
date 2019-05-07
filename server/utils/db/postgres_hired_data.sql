@@ -91,7 +91,7 @@ COPY hired.tags (id, type, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: vincent
 --
 
-COPY hired.users (id, first_name, last_name, campus, mentor, location, password, role, "current-job", avatar, date_created) FROM stdin;
+COPY hired.users (id, first_name, last_name, campus, mentor, location, password, role, current_job, avatar, date_created) FROM stdin;
 \.
 
 

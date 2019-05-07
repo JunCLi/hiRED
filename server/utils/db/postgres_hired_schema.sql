@@ -370,7 +370,7 @@ CREATE TABLE hired.users (
     location text NOT NULL,
     password text NOT NULL,
     role text NOT NULL,
-    "current-job" text NOT NULL,
+    current_job text NOT NULL,
     avatar text NOT NULL,
     date_created timestamp with time zone NOT NULL
 );
