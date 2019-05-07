@@ -60,14 +60,5 @@ module.exports = gql`
   type LoginResponse {
     message: String
   }
-
-  type AppointmentResponse {
-    message: String
-  }
-
-  type LinkedInResponse {
-    message: String
-  }
-
 `
 
