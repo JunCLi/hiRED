@@ -64,6 +64,14 @@ COPY hired.linkedin (id, user_id, feed_item_id, date_pulled) FROM stdin;
 
 
 --
+-- Data for Name: mentors; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.mentors (id, user_id, status) FROM stdin;
+\.
+
+
+--
 -- Data for Name: messages; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
@@ -83,15 +91,15 @@ COPY hired.portfolio (id, user_id, title, description, type, custom_link, api_li
 -- Data for Name: tags; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.tags (id, type, name) FROM stdin;
+COPY hired.tags (type, name) FROM stdin;
 \.
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: vincent
+-- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, first_name, last_name, campus, mentor, location, password, role, current_job, avatar, date_created) FROM stdin;
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created) FROM stdin;
 \.
 
 
@@ -138,6 +146,13 @@ SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 
 
 --
+-- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.mentors_id_seq', 1, false);
+
+
+--
 -- Name: messages_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
@@ -152,14 +167,7 @@ SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
 
 
 --
--- Name: tags_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.tags_id_seq', 1, false);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: vincent
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
 SELECT pg_catalog.setval('hired.users_id_seq', 1, false);
