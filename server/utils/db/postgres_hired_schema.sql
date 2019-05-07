@@ -362,7 +362,6 @@ ALTER SEQUENCE hired.portfolio_id_seq OWNED BY hired.portfolio.id;
 --
 
 CREATE TABLE hired.tags (
-    id integer NOT NULL,
     type text,
     name text
 );
@@ -371,48 +370,27 @@ CREATE TABLE hired.tags (
 ALTER TABLE hired.tags OWNER TO postgres;
 
 --
--- Name: tags_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
---
-
-CREATE SEQUENCE hired.tags_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE hired.tags_id_seq OWNER TO postgres;
-
---
--- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
---
-
-ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.tags.id;
-
-
---
--- Name: users; Type: TABLE; Schema: hired; Owner: vincent
+-- Name: users; Type: TABLE; Schema: hired; Owner: postgres
 --
 
 CREATE TABLE hired.users (
     id integer NOT NULL,
     fullname text NOT NULL,
-    campus text,
-    location text,
+    email text NOT NULL,
     password text NOT NULL,
     role text,
+    campus text,
+    location text,
     current_job text,
     avatar text,
     date_created timestamp with time zone NOT NULL
 );
 
 
-ALTER TABLE hired.users OWNER TO vincent;
+ALTER TABLE hired.users OWNER TO postgres;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: hired; Owner: vincent
+-- Name: users_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
 --
 
 CREATE SEQUENCE hired.users_id_seq
@@ -424,10 +402,10 @@ CREATE SEQUENCE hired.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE hired.users_id_seq OWNER TO vincent;
+ALTER TABLE hired.users_id_seq OWNER TO postgres;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: vincent
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
 --
 
 ALTER SEQUENCE hired.users_id_seq OWNED BY hired.users.id;
@@ -497,14 +475,7 @@ ALTER TABLE ONLY hired.portfolio ALTER COLUMN id SET DEFAULT nextval('hired.port
 
 
 --
--- Name: tags id; Type: DEFAULT; Schema: hired; Owner: postgres
---
-
-ALTER TABLE ONLY hired.tags ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: hired; Owner: vincent
+-- Name: users id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
 ALTER TABLE ONLY hired.users ALTER COLUMN id SET DEFAULT nextval('hired.users_id_seq'::regclass);
@@ -583,11 +554,11 @@ ALTER TABLE ONLY hired.portfolio
 
 
 --
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.tags
-    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY hired.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
