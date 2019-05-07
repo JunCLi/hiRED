@@ -2,13 +2,8 @@
 -- PostgreSQL database dump
 --
 
-<<<<<<< HEAD
 -- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
 -- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
-=======
--- Dumped from database version 11.2
--- Dumped by pg_dump version 11.2
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,21 +16,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
-<<<<<<< HEAD
 -- Name: hired; Type: SCHEMA; Schema: -; Owner: postgres
-=======
--- Name: hired; Type: SCHEMA; Schema: -; Owner: vincent
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 --
 
 CREATE SCHEMA hired;
 
 
-<<<<<<< HEAD
 ALTER SCHEMA hired OWNER TO postgres;
-=======
-ALTER SCHEMA hired OWNER TO vincent;
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 
 SET default_tablespace = '';
 
@@ -81,13 +68,8 @@ ALTER SEQUENCE hired.conversations_id_seq OWNED BY hired.conversations.id;
 CREATE TABLE hired.dribbble (
     id integer NOT NULL,
     user_id integer NOT NULL,
-<<<<<<< HEAD
     feed_item_id integer NOT NULL,
     date_pulled timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    date_pulled timestamp with time zone NOT NULL,
-    feed_item_id integer NOT NULL
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
@@ -122,20 +104,12 @@ ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble.id;
 CREATE TABLE hired.feed_items (
     id integer NOT NULL,
     user_id integer NOT NULL,
-<<<<<<< HEAD
-=======
-    date_created timestamp with time zone NOT NULL,
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
     title text,
     content text,
     likes integer,
     location text,
-<<<<<<< HEAD
     direct_link text,
     date_created timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    direct_link text
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
@@ -207,11 +181,7 @@ CREATE TABLE hired.github (
     id integer NOT NULL,
     user_id integer NOT NULL,
     feed_item_id integer NOT NULL,
-<<<<<<< HEAD
     date_pulled timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    date_created timestamp with time zone NOT NULL
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
@@ -247,11 +217,7 @@ CREATE TABLE hired.linkedin (
     id integer NOT NULL,
     user_id integer NOT NULL,
     feed_item_id integer NOT NULL,
-<<<<<<< HEAD
     date_pulled timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    date_pulled timestamp with time zone NOT NULL
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
@@ -323,11 +289,7 @@ CREATE TABLE hired.messages (
     user_id integer NOT NULL,
     conversation_id integer NOT NULL,
     content text,
-<<<<<<< HEAD
     date_created timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    date_created timestamp with time zone NOT NULL
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
@@ -421,11 +383,7 @@ CREATE TABLE hired.users (
     location text,
     current_job text,
     avatar text,
-<<<<<<< HEAD
     date_created timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-=======
-    date_created timestamp with time zone NOT NULL
->>>>>>> 0b72156f9c5f0bcbb447f711cd9300dd6d90896d
 );
 
 
