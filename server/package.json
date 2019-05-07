@@ -1,12 +1,12 @@
 {
 	"scripts": {
 		"dbexport": "yarn dbexport:schema && yarn dbexport:data",
-		"dbexport:schema": "pg_dump -U postgres -s -n hired_db -f ./utils/db/postgres_hired_db_schema.sql postgres",
-		"dbexport:data": "pg_dump -U postgres -a -n hired_db -f ./utils/db/postgres_hired_db_data.sql postgres",
+		"dbexport:schema": "pg_dump -U postgres -s -n hired -f ./utils/db/postgres_hired_schema.sql postgres",
+		"dbexport:data": "pg_dump -U postgres -a -n hired -f ./utils/db/postgres_hired_data.sql postgres",
 		"dbimport": "yarn dbimport:schema && yarn dbimport:data",
-		"dbimport:schema": "psql -d postgres -f ./utils/db/postgres_hired_db_schema.sql -U postgres",
-		"dbimport:data": "psql -d postgres -f ./utils/db/postgres_hired_db_data.sql -U postgres",
-		"db:drop": "psql -U postgres -d postgres -c \"DROP SCHEMA IF EXISTS \\\"hired_db\\\"CASCADE\"",
+		"dbimport:schema": "psql -d postgres -f ./utils/db/postgres_hired_schema.sql -U postgres",
+		"dbimport:data": "psql -d postgres -f ./utils/db/postgres_hired_data.sql -U postgres",
+		"db:drop": "psql -U postgres -d postgres -c \"DROP SCHEMA IF EXISTS \\\"hired\\\"CASCADE\"",
 		"test": "jest",
 		"start": "node index.js",
 		"start:dev": "nodemon index.js"
