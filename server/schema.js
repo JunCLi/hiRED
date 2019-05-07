@@ -12,17 +12,14 @@ module.exports = gql`
     id: ID!,
     email: String,
     password: String,
-    first_name: String,
-    last_name: String,
+    fullname: String,
     campus: String,
-    mentor: String,
     location: String,
     role: String,
-    programs: String,
     current_job: String,
-    avatar: String
+    avatar: String,
+    date_created: Date
   }
-
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
