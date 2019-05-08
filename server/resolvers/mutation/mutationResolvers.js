@@ -45,15 +45,22 @@ module.exports = {
     async signupPage2(parent, { input }, { req, app, postgres}) {
       try {
         const user_id = authenticate(app, req)
-        const { program_name, mentor } = input
+        const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor } = input
 
-        const updateUserObject = Object.keys(input).filter(key => key !== program_name && key !== mentor)
-
-        const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hiRED.users', user_id)
-        console.log(updateUserQuery)
+        const updateUserObject = {
+          'campus': campus,
+          // 'study_year': study_year,
+          // 'study_cohort': study_cohort,
+          'role': role,
+          'current_job': current_job,
+          'location': location
+        }
+        
+        const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
+        await postgres.query(updateUserQuery)
 
         return {
-          message: 'hi'
+          message: 'success'
         }
       }catch(err){
         throw err

@@ -37,7 +37,8 @@ module.exports.createUpdateQuery = (inputObject, selector, table, optSelectorVal
 
   if (optSelectorValue) {
     return {
-      text: `UPDATE ${table} SET ${queryString} WHERE ${selector} = 'optSelectorValue' RETURNING id`
+      text: `UPDATE ${table} SET ${queryString} WHERE ${selector} = '${optSelectorValue}' RETURNING id`,
+      values: queryValues
     }
   } else {
     return {
@@ -46,3 +47,4 @@ module.exports.createUpdateQuery = (inputObject, selector, table, optSelectorVal
     }
   }
 }
+
