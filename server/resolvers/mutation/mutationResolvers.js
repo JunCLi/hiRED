@@ -73,16 +73,12 @@ module.exports = {
 
           status = input.status
 
-          console.log(input.user_id, input.status)
-
       const newMentor = {
         text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
         values: [user_id, status]
       }
 
       let result = await postgres.query(newMentor)
-
-      console.log(result)
 
       return {
         message: "success"
