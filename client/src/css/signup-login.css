@@ -1,0 +1,16 @@
+.login-card-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px 50px;
+
+  border: 1px solid lavender;
+}
+
+.login-form-container .form-field > div {
+  width: 100%;
+}
+
+.login-form-container .signup-form-btns {
+  margin: 30px;
+}
