@@ -8,5 +8,14 @@ module.exports = {
         id
       }
     },
+    async getMentors(parent, input, { req, app, postgres }){
+      const mentors = {
+          text: "SELECT * FROM hired.mentors"
+        }
+
+        const results = await postgres.query(mentors)
+
+        return results.rows
+    }
   },
 }

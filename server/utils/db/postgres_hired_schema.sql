@@ -237,7 +237,8 @@ ALTER TABLE hired.linkedin_id_seq OWNER TO postgres;
 CREATE TABLE hired.mentors (
     id integer NOT NULL,
     user_id integer,
-    status boolean NOT NULL
+    status boolean NOT NULL,
+    disabled boolean
 );
 
 

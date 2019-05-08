@@ -75,9 +75,9 @@ COPY hired.github (id, user_id, feed_item_id, date_pulled) FROM stdin;
 -- Data for Name: mentors; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.mentors (id, user_id, status) FROM stdin;
-1	1	t
-2	2	t
+COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
+1	1	t	\N
+2	2	t	\N
 \.
 
 

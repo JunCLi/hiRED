@@ -6,7 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User,
-    getMentors: [User!]
+    getMentors: [Mentors]!
   }
 
   type User {
@@ -21,6 +21,11 @@ module.exports = gql`
     programs: String,
     current_job: String,
     avatar: String
+  }
+
+  type Mentors {
+    status: Boolean,
+    user: User
   }
 
 

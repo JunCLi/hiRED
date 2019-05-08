@@ -70,6 +70,7 @@ module.exports = {
     },
     async addMentors(parent, {input}, { req, app, postgres }) {
     let user_id =  authenticate(app, req)
+
           status = input.status
 
           console.log(input.user_id, input.status)
