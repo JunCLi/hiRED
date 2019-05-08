@@ -26,7 +26,7 @@ module.exports = {
           password: hashedPassword,
           fullname: fullname,
         }
-        
+
         const signupQuery = createInsertQuery(newUserObject, 'hired.users')
         const signupQueryResult = await postgres.query(signupQuery)
 
@@ -46,7 +46,7 @@ module.exports = {
       try {
         let {email, password} = input
         email = email.toLowerCase()
-  
+
         const passwordQuery = createSelectQuery(['id, password'], 'hired.users', 'email', email)
         const queryResult = await postgres.query(passwordQuery)
 
@@ -68,6 +68,25 @@ module.exports = {
         throw err
       }
     },
+    async addMentors(parent, {input}, { req, app, postgres }) {
+      let user_id = input.user_id,
+          status = input.status
+
+          console.log(input.user_id, input.status)
+
+      const newMentor = {
+        text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
+        values: [user_id, status]
+      }
+
+      let result = await postgres.query(newMentor)
+
+      console.log(result)
+
+      return {
+        message: "success"
+      }
+    }
   },
 }
 

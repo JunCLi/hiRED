@@ -6,6 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User,
+    getMentors: [User!]
   }
 
   type User {
@@ -26,12 +27,18 @@ module.exports = gql`
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
     LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
-    signup(
-      input: SignupObject!
-    ):SignupResponse!
-    login(
-      input: LoginObject!
-    ):LoginResponse!
+    addMentors(input: AddMentorsObject): addMentorsResponse!
+    signup(input: SignupObject!): SignupResponse!
+    login(input: LoginObject!): LoginResponse!
+  }
+
+  input AddMentorsObject {
+    user_id: Int!,
+    status: Boolean
+  }
+
+  type addMentorsResponse {
+    message: String
   }
 
   type AppointmentResponse {

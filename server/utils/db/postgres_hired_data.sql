@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -68,6 +68,7 @@ COPY hired.linkedin (id, user_id, feed_item_id, date_pulled) FROM stdin;
 --
 
 COPY hired.mentors (id, user_id, status) FROM stdin;
+1	1	t
 \.
 
 
@@ -105,73 +106,10 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 
 
 --
--- Name: conversations_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.conversations_id_seq', 1, false);
-
-
---
--- Name: dribbble_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.dribbble_id_seq', 1, false);
-
-
---
--- Name: feed_items_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.feed_items_id_seq', 1, false);
-
-
---
--- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.feedback_id_seq', 1, false);
-
-
---
--- Name: github_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.github_id_seq', 1, false);
-
-
---
--- Name: linkedin_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
-
-
---
 -- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.mentors_id_seq', 1, false);
-
-
---
--- Name: messages_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.messages_id_seq', 1, false);
-
-
---
--- Name: portfolio_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
---
-
-SELECT pg_catalog.setval('hired.users_id_seq', 2, true);
+SELECT pg_catalog.setval('hired.mentors_id_seq', 1, true);
 
 
 --
