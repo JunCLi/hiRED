@@ -4,6 +4,8 @@ export const signupValidation = Yup.object().shape({
   userEmail: Yup.string()
     .email()
     .required('Missing email.'),
+  userFullname: Yup.string()
+    .required('Missing name'),
   password: Yup.string()
     .min(
       8,
