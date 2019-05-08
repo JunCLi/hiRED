@@ -25,13 +25,13 @@ module.exports = {
           password: hashedPassword,
           fullname: fullname,
         }
-        
+
         const signupQuery = createInsertQuery(newUserObject, 'hired.users')
         const signupQueryResult = await postgres.query(signupQuery)
 
         const tokenData = signupQueryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'success'
@@ -45,7 +45,7 @@ module.exports = {
       try {
         let {email, password} = input
         email = email.toLowerCase()
-  
+
         const passwordQuery = createSelectQuery(['id, password'], 'hired.users', 'email', email)
         const queryResult = await postgres.query(passwordQuery)
 
@@ -58,7 +58,7 @@ module.exports = {
 
         const tokenData = queryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'Login Successful!'
@@ -99,6 +99,22 @@ module.exports = {
       catch (e) {
         console.log("Error in addPortfolio: ", e.message);
         throw e.message;
+      }
+    },
+    async addMentors(parent, {input}, { req, app, postgres }) {
+    let user_id =  authenticate(app, req)
+
+          status = input.status
+
+      const newMentor = {
+        text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
+        values: [user_id, status]
+      }
+
+      let result = await postgres.query(newMentor)
+
+      return {
+        message: "success"
       }
     }
   },

@@ -1,0 +1,32 @@
+ query {
+   getMentors {
+     status
+   }
+ }
+
+query {
+  getMentors {
+    user {
+      id
+      email
+      password
+      fullname
+      campus
+      mentor
+      location
+      role
+      programs
+      current_job
+      avatar
+    }
+  }
+
+}
+
+ mutation {
+   addMentors(input: {
+     status: true,
+   }) {
+     message
+   }
+ }
