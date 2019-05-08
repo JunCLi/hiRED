@@ -33,7 +33,6 @@ module.exports = gql`
   }
 
   input AddMentorsObject {
-    user_id: Int!,
     status: Boolean
   }
 

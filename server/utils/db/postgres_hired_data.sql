@@ -56,14 +56,6 @@ COPY hired.github (id, user_id, feed_item_id, date_pulled) FROM stdin;
 
 
 --
--- Data for Name: linkedin; Type: TABLE DATA; Schema: hired; Owner: postgres
---
-
-COPY hired.linkedin (id, user_id, feed_item_id, date_pulled) FROM stdin;
-\.
-
-
---
 -- Data for Name: mentors; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
@@ -92,7 +84,7 @@ COPY hired.portfolio (id, user_id, title, description, type, custom_link, api_li
 -- Data for Name: tags; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.tags (type, name) FROM stdin;
+COPY hired.tags (type, name, id) FROM stdin;
 \.
 
 
@@ -101,8 +93,50 @@ COPY hired.tags (type, name) FROM stdin;
 --
 
 COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created) FROM stdin;
-2	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048
 \.
+
+
+--
+-- Name: conversations_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.conversations_id_seq', 1, false);
+
+
+--
+-- Name: dribbble_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.dribbble_id_seq', 1, false);
+
+
+--
+-- Name: feed_items_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.feed_items_id_seq', 1, false);
+
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.feedback_id_seq', 1, false);
+
+
+--
+-- Name: github_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.github_id_seq', 1, false);
+
+
+--
+-- Name: linkedin_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 
 
 --
@@ -110,6 +144,34 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 --
 
 SELECT pg_catalog.setval('hired.mentors_id_seq', 1, true);
+
+
+--
+-- Name: messages_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.messages_id_seq', 1, false);
+
+
+--
+-- Name: portfolio_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.tags_id_seq', 1, false);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.users_id_seq', 1, true);
 
 
 --

@@ -40,6 +40,27 @@ CREATE TABLE hired.conversations (
 ALTER TABLE hired.conversations OWNER TO postgres;
 
 --
+-- Name: conversations_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.conversations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.conversations_id_seq OWNER TO postgres;
+
+--
+-- Name: conversations_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.conversations_id_seq OWNED BY hired.conversations.id;
+
+
+--
 -- Name: dribbble; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -52,6 +73,27 @@ CREATE TABLE hired.dribbble (
 
 
 ALTER TABLE hired.dribbble OWNER TO postgres;
+
+--
+-- Name: dribbble_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.dribbble_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.dribbble_id_seq OWNER TO postgres;
+
+--
+-- Name: dribbble_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble.id;
+
 
 --
 -- Name: feed_items; Type: TABLE; Schema: hired; Owner: postgres
@@ -72,6 +114,27 @@ CREATE TABLE hired.feed_items (
 ALTER TABLE hired.feed_items OWNER TO postgres;
 
 --
+-- Name: feed_items_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.feed_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.feed_items_id_seq OWNER TO postgres;
+
+--
+-- Name: feed_items_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.feed_items_id_seq OWNED BY hired.feed_items.id;
+
+
+--
 -- Name: feedback; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -84,6 +147,27 @@ CREATE TABLE hired.feedback (
 
 
 ALTER TABLE hired.feedback OWNER TO postgres;
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.feedback_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.feedback_id_seq OWNER TO postgres;
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.feedback_id_seq OWNED BY hired.feedback.id;
+
 
 --
 -- Name: github; Type: TABLE; Schema: hired; Owner: postgres
@@ -100,18 +184,39 @@ CREATE TABLE hired.github (
 ALTER TABLE hired.github OWNER TO postgres;
 
 --
--- Name: linkedin; Type: TABLE; Schema: hired; Owner: postgres
+-- Name: github_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
 --
 
-CREATE TABLE hired.linkedin (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    feed_item_id integer NOT NULL,
-    date_pulled timestamp without time zone DEFAULT now() NOT NULL
-);
+CREATE SEQUENCE hired.github_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE hired.linkedin OWNER TO postgres;
+ALTER TABLE hired.github_id_seq OWNER TO postgres;
+
+--
+-- Name: github_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.github_id_seq OWNED BY hired.github.id;
+
+
+--
+-- Name: linkedin_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.linkedin_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.linkedin_id_seq OWNER TO postgres;
 
 --
 -- Name: mentors; Type: TABLE; Schema: hired; Owner: postgres
@@ -163,6 +268,27 @@ CREATE TABLE hired.messages (
 ALTER TABLE hired.messages OWNER TO postgres;
 
 --
+-- Name: messages_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.messages_id_seq OWNER TO postgres;
+
+--
+-- Name: messages_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.messages_id_seq OWNED BY hired.messages.id;
+
+
+--
 -- Name: portfolio; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -181,16 +307,59 @@ CREATE TABLE hired.portfolio (
 ALTER TABLE hired.portfolio OWNER TO postgres;
 
 --
+-- Name: portfolio_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.portfolio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.portfolio_id_seq OWNER TO postgres;
+
+--
+-- Name: portfolio_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.portfolio_id_seq OWNED BY hired.portfolio.id;
+
+
+--
 -- Name: tags; Type: TABLE; Schema: hired; Owner: postgres
 --
 
 CREATE TABLE hired.tags (
+    id integer NOT NULL,
     type text,
     name text
 );
 
 
 ALTER TABLE hired.tags OWNER TO postgres;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.tags_id_seq OWNER TO postgres;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.tags.id;
+
 
 --
 -- Name: users; Type: TABLE; Schema: hired; Owner: postgres
@@ -213,10 +382,94 @@ CREATE TABLE hired.users (
 ALTER TABLE hired.users OWNER TO postgres;
 
 --
+-- Name: users_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.users_id_seq OWNED BY hired.users.id;
+
+
+--
+-- Name: conversations id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.conversations ALTER COLUMN id SET DEFAULT nextval('hired.conversations_id_seq'::regclass);
+
+
+--
+-- Name: dribbble id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.dribbble ALTER COLUMN id SET DEFAULT nextval('hired.dribbble_id_seq'::regclass);
+
+
+--
+-- Name: feed_items id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.feed_items ALTER COLUMN id SET DEFAULT nextval('hired.feed_items_id_seq'::regclass);
+
+
+--
+-- Name: feedback id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.feedback ALTER COLUMN id SET DEFAULT nextval('hired.feedback_id_seq'::regclass);
+
+
+--
+-- Name: github id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.github ALTER COLUMN id SET DEFAULT nextval('hired.github_id_seq'::regclass);
+
+
+--
 -- Name: mentors id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
 ALTER TABLE ONLY hired.mentors ALTER COLUMN id SET DEFAULT nextval('hired.mentors_id_seq'::regclass);
+
+
+--
+-- Name: messages id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.messages ALTER COLUMN id SET DEFAULT nextval('hired.messages_id_seq'::regclass);
+
+
+--
+-- Name: portfolio id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.portfolio ALTER COLUMN id SET DEFAULT nextval('hired.portfolio_id_seq'::regclass);
+
+
+--
+-- Name: tags id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.tags ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users ALTER COLUMN id SET DEFAULT nextval('hired.users_id_seq'::regclass);
 
 
 --
@@ -260,14 +513,6 @@ ALTER TABLE ONLY hired.github
 
 
 --
--- Name: linkedin linkedin_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
---
-
-ALTER TABLE ONLY hired.linkedin
-    ADD CONSTRAINT linkedin_pkey PRIMARY KEY (id);
-
-
---
 -- Name: mentors mentors_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
@@ -289,6 +534,14 @@ ALTER TABLE ONLY hired.messages
 
 ALTER TABLE ONLY hired.portfolio
     ADD CONSTRAINT portfolio_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
 --
