@@ -32,10 +32,28 @@ module.exports = {
 
         const tokenData = signupQueryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'success'
+        }
+      }catch(err){
+        throw err
+      }
+    },
+
+    async signupPage2(parent, { input }, { req, app, postgres}) {
+      try {
+        const user_id = authenticate(app, req)
+        const { program_name, mentor } = input
+
+        const updateUserObject = Object.keys(input).filter(key => key !== program_name && key !== mentor)
+
+        const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hiRED.users', user_id)
+        console.log(updateUserQuery)
+
+        return {
+          message: 'hi'
         }
       }catch(err){
         throw err
@@ -59,7 +77,7 @@ module.exports = {
 
         const tokenData = queryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'success'

@@ -26,7 +26,7 @@ module.exports.createInsertQuery = (inputObject, table) => {
   }
 }
 
-module.exports.createUpdateQuery = (inputObject, selector, table) => {  
+module.exports.createUpdateQuery = (inputObject, selector, table, optSelectorValue) => {  
   const queryKeys = Object.keys(inputObject).filter(
     key => inputObject[key] !== null && key !== selector
   )
@@ -35,8 +35,14 @@ module.exports.createUpdateQuery = (inputObject, selector, table) => {
     return `${key} = $${index + 1}`
   }).join(', ')
 
-  return {
-    text: `UPDATE ${table} SET ${queryString} WHERE ${selector} = '${inputObject[selector]}' RETURNING id`,
-    values: queryValues
+  if (optSelectorValue) {
+    return {
+      text: `UPDATE ${table} SET ${queryString} WHERE ${selector} = 'optSelectorValue' RETURNING id`
+    }
+  } else {
+    return {
+      text: `UPDATE ${table} SET ${queryString} WHERE ${selector} = '${inputObject[selector]}' RETURNING id`,
+      values: queryValues
+    }
   }
 }
