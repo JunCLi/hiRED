@@ -32,7 +32,7 @@ module.exports = {
 
         const tokenData = signupQueryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'success'
@@ -59,7 +59,7 @@ module.exports = {
 
         const tokenData = queryResult.rows[0].id
         let myJWTToken = await createCookie(tokenData, 16)
-        setCookie('hired_app', myJWTToken, req.res)
+        setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
           message: 'success'
@@ -69,10 +69,9 @@ module.exports = {
       }
     },
     async addMentors(parent, {input}, { req, app, postgres }) {
-      let user_id = input.user_id,
-          status = input.status
+    let user_id =  authenticate(app, req)
 
-          console.log(input.user_id, input.status)
+          status = input.status
 
       const newMentor = {
         text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
@@ -80,8 +79,6 @@ module.exports = {
       }
 
       let result = await postgres.query(newMentor)
-
-      console.log(result)
 
       return {
         message: "success"

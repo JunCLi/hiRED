@@ -6,7 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User,
-    getMentors: [User!]
+    getMentors: [Mentors]!
   }
 
   type User {
@@ -23,6 +23,11 @@ module.exports = gql`
     avatar: String
   }
 
+  type Mentors {
+    status: Boolean,
+    user: User
+  }
+
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
@@ -33,7 +38,6 @@ module.exports = gql`
   }
 
   input AddMentorsObject {
-    user_id: Int!,
     status: Boolean
   }
 

@@ -1,0 +1,10 @@
+mutation{
+   signup(input: {
+     email: "julin@something.com",
+     fullname: "julien something",
+     password: "cool",
+
+   }){
+     message
+   }
+ }
