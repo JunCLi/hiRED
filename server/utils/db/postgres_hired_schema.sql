@@ -135,6 +135,18 @@ ALTER SEQUENCE hired.feed_items_id_seq OWNED BY hired.feed_items.id;
 
 
 --
+-- Name: feed_items_tags; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.feed_items_tags (
+    feed_item_id integer,
+    tag_id integer
+);
+
+
+ALTER TABLE hired.feed_items_tags OWNER TO postgres;
+
+--
 -- Name: feedback; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -328,6 +340,51 @@ ALTER SEQUENCE hired.portfolio_id_seq OWNED BY hired.portfolio.id;
 
 
 --
+-- Name: program_users; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.program_users (
+    user_id integer,
+    program_id integer
+);
+
+
+ALTER TABLE hired.program_users OWNER TO postgres;
+
+--
+-- Name: programs; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.programs (
+    id integer NOT NULL,
+    name text
+);
+
+
+ALTER TABLE hired.programs OWNER TO postgres;
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.programs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.programs_id_seq OWNER TO postgres;
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.programs_id_seq OWNED BY hired.programs.id;
+
+
+--
 -- Name: tags; Type: TABLE; Schema: hired; Owner: postgres
 --
 
@@ -382,6 +439,18 @@ CREATE TABLE hired.users (
 ALTER TABLE hired.users OWNER TO postgres;
 
 --
+-- Name: users_conversation; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.users_conversation (
+    user_id integer,
+    conversation_id integer
+);
+
+
+ALTER TABLE hired.users_conversation OWNER TO postgres;
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
 --
 
@@ -401,6 +470,18 @@ ALTER TABLE hired.users_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE hired.users_id_seq OWNED BY hired.users.id;
 
+
+--
+-- Name: users_tags; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.users_tags (
+    user_id integer,
+    tag_id integer
+);
+
+
+ALTER TABLE hired.users_tags OWNER TO postgres;
 
 --
 -- Name: conversations id; Type: DEFAULT; Schema: hired; Owner: postgres
@@ -456,6 +537,13 @@ ALTER TABLE ONLY hired.messages ALTER COLUMN id SET DEFAULT nextval('hired.messa
 --
 
 ALTER TABLE ONLY hired.portfolio ALTER COLUMN id SET DEFAULT nextval('hired.portfolio_id_seq'::regclass);
+
+
+--
+-- Name: programs id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.programs ALTER COLUMN id SET DEFAULT nextval('hired.programs_id_seq'::regclass);
 
 
 --
@@ -537,6 +625,14 @@ ALTER TABLE ONLY hired.portfolio
 
 
 --
+-- Name: programs programs_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.programs
+    ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: tags tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
@@ -550,6 +646,70 @@ ALTER TABLE ONLY hired.tags
 
 ALTER TABLE ONLY hired.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_items_tags feed_items_tags_feed_item_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.feed_items_tags
+    ADD CONSTRAINT feed_items_tags_feed_item_id_fkey FOREIGN KEY (feed_item_id) REFERENCES hired.feed_items(id);
+
+
+--
+-- Name: feed_items_tags feed_items_tags_tag_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.feed_items_tags
+    ADD CONSTRAINT feed_items_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+
+
+--
+-- Name: program_users program_users_program_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.program_users
+    ADD CONSTRAINT program_users_program_id_fkey FOREIGN KEY (program_id) REFERENCES hired.programs(id);
+
+
+--
+-- Name: program_users program_users_user_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.program_users
+    ADD CONSTRAINT program_users_user_id_fkey FOREIGN KEY (user_id) REFERENCES hired.users(id);
+
+
+--
+-- Name: users_conversation users_conversation_conversation_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users_conversation
+    ADD CONSTRAINT users_conversation_conversation_id_fkey FOREIGN KEY (conversation_id) REFERENCES hired.conversations(id);
+
+
+--
+-- Name: users_conversation users_conversation_user_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users_conversation
+    ADD CONSTRAINT users_conversation_user_id_fkey FOREIGN KEY (user_id) REFERENCES hired.users(id);
+
+
+--
+-- Name: users_tags users_tags_tag_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users_tags
+    ADD CONSTRAINT users_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+
+
+--
+-- Name: users_tags users_tags_user_id_fkey; Type: FK CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users_tags
+    ADD CONSTRAINT users_tags_user_id_fkey FOREIGN KEY (user_id) REFERENCES hired.users(id);
 
 
 --
