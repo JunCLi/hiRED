@@ -12,7 +12,7 @@ module.exports.createSelectQuery = (selectColumns, table, selector, selectorValu
   }
 }
 
-module.exports.createInsertQuery = (inputObject, table) => {
+module.exports.createInsertQuery = (inputObject, table, returnValues) => {
   const queryKeys = Object.keys(inputObject)
   const queryValues = Object.values(inputObject)
   const queryString = queryKeys.join(', ')
@@ -20,10 +20,20 @@ module.exports.createInsertQuery = (inputObject, table) => {
     (key, index) => `$${index + 1}`
   ).join(', ')
 
-  return {
-    text: `INSERT INTO ${table} (${queryString}) VALUES (${queryValuesString}) RETURNING id`,
-    values: queryValues
+
+  if(returnValues) {
+    return {
+      text: `INSERT INTO ${table} (${queryString}) VALUES (${queryValuesString}) RETURNING *`,
+      values: queryValues
+    }
+  } else {
+    return {
+      text: `INSERT INTO ${table} (${queryString}) VALUES (${queryValuesString}) RETURNING id`,
+      values: queryValues
+    }
   }
+
+  
 }
 
 module.exports.createUpdateQuery = (inputObject, selector, table) => {  
