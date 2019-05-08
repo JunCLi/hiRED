@@ -8,7 +8,6 @@ const authenticate = require('../authenticate')
 const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
 
-
 module.exports = {
   Mutation: {
     async signup(parent, { input }, { req, app, postgres }){
@@ -62,12 +61,46 @@ module.exports = {
         setCookie('hired_app', myJWTToken, req.res)
 
         return {
-          message: 'success'
+          message: 'Login Successful!'
         }
       }catch(err){
         throw err
       }
     },
+    async addUserPortfolio(parent, { input }, { req, app, postgres}){
+      try {
+        
+        const { user_id, title, description, type, custom_link, api_link, thumbnail } = input;
+
+        const newPortfolioObject = {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+
+        const addUserPortfolioQuery = createInsertQuery(newPortfolioObject, 'hired.portfolio', true);
+
+        const addUserPortfolioQueryResult = await postgres.query(addUserPortfolioQuery);
+                
+        return {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+      }
+      catch (e) {
+        console.log("Error in addPortfolio: ", e.message);
+        throw e.message;
+      }
+    }
   },
 }
 
