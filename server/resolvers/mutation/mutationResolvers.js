@@ -148,19 +148,88 @@ module.exports = {
       }
     },
     async addMentors(parent, {input}, { req, app, postgres }) {
-    let user_id =  authenticate(app, req)
+      try {
+        let user_id =  authenticate(app, req)
 
-          status = input.status
+        status = input.status
 
-      const newMentor = {
-        text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
-        values: [user_id, status]
+        const newMentor = {
+          text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
+          values: [user_id, status]
+        }
+
+        let result = await postgres.query(newMentor)
+
+        return {
+          message: "Successfully became a mentor!"
+        }
       }
+      catch (e) {
+        console.log("Error in addMentors: ", e.message);
+        throw e.message;
+      }
+    },
+    async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
+      // Check for auth to update?  
+      
+      try {
+        const { id, user_id, title, description, type, custom_link, api_link, thumbnail } = input;
 
-      let result = await postgres.query(newMentor)
+        const newPortfolioObject = {
+          id: id,
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
 
-      return {
-        message: "success"
+        const portfolioUpdateQuery = createUpdateQuery(newPortfolioObject, 'id','hired.portfolio');
+      
+        const portfolioUpdateQueryResult = await postgres.query(portfolioUpdateQuery);
+
+        return {
+          id: id,
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+      }
+      catch (e) {
+        console.log("Error in updateUserPortfolio Resolver: ", e.message);
+        throw e.message;
+      }
+    },
+    async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
+      // Check for auth to delete?
+      
+      try {
+        console.log("running M")
+        const id = input.id;
+
+        console.log("input.id ", input.id)
+        console.log("id ", id)
+      
+        const deleteUserPortfolioQuery = {
+          text: 'DELETE FROM hired.portfolio WHERE id = $1 RETURNING *',
+          values: [id]
+        }
+        
+        const deleteUserPortfolioQueryResult = await postgres.query(deleteUserPortfolioQuery);
+
+        return {
+          message: 'Successfully deleted portfolio item'
+        }
+      }
+      catch (e) {
+        console.log("Error in deleteUserPortfolio Resolver: ", e.message);
+        throw e.message;
       }
     }
   },
