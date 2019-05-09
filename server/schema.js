@@ -1,71 +1,78 @@
-const { gql } = require('apollo-server-express')
+const { gql } = require('apollo-server-express');
 
 module.exports = gql`
+	scalar Date
 
-  scalar Date
+	type Query {
+		getUser: User
+		getMentors: [User!]
+	}
 
-  type Query {
-    getUser: User,
-    getMentors: [User!]
-  }
+	type User {
+		id: ID!
+		email: String
+		password: String
+		fullname: String
+		campus: String
+		mentor: String
+		location: String
+		role: String
+		programs: String
+		current_job: String
+		avatar: String
+		social: Social
+	}
+	type Social {
+		dribbble: Dribbble
+	}
 
-  type User {
-    id: ID!,
-    email: String,
-    password: String,
-    fullname: String,
-    campus: String,
-    mentor: String,
-    location: String,
-    role: String,
-    programs: String,
-    current_job: String,
-    avatar: String
-  }
+	type Dribbble {
+		id: ID!
+		token: String
+		date_pulled: Date
+	}
 
+	type Mutation {
+		Appointment(number: Int!, date: Date): AppointmentResponse!
+		LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
+		addMentors(input: AddMentorsObject): addMentorsResponse!
+		signup(input: SignupObject!): SignupResponse!
+		login(input: LoginObject!): LoginResponse!
+	}
 
-  type Mutation {
-    Appointment(number: Int!, date: Date): AppointmentResponse!
-    LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
-    addMentors(input: AddMentorsObject): addMentorsResponse!
-    signup(input: SignupObject!): SignupResponse!
-    login(input: LoginObject!): LoginResponse!
-  }
+	input AddMentorsObject {
+		user_id: Int!
+		status: Boolean
+	}
 
-  input AddMentorsObject {
-    user_id: Int!,
-    status: Boolean
-  }
+	type addMentorsResponse {
+		message: String
+	}
 
-  type addMentorsResponse {
-    message: String
-  }
+	type AppointmentResponse {
+		message: String
+	}
 
-  type AppointmentResponse {
-    message: String
-  }
+	type LinkedInResponse {
+		message: String
+	}
 
-  type LinkedInResponse {
-    message: String
-  }
+	input SignupObject {
+		email: String!
+		fullname: String
+		password: String!
+	}
 
-  input SignupObject {
-    email: String!,
-    fullname: String,
-    password: String!,
-  }
+	input LoginObject {
+		email: String!
+		password: String!
+	}
 
-  input LoginObject {
-    email: String!,
-    password: String!,
-  }
+	type SignupResponse {
+		message: String
+	}
 
-  type SignupResponse {
-    message: String
-  }
-
-  type LoginResponse {
-    message: String
-  }
-`
-
+	type LoginResponse {
+		message: String
+	}
+`;
