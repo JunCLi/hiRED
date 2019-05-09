@@ -36,6 +36,17 @@ module.exports = gql`
     thumbnail: String
   }
 
+  input UpdateUserPortfolioInput {
+    id: Int!,
+    user_id: Int,
+    title: String,
+    description: String,
+    type: String,
+    custom_link: String,
+    api_link: String,
+    thumbnail: String
+  }
+
   type User {
     id: ID!,
     email: String,
@@ -63,6 +74,12 @@ module.exports = gql`
     signup(input: SignupObject!): SignupResponse!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
+    updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
+    deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+  }
+
+  type deleteUserPortfolioResponse {
+    message: String
   }
 
   input AddMentorsObject {
