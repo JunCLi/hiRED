@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.12
--- Dumped by pg_dump version 11.2
+-- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -44,6 +44,13 @@ COPY hired.feed_items (id, user_id, title, content, likes, location, direct_link
 --
 
 COPY hired.tags (id, type, name) FROM stdin;
+1	skill	react
+2	skill	graphql
+3	skill	postgres
+4	skill	apollo
+5	skill	marvel lore
+6	skill	react native
+7	skill	redux
 \.
 
 
@@ -102,6 +109,13 @@ COPY hired.portfolio (id, user_id, title, description, type, custom_link, api_li
 --
 
 COPY hired.programs (id, name) FROM stdin;
+1	UX
+2	UI
+3	DM
+4	WEB
+5	APP
+6	WEBAPP
+7	UXUI
 \.
 
 
@@ -109,9 +123,9 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created) FROM stdin;
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N
 \.
 
 
@@ -120,6 +134,8 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 --
 
 COPY hired.program_users (user_id, program_id) FROM stdin;
+1	2
+1	1
 \.
 
 
@@ -206,14 +222,14 @@ SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
 -- Name: programs_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.programs_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.programs_id_seq', 7, true);
 
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.tags_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.tags_id_seq', 7, true);
 
 
 --

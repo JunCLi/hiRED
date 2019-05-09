@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.12
--- Dumped by pg_dump version 11.2
+-- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -433,7 +433,9 @@ CREATE TABLE hired.users (
     location text,
     current_job text,
     avatar text,
-    date_created timestamp without time zone DEFAULT now() NOT NULL
+    date_created timestamp without time zone DEFAULT now() NOT NULL,
+    study_year text,
+    study_cohort text
 );
 
 
