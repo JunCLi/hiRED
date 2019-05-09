@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { Formik } from 'formik';
-import { loginValidation } from '../../validationSchemas';
-import { Redirect } from 'react-router-dom';
+import { Formik } from 'formik'
+import { loginValidation } from '../../validationSchemas'
+import { Redirect } from 'react-router-dom'
 
-import { Mutation } from 'react-apollo';
-import { loginMutation } from '../../graphql-queries/mutations';
+import { Mutation } from 'react-apollo'
+import { loginMutation } from '../../graphql-queries/mutations'
 
-import { TextField, Button, FormHelperText } from '@material-ui/core';
+import { TextField, Button, FormHelperText } from '@material-ui/core'
 
 const initialFormValues = {
 	userEmail: '',
 	password: '',
-};
+}
 
 const LoginForm = () => {
-	const [redirecting, setRedirecting] = useState(false);
+	const [redirecting, setRedirecting] = useState(false)
 
-	if (redirecting) return <Redirect to="/" />;
+	if (redirecting) return <Redirect to='/' />
 
 	return (
 		<Mutation
 			mutation={loginMutation}
 			onError={error => {
-				console.log(error);
+				console.log(error)
 			}}
 			onCompleted={response => {
-				console.log('Response: ', response);
+				console.log('Response: ', response)
 				if (response.login.message === 'success') {
-					setRedirecting(true);
+					setRedirecting(true)
 				}
 			}}
 		>
@@ -36,7 +36,7 @@ const LoginForm = () => {
 				<Formik
 					initialValues={initialFormValues}
 					onSubmit={(values, { setSubmitting }) => {
-						console.log(values);
+						console.log(values)
 						login({
 							variables: {
 								input: {
@@ -44,8 +44,8 @@ const LoginForm = () => {
 									password: values.password,
 								},
 							},
-						});
-						setSubmitting(false);
+						})
+						setSubmitting(false)
 					}}
 					validationSchema={loginValidation}
 				>
@@ -60,63 +60,63 @@ const LoginForm = () => {
 							handleBlur,
 							handleSubmit,
 							handleReset,
-						} = formikProps;
+						} = formikProps
 
 						return (
-							<form className="material-form" onSubmit={handleSubmit}>
-								<div className="form-field">
+							<form className='material-form' onSubmit={handleSubmit}>
+								<div className='form-field'>
 									<TextField
-										type="text"
-										id="userEmail"
-										name="userEmail"
-										label="Email"
+										type='text'
+										id='userEmail'
+										name='userEmail'
+										label='Email'
 										value={values.userEmail}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.userEmail && touched.userEmail ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.userEmail}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										type="password"
-										id="password"
-										name="password"
-										label="Password"
+										type='password'
+										id='password'
+										name='password'
+										label='Password'
 										value={values.password}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.password && touched.password ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.password}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<section className="signup-form-btns">
+								<section className='signup-form-btns'>
 									<Button
-										className="btn-submit"
-										type="submit"
-										variant="contained"
-										color="primary"
+										className='btn-submit'
+										type='submit'
+										variant='contained'
+										color='primary'
 										disabled={isSubmitting}
 									>
 										Log In
 									</Button>
 									<Button
-										className="btn-reset"
-										type="button"
+										className='btn-reset'
+										type='button'
 										disabled={!dirty || isSubmitting}
 										onClick={handleReset}
 									>
@@ -124,12 +124,12 @@ const LoginForm = () => {
 									</Button>
 								</section>
 							</form>
-						);
+						)
 					}}
 				</Formik>
 			)}
 		</Mutation>
-	);
-};
+	)
+}
 
-export default LoginForm;
+export default LoginForm

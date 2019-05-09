@@ -1,63 +1,63 @@
-import React from 'react';
-import qs from 'query-string';
-import logo from '../../../logo.svg';
+import React from 'react'
+import qs from 'query-string'
+import logo from '../../../logo.svg'
 
-import { Query } from 'react-apollo';
-import { testConnection } from '../../../graphql-queries/queries';
+import { Query } from 'react-apollo'
+import { testConnection } from '../../../graphql-queries/queries'
 
 const DummyWait = props => {
-	const code = qs.parse(props.location.search);
-	console.log('this is code:', code);
+	const code = qs.parse(props.location.search)
+	console.log('this is code:', code)
 	return (
 		<Query query={testConnection}>
 			{({ loading, err, data }) => {
 				if (loading)
 					return (
-						<div className="App">
-							<header className="App-header">
-								<img src={logo} className="App-logo" alt="logo" />
+						<div className='App'>
+							<header className='App-header'>
+								<img src={logo} className='App-logo' alt='logo' />
 								<p>
 									what <code>src/App.js</code> and save to reload.
 								</p>
 								<a
-									className="App-link"
-									href="https://reactjs.org"
-									target="_blank"
-									rel="noopener noreferrer"
+									className='App-link'
+									href='https://reactjs.org'
+									target='_blank'
+									rel='noopener noreferrer'
 								>
 									this is DUMMY WAIT Dribbble
 								</a>
 							</header>
 						</div>
-					);
+					)
 
-				if (err) return <div>error!</div>;
+				if (err) return <div>error!</div>
 
-				console.log(data);
+				console.log(data)
 				return (
-					<div className="App">
-						<header className="App-header">
-							<img src={logo} className="App-logo" alt="logo" />
+					<div className='App'>
+						<header className='App-header'>
+							<img src={logo} className='App-logo' alt='logo' />
 							<p>
 								Edit <code>src/App.js</code> and save to reload.
 							</p>
 							<a
-								className="App-link"
-								href="https://reactjs.org"
-								target="_blank"
-								rel="noopener noreferrer"
+								className='App-link'
+								href='https://reactjs.org'
+								target='_blank'
+								rel='noopener noreferrer'
 							>
 								Dummy Wait Dribbble
 							</a>
 						</header>
 					</div>
-				);
+				)
 			}}
 		</Query>
-	);
-};
+	)
+}
 
-export default DummyWait;
+export default DummyWait
 
 // if (code === !null) {
 // 	try {

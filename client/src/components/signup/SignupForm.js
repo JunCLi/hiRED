@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { Formik } from 'formik';
-import { signupValidation } from '../../validationSchemas';
-import { Redirect } from 'react-router-dom';
+import { Formik } from 'formik'
+import { signupValidation } from '../../validationSchemas'
+import { Redirect } from 'react-router-dom'
 
-import { Mutation } from 'react-apollo';
-import { signupMutation, signupPage2Mutation } from '../../graphql-queries/mutations';
+import { Mutation } from 'react-apollo'
+import { signupMutation, signupPage2Mutation } from '../../graphql-queries/mutations'
 
-import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core';
+import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
 
-import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values';
+import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
 
 const initialFormValues = {
 	userEmail: '',
@@ -21,40 +21,40 @@ const initialFormValues = {
 	whichProgram: '',
 	whichStudyYear: '',
 	whichStudyCohort: '',
-};
+}
 
 const SignupForm = () => {
-	const [redirecting, setRedirecting] = useState(false);
-	const [page2, setPage2] = useState(false);
+	const [redirecting, setRedirecting] = useState(false)
+	const [page2, setPage2] = useState(false)
 
-	if (redirecting) return <Redirect to="/" />;
+	if (redirecting) return <Redirect to='/' />
 
 	if (page2)
 		return (
 			<Mutation
 				mutation={signupPage2Mutation}
 				onError={error => {
-					console.log('signup additional information error:', error);
+					console.log('signup additional information error:', error)
 				}}
 				onCompleted={response => {
-					console.log('Additional information signup:', response);
+					console.log('Additional information signup:', response)
 					if (response.signupPage2.message === 'success') {
-						setRedirecting(true);
+						setRedirecting(true)
 					}
 				}}
 			/>
-		);
+		)
 
 	return (
 		<Mutation
 			mutation={signupMutation}
 			onError={error => {
-				console.log('regular signup error: ', error);
+				console.log('regular signup error: ', error)
 			}}
 			onCompleted={response => {
-				console.log('Signup response:', response);
+				console.log('Signup response:', response)
 				if (response.signup.message === 'success') {
-					setPage2(true);
+					setPage2(true)
 				}
 			}}
 		>
@@ -62,7 +62,7 @@ const SignupForm = () => {
 				<Formik
 					initialValues={initialFormValues}
 					onSubmit={(values, { setSubmitting }) => {
-						console.log(values);
+						console.log(values)
 						signup({
 							variables: {
 								input: {
@@ -71,8 +71,8 @@ const SignupForm = () => {
 									password: values.password,
 								},
 							},
-						});
-						setSubmitting(false);
+						})
+						setSubmitting(false)
 					}}
 					validationSchema={signupValidation}
 				>
@@ -87,101 +87,101 @@ const SignupForm = () => {
 							handleBlur,
 							handleSubmit,
 							handleReset,
-						} = formikProps;
+						} = formikProps
 
 						return (
-							<form className="material-form" onSubmit={handleSubmit}>
-								<div className="form-field">
+							<form className='material-form' onSubmit={handleSubmit}>
+								<div className='form-field'>
 									<TextField
-										type="text"
-										id="userEmail"
-										name="userEmail"
-										label="Email"
+										type='text'
+										id='userEmail'
+										name='userEmail'
+										label='Email'
 										value={values.userEmail}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.userEmail && touched.userEmail ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.userEmail}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										type="text"
-										id="userFullname"
-										name="userFullname"
-										label="Full Name"
+										type='text'
+										id='userFullname'
+										name='userFullname'
+										label='Full Name'
 										value={values.userFullname}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.userFullname && touched.userFullname ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.userFullname}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										type="password"
-										id="password"
-										name="password"
-										label="Password"
+										type='password'
+										id='password'
+										name='password'
+										label='Password'
 										value={values.password}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.password && touched.password ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.password}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										type="password"
-										id="confirmPassword"
-										name="confirmPassword"
-										label="Confirm Password"
+										type='password'
+										id='confirmPassword'
+										name='confirmPassword'
+										label='Confirm Password'
 										value={values.confirmPassword}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										margin="normal"
+										margin='normal'
 									/>
 									{errors.confirmPassword && touched.confirmPassword ? (
-										<FormHelperText className="form-helper form-error">
+										<FormHelperText className='form-helper form-error'>
 											{errors.confirmPassword}
 										</FormHelperText>
 									) : (
-										<FormHelperText className="form-helper" />
+										<FormHelperText className='form-helper' />
 									)}
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										id="whichCampus"
+										id='whichCampus'
 										select
-										name="whichCampus"
-										label="Campus?"
+										name='whichCampus'
+										label='Campus?'
 										value={values.whichCampus}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										helperText="Which campus did you study at?"
-										margin="normal"
+										helperText='Which campus did you study at?'
+										margin='normal'
 									>
 										{campus.map(option => (
 											<MenuItem key={option.value} value={option.value}>
@@ -191,17 +191,17 @@ const SignupForm = () => {
 									</TextField>
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										id="whichProgram"
+										id='whichProgram'
 										select
-										name="whichProgram"
-										label="Program?"
+										name='whichProgram'
+										label='Program?'
 										value={values.whichProgram}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										helperText="Which program did you study at RED?"
-										margin="normal"
+										helperText='Which program did you study at RED?'
+										margin='normal'
 									>
 										{programs.map(option => (
 											<MenuItem key={option.value} value={option.value}>
@@ -211,17 +211,17 @@ const SignupForm = () => {
 									</TextField>
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										id="whichStudyYear"
+										id='whichStudyYear'
 										select
-										name="whichStudyYear"
-										label="Study Year?"
+										name='whichStudyYear'
+										label='Study Year?'
 										value={values.whichStudyYear}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										helperText="What year did you study at RED?"
-										margin="normal"
+										helperText='What year did you study at RED?'
+										margin='normal'
 									>
 										{studyYear.map(option => (
 											<MenuItem key={option.value} value={option.value}>
@@ -231,17 +231,17 @@ const SignupForm = () => {
 									</TextField>
 								</div>
 
-								<div className="form-field">
+								<div className='form-field'>
 									<TextField
-										id="whichStudyCohort"
+										id='whichStudyCohort'
 										select
-										name="whichStudyCohort"
-										label="Cohort ?"
+										name='whichStudyCohort'
+										label='Cohort ?'
 										value={values.whichStudyCohort}
 										onChange={handleChange}
 										onBlur={handleBlur}
-										helperText="Which cohort did you study in?"
-										margin="normal"
+										helperText='Which cohort did you study in?'
+										margin='normal'
 									>
 										{studyCohort.map(option => (
 											<MenuItem key={option.value} value={option.value}>
@@ -251,19 +251,19 @@ const SignupForm = () => {
 									</TextField>
 								</div>
 
-								<section className="signup-form-btns">
+								<section className='signup-form-btns'>
 									<Button
-										className="btn-submit"
-										type="submit"
-										variant="contained"
-										color="primary"
+										className='btn-submit'
+										type='submit'
+										variant='contained'
+										color='primary'
 										disabled={isSubmitting}
 									>
 										Sign Up
 									</Button>
 									<Button
-										className="btn-reset"
-										type="button"
+										className='btn-reset'
+										type='button'
 										disabled={!dirty || isSubmitting}
 										onClick={handleReset}
 									>
@@ -271,12 +271,12 @@ const SignupForm = () => {
 									</Button>
 								</section>
 							</form>
-						);
+						)
 					}}
 				</Formik>
 			)}
 		</Mutation>
-	);
-};
+	)
+}
 
-export default SignupForm;
+export default SignupForm
