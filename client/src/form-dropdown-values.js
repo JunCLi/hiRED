@@ -19,6 +19,14 @@ export const programs = [
 		value: 'WEB',
 		label: 'Web Dev',
 	},
+	{
+		value: 'WEBAPP',
+		label: 'Web & App Dev',
+	},
+	{
+		value: 'UXUI',
+		label: 'UX & UI',
+	},
 ]
 
 export const roles = [
