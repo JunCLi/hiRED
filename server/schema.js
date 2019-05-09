@@ -72,7 +72,7 @@ module.exports = gql`
     LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
     addMentors(input: AddMentorsObject): addMentorsResponse!
     signup(input: SignupObject!): SignupResponse!
-    signupPage2(input: SignupForm2Object!): SignupForm2Response!
+    signupForm2(input: SignupForm2Object!): SignupForm2Response!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!

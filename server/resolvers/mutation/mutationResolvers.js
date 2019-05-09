@@ -41,7 +41,7 @@ module.exports = {
       }
     },
 
-    async signupPage2(parent, { input }, { req, app, postgres}) {
+    async signupForm2(parent, { input }, { req, app, postgres}) {
       try {
         const user_id = authenticate(app, req)
         const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor } = input
@@ -54,13 +54,13 @@ module.exports = {
           'current_job': current_job,
           'location': location
         }
-        
+
         const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
         await postgres.query(updateUserQuery)
 
         if (mentor) {
           const insertMentorObject = {
-            user_id: user_id, 
+            user_id: user_id,
             status: true
           }
           const insertMentorQuery = createInsertQuery(insertMentorObject, 'hired.mentors')
@@ -117,7 +117,7 @@ module.exports = {
     },
     async addUserPortfolio(parent, { input }, { req, app, postgres}){
       try {
-        
+
         const { user_id, title, description, type, custom_link, api_link, thumbnail } = input;
 
         const newPortfolioObject = {
@@ -133,7 +133,7 @@ module.exports = {
         const addUserPortfolioQuery = createInsertQuery(newPortfolioObject, 'hired.portfolio', true);
 
         const addUserPortfolioQueryResult = await postgres.query(addUserPortfolioQuery);
-                
+
         return {
           user_id: user_id,
           title: title,
@@ -172,8 +172,8 @@ module.exports = {
       }
     },
     async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
-      // Check for auth to update?  
-      
+      // Check for auth to update?
+
       try {
         const { id, user_id, title, description, type, custom_link, api_link, thumbnail } = input;
 
@@ -189,7 +189,7 @@ module.exports = {
         }
 
         const portfolioUpdateQuery = createUpdateQuery(newPortfolioObject, 'id','hired.portfolio');
-      
+
         const portfolioUpdateQueryResult = await postgres.query(portfolioUpdateQuery);
 
         return {
@@ -210,15 +210,15 @@ module.exports = {
     },
     async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
       // Check for auth to delete?
-      
+
       try {
         const id = input.id;
-      
+
         const deleteUserPortfolioQuery = {
           text: 'DELETE FROM hired.portfolio WHERE id = $1 RETURNING *',
           values: [id]
         }
-        
+
         const deleteUserPortfolioQueryResult = await postgres.query(deleteUserPortfolioQuery);
 
         return {

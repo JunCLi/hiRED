@@ -19,6 +19,29 @@ export const programs = [
 		value: 'WEB',
 		label: 'Web Dev',
 	},
+	{
+		value: 'WEBAPP',
+		label: 'Web & App Dev',
+	},
+	{
+		value: 'UXUI',
+		label: 'UX & UI',
+	},
+]
+
+export const roles = [
+	{
+		value: 'ALUMNI',
+		label: 'Alumni',
+	},
+	{
+		value: 'STUDENT',
+		label: 'Student',
+	},
+	{
+		value: 'STAFF',
+		label: 'Staff',
+	}
 ]
 
 export const campus = [

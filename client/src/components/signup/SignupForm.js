@@ -6,10 +6,7 @@ import { signupValidation } from '../../validationSchemas'
 import { Mutation } from 'react-apollo'
 import { signupMutation } from '../../graphql-queries/mutations'
 
-import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
-
-import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
-
+import { TextField, Button, FormHelperText } from '@material-ui/core'
 
 const initialFormValues = {
 	userEmail: '',
@@ -17,10 +14,6 @@ const initialFormValues = {
 	password: '',
 	confirmPassword: '',
 	inviteCode: '',
-	whichCampus: '',
-	whichProgram: '',
-	whichStudyYear: '',
-	whichStudyCohort: '',
 }
 
 function SignupForm({props}) {
@@ -144,86 +137,6 @@ function SignupForm({props}) {
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichCampus'
-										select
-										name='whichCampus'
-										label='Campus?'
-										value={values.whichCampus}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which campus did you study at?'
-										margin='normal'
-									>
-										{campus.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichProgram'
-										select
-										name='whichProgram'
-										label='Program?'
-										value={values.whichProgram}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which program did you study at RED?'
-										margin='normal'
-									>
-										{programs.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichStudyYear'
-										select
-										name='whichStudyYear'
-										label='Study Year?'
-										value={values.whichStudyYear}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='What year did you study at RED?'
-										margin='normal'
-									>
-										{studyYear.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichStudyCohort'
-										select
-										name='whichStudyCohort'
-										label='Cohort ?'
-										value={values.whichStudyCohort}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which cohort did you study in?'
-										margin='normal'
-									>
-										{studyCohort.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
 								</div>
 
 								<section className='signup-form-btns'>
