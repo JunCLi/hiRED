@@ -8,9 +8,9 @@ export const signupMutation = gql`
   }
 `
 
-export const signupPage2Mutation = gql`
-  mutation loginVars($input: Signup2Object!){
-    signupPage2(input: $input) {
+export const signupForm2Mutation = gql`
+  mutation signupForm2Vars($input: SignupForm2Object!){
+    signupForm2(input: $input) {
       message
     }
   }
