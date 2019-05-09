@@ -1,0 +1,22 @@
+#make sure you have an entry in the DB that matches the ids below
+mutation{
+  updateUserPortfolio(input: {
+    id: 1,
+    user_id: 1,
+    title: "Hot Dog",
+    description: "All is hot dog",
+    type: "type stuff",
+    custom_link: "greeentea.com",
+    api_link: "redmug.com",
+    thumbnail: "boxing.com"
+  }){
+    id
+    user_id
+    title
+    description
+    type
+    custom_link
+    api_link
+    thumbnail
+  }
+}
