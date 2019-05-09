@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -40,6 +40,22 @@ COPY hired.feed_items (id, user_id, title, content, likes, location, direct_link
 
 
 --
+-- Data for Name: tags; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.tags (id, type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: feed_items_tags; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.feed_items_tags (feed_item_id, tag_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: feedback; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
@@ -56,18 +72,12 @@ COPY hired.github (id, user_id, feed_item_id, date_pulled) FROM stdin;
 
 
 --
--- Data for Name: linkedin; Type: TABLE DATA; Schema: hired; Owner: postgres
---
-
-COPY hired.linkedin (id, user_id, feed_item_id, date_pulled) FROM stdin;
-\.
-
-
---
 -- Data for Name: mentors; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.mentors (id, user_id, status) FROM stdin;
+COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
+1	1	t	\N
+2	2	t	\N
 \.
 
 
@@ -88,10 +98,10 @@ COPY hired.portfolio (id, user_id, title, description, type, custom_link, api_li
 
 
 --
--- Data for Name: tags; Type: TABLE DATA; Schema: hired; Owner: postgres
+-- Data for Name: programs; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.tags (type, name) FROM stdin;
+COPY hired.programs (id, name) FROM stdin;
 \.
 
 
@@ -100,7 +110,32 @@ COPY hired.tags (type, name) FROM stdin;
 --
 
 COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created) FROM stdin;
-2	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124
+\.
+
+
+--
+-- Data for Name: program_users; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.program_users (user_id, program_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users_conversation; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.users_conversation (user_id, conversation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users_tags; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.users_tags (user_id, tag_id) FROM stdin;
 \.
 
 
@@ -150,7 +185,7 @@ SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 -- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.mentors_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.mentors_id_seq', 2, true);
 
 
 --
@@ -165,6 +200,20 @@ SELECT pg_catalog.setval('hired.messages_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
+
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.programs_id_seq', 1, false);
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.tags_id_seq', 1, false);
 
 
 --

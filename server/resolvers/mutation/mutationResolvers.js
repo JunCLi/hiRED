@@ -8,7 +8,6 @@ const authenticate = require('../authenticate')
 const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
 
-
 module.exports = {
   Mutation: {
     async signup(parent, { input }, { req, app, postgres }){
@@ -26,7 +25,7 @@ module.exports = {
           password: hashedPassword,
           fullname: fullname,
         }
-        
+
         const signupQuery = createInsertQuery(newUserObject, 'hired.users')
         const signupQueryResult = await postgres.query(signupQuery)
 
@@ -92,7 +91,7 @@ module.exports = {
       try {
         let {email, password} = input
         email = email.toLowerCase()
-  
+
         const passwordQuery = createSelectQuery(['id, password'], 'hired.users', 'email', email)
         const queryResult = await postgres.query(passwordQuery)
 
@@ -108,12 +107,62 @@ module.exports = {
         setCookie('hiRED_app', myJWTToken, req.res)
 
         return {
-          message: 'success'
+          message: 'Login Successful!'
         }
       }catch(err){
         throw err
       }
     },
+    async addUserPortfolio(parent, { input }, { req, app, postgres}){
+      try {
+        
+        const { user_id, title, description, type, custom_link, api_link, thumbnail } = input;
+
+        const newPortfolioObject = {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+
+        const addUserPortfolioQuery = createInsertQuery(newPortfolioObject, 'hired.portfolio', true);
+
+        const addUserPortfolioQueryResult = await postgres.query(addUserPortfolioQuery);
+                
+        return {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+      }
+      catch (e) {
+        console.log("Error in addPortfolio: ", e.message);
+        throw e.message;
+      }
+    },
+    async addMentors(parent, {input}, { req, app, postgres }) {
+    let user_id =  authenticate(app, req)
+
+          status = input.status
+
+      const newMentor = {
+        text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
+        values: [user_id, status]
+      }
+
+      let result = await postgres.query(newMentor)
+
+      return {
+        message: "success"
+      }
+    }
   },
 }
 
