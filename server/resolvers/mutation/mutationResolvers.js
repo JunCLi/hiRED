@@ -59,6 +59,27 @@ module.exports = {
         const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
         await postgres.query(updateUserQuery)
 
+        if (mentor) {
+          const insertMentorObject = {
+            user_id: user_id, 
+            status: true
+          }
+          const insertMentorQuery = createInsertQuery(insertMentorObject, 'hired.mentors')
+          await postgres.query(insertMentorQuery)
+        }
+
+        // if (program_name) {
+        //   const insertProgramObject = {
+        //     name: program_name
+        //   }
+        //   const insertProgramQuery = createInsertQuery(insertProgramObject, 'hired.programs')
+        //   const insertProgramResult = cr
+
+        //   const insertPorgramsUsersObject = {
+        //     user_id: user_id,
+        //     program_id: program_id
+        //   }
+        // }
         return {
           message: 'success'
         }

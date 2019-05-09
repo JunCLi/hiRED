@@ -29,7 +29,7 @@ module.exports = gql`
     signup(
       input: SignupObject!
     ):SignupResponse!
-    signupPage2(input: SignupPage2Object!): SignupPage2Response!
+    signupPage2(input: SignupForm2Object!): SignupForm2Response!
     login(
       input: LoginObject!
     ):LoginResponse!
@@ -49,10 +49,10 @@ module.exports = gql`
     password: String!,
   }
 
-  input SignupPage2Object {
+  input SignupForm2Object {
     campus: String,
     program_name: String,
-    study_year: Int,
+    study_year: String,
     study_cohort: String,
     role: String,
     current_job: String,
@@ -73,7 +73,7 @@ module.exports = gql`
     message: String
   }
 
-  type SignupPage2Response {
+  type SignupForm2Response {
     message: String
   }
 `
