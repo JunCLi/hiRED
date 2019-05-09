@@ -61,6 +61,7 @@ module.exports = gql`
     LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
     addMentors(input: AddMentorsObject): addMentorsResponse!
     signup(input: SignupObject!): SignupResponse!
+  signupPage2(input: SignupForm2Object!): SignupForm2Response!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
   }
@@ -87,6 +88,17 @@ module.exports = gql`
     password: String!,
   }
 
+  input SignupForm2Object {
+    campus: String,
+    program_name: String,
+    study_year: String,
+    study_cohort: String,
+    role: String,
+    current_job: String,
+    location: String,
+    mentor: Boolean,
+  }
+
   input LoginObject {
     email: String!,
     password: String!,
@@ -97,6 +109,10 @@ module.exports = gql`
   }
 
   type LoginResponse {
+    message: String
+  }
+
+  type SignupForm2Response {
     message: String
   }
 `

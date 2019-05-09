@@ -41,6 +41,52 @@ module.exports = {
       }
     },
 
+    async signupPage2(parent, { input }, { req, app, postgres}) {
+      try {
+        const user_id = authenticate(app, req)
+        const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor } = input
+
+        const updateUserObject = {
+          'campus': campus,
+          // 'study_year': study_year,
+          // 'study_cohort': study_cohort,
+          'role': role,
+          'current_job': current_job,
+          'location': location
+        }
+        
+        const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
+        await postgres.query(updateUserQuery)
+
+        if (mentor) {
+          const insertMentorObject = {
+            user_id: user_id, 
+            status: true
+          }
+          const insertMentorQuery = createInsertQuery(insertMentorObject, 'hired.mentors')
+          await postgres.query(insertMentorQuery)
+        }
+
+        // if (program_name) {
+        //   const insertProgramObject = {
+        //     name: program_name
+        //   }
+        //   const insertProgramQuery = createInsertQuery(insertProgramObject, 'hired.programs')
+        //   const insertProgramResult = cr
+
+        //   const insertPorgramsUsersObject = {
+        //     user_id: user_id,
+        //     program_id: program_id
+        //   }
+        // }
+        return {
+          message: 'success'
+        }
+      }catch(err){
+        throw err
+      }
+    },
+
     async login(parent, { input }, { req, app, postgres }){
       try {
         let {email, password} = input
