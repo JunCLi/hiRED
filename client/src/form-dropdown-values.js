@@ -21,6 +21,21 @@ export const programs = [
 	},
 ]
 
+export const roles = [
+	{
+		value: 'ALUMNI',
+		label: 'Alumni',
+	},
+	{
+		value: 'STUDENT',
+		label: 'Student',
+	},
+	{
+		value: 'STAFF',
+		label: 'Staff',
+	}
+]
+
 export const campus = [
 	{
 		value: 'LON',
