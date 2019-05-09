@@ -1,14 +1,14 @@
 import React from 'react'
 
 import { Formik } from 'formik'
-import { signupValidation } from '../validationSchemas'
+import { signupValidation } from '../../validationSchemas'
 
 import { Mutation } from 'react-apollo'
-import { signupMutation } from '../graphql-queries/mutations'
+import { signupMutation } from '../../graphql-queries/mutations'
 
 import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
 
-import { programs, campus, studyCohort, studyYear } from '../form-dropdown-values'
+import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
 
 
 const initialFormValues = {

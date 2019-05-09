@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 import { Formik } from 'formik'
-import { loginValidation } from '../validationSchemas'
+import { loginValidation } from '../../validationSchemas'
 import { Redirect } from 'react-router-dom'
 
 import { Mutation } from 'react-apollo'
-import { loginMutation } from '../graphql-queries/mutations'
+import { loginMutation } from '../../graphql-queries/mutations'
 
 import { TextField, Button, FormHelperText } from '@material-ui/core'
 

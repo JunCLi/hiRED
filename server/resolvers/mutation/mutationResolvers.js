@@ -210,11 +210,7 @@ module.exports = {
       // Check for auth to delete?
       
       try {
-        console.log("running M")
         const id = input.id;
-
-        console.log("input.id ", input.id)
-        console.log("id ", id)
       
         const deleteUserPortfolioQuery = {
           text: 'DELETE FROM hired.portfolio WHERE id = $1 RETURNING *',

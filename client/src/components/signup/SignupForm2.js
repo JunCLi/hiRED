@@ -1,6 +1,6 @@
 import React from "react"
 import { Formik, Form } from 'formik'
-import { programs, campus, studyCohort, studyYear } from '../form-dropdown-values'
+import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
 import { TextField, Button, MenuItem, FormControlLabel, FormLabel, Switch } from '@material-ui/core'
 
 const initialFormValues = {

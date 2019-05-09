@@ -1,8 +1,8 @@
 import React from 'react'
-import logo from '../logo.svg'
+import logo from '../../logo.svg'
 
 import { Query } from 'react-apollo'
-import { testConnection } from '../graphql-queries/queries'
+import { testConnection } from '../../graphql-queries/queries'
 
 const Landing = () => {
 	return (

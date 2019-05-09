@@ -2,7 +2,7 @@ import React from 'react'
 
 import SignupForm from './SignupForm'
 
-import '../css/signup-login.css'
+import '../../css/signup-login.css'
 
 const Signup = (props) => {
   return (
