@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Formik } from 'formik'
 import { signupValidation } from '../validationSchemas'
-import { Redirect } from 'react-router-dom'
 
 import { Mutation } from 'react-apollo'
-import { signupMutation, signupPage2Mutation } from '../graphql-queries/mutations'
+import { signupMutation } from '../graphql-queries/mutations'
 
 import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
 
@@ -24,28 +23,7 @@ const initialFormValues = {
 	whichStudyCohort: '',
 }
 
-const SignupForm = () => {
-	const [redirecting, setRedirecting] = useState(false)
-	const [page2, setPage2] = useState(false)
-
-	if (redirecting) return <Redirect to='/' />
-
-	if (page2) return (
-		<Mutation 
-			mutation={signupPage2Mutation}
-			onError={error => {
-				console.log('signup additional information error:', error)
-			}}
-			onCompleted={response => {
-				console.log('Additional information signup:', response)
-				if (response.signupPage2.message === 'success') {
-					setRedirecting(true)
-				}
-			}}
-		>
-
-		</Mutation>
-	)
+function SignupForm({props}) {
 
 	return (
 		<Mutation
@@ -54,10 +32,9 @@ const SignupForm = () => {
 				console.log('regular signup error: ', error)
 			}}
 			onCompleted={response => {
+				props.history.push("/signup2")
+
 				console.log('Signup response:', response)
-				if (response.signup.message === 'success') {
-					setPage2(true)
-				}
 			}}
 		>
 			{signup => (

@@ -1,0 +1,13 @@
+.mentors-page {
+  text-align: center;
+}
+
+.mentor {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 30%;
+  margin: 10px auto;
+  border: 1px solid black;
+  padding: 20px;
+}
