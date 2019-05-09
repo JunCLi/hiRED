@@ -2,7 +2,7 @@ import React from "react"
 import { Query } from "react-apollo"
 import TextField from '@material-ui/core/TextField'
 import gql from "graphql-tag"
-import '../css/mentor.css'
+import '../../css/mentor.css'
 
 
 
@@ -35,7 +35,6 @@ function Mentors(){
       ({loading, errors, data}) => {
         if(loading) return <div> Loading</div>
         if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-          console.log(data.getMentors)
         return(
           data.getMentors.map((d,i) =>
             <div key = {i} className = "mentor">
