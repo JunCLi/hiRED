@@ -5,6 +5,8 @@ const { createSelectQuery } = require('../makeQuery')
 module.exports = {
   Query: {
     async getUser(parent, input, { req, app, postgres }){
+      const portfolio = await postgres.query('SELECT  * from hired.users')
+      console.log("portfolio: ", portfolio)
       const id = 13
       return {
         id

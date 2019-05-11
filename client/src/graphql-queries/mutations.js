@@ -23,3 +23,9 @@ export const loginMutation = gql`
     }
   }
 `
+
+export const saveDribbbleCode = gql`
+  mutation saveDribbbleCode($api_code: String) {
+    saveDribbbleCode(api_code: $api_code)
+  }
+`
