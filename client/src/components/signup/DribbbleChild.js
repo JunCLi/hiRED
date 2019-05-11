@@ -15,9 +15,7 @@ export default class DribbbleChild extends Component {
 
 	componentDidMount(props) {
 		const code = qs.parse(this.props.location.search)
-		console.log('this is code', code)
 		if (code !== null) {
-			console.log('this is code not null', code)
 			this.props.saveDribbbleCode({ variables: { api_code: code.code } })
 		}
 	}

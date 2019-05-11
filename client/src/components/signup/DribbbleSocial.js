@@ -24,13 +24,9 @@ class DribbbleSocial extends Component {
 			<Mutation
 				mutation={saveDribbbleCode}
 				onError={error => {
-					console.log('regular signup error: ', error)
 				}}
 				onCompleted={(response) => {
-					this.props.history.push('/signup2')
-
-					console.log('Signup response:', response)
-					
+					this.props.history.push('/signup2')					
 				}}
 
 			> 
