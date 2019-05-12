@@ -10,11 +10,6 @@ module.exports = gql`
     getUserPortfolio(user_id: Int!): [Portfolio]!
   }
 
-  type getUserPortfolioResponse {
-    message: String,
-    portfolio: [Portfolio]
-  }
-
   type Portfolio {
     id: Int,
     user_id: Int,

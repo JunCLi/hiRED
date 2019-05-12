@@ -20,14 +20,11 @@ module.exports = {
         // Run query with query string and get the goods
         const portfolio = await postgres.query(getUserPortfolioQuery);
 
-        return {
-          message: `Successfully retreived ${user_id}'s portfolio.`,
-          portfolio: portfolio.rows
-        }
+        return portfolio.rows
       }
       catch (e) {
-        console.log("Error in getUserPortfolio: ", e.message);
-        throw e.message;
+        //console.log("Error in getUserPortfolio: ", e.message);
+        throw e;
       }
     },
     async getMentors(parent, input, { req, app, postgres }){

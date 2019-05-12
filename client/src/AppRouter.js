@@ -8,6 +8,8 @@ import Profile from './components/profile/Profile'
 import SignupForm2 from './components/signup/SignupForm2'
 import Mentors from './components/mentors/Mentors'
 import Signup3 from './components/signup/Signup3'
+import Portfolio from './components/portfolio/Portfolio'
+import AddPortfolioItem from './components/portfolio/AddPortfolioItem'
 
 const AppRouter = () => {
   return (
@@ -20,6 +22,8 @@ const AppRouter = () => {
       <Route path='/login/' exact component={Login} />
       <Route path='/profile/' exact component={Profile} />
       <Route path='/mentors/' exact component={Mentors} />
+      <Route path='/portfolio/' exact component={Portfolio} />
+      <Route path= '/addportfolioitem/' exact component={AddPortfolioItem} />
     </Router>
   )
 }
