@@ -10,6 +10,31 @@ module.exports = {
         id
       }
     },
+    async getUserProfile(parent, input, { req, app, postgres }){
+      try {
+        const user_id = authenticate(app, req)
+
+        const selectColumns = [
+          'id',
+          'email',
+          'fullname',
+          'campus',
+          'location',
+          'role',
+          'current_job',
+          'avatar',
+          'study_year',
+          'study_cohort'
+        ]
+
+        const getUserProfileQuery = createSelectQuery(selectColumns, 'hired.users', 'id', user_id)
+        const getUserProfileResult = await postgres.query(getUserProfileQuery)
+
+        return getUserProfileResult.rows[0]
+      } catch (err) {
+        throw err
+      }
+    },
     async getUserPortfolio(parent, input, { req, app, postgres }) {
       try {
         let user_id = input.user_id;

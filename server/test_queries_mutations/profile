@@ -1,0 +1,14 @@
+query {
+  getUserProfile {
+    id
+    email
+    fullname
+    campus
+    location
+    role
+    current_job
+    avatar
+    study_year
+    study_cohort
+  }
+}

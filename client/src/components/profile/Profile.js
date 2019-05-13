@@ -1,9 +1,15 @@
 import React from 'react'
 
-const Profile = () => {
+import ProfileCard from './ProfileCard'
+import ProfileFilterPortfolio from './ProfileFilterPortfolio'
+
+import '../../css/profile.css'
+
+const Profile = (props) => {
   return (
-    <div>
-      
+    <div className='profile'>
+      <ProfileCard props={props} />
+      <ProfileFilterPortfolio />
     </div>
   )
 }

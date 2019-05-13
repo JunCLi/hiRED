@@ -17,7 +17,6 @@ const initialFormValues = {
 }
 
 function SignupForm({props}) {
-
 	return (
 		<Mutation
 			mutation={signupMutation}
@@ -25,7 +24,7 @@ function SignupForm({props}) {
 				console.log('regular signup error: ', error)
 			}}
 			onCompleted={response => {
-				props.history.push("/signup2")
+				props.history.push('/signup2')
 
 				console.log('Signup response:', response)
 			}}

@@ -88,7 +88,12 @@ module.exports = {
         throw err
       }
     },
-
+    async updateProfile(parent, input, { req, app, postgres }){
+      
+      return {
+        message: 'success'
+      }
+    },
     async login(parent, { input }, { req, app, postgres }){
       try {
         let {email, password} = input
@@ -229,7 +234,8 @@ module.exports = {
         console.log("Error in deleteUserPortfolio Resolver: ", e.message);
         throw e.message;
       }
-    }
+    },
+
   },
 }
 

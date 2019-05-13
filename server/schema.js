@@ -6,6 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User
+    getUserProfile: User
     getMentors: [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
   }
@@ -53,12 +54,12 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
     location: String,
     role: String,
-    programs: String,
     current_job: String,
-    avatar: String
+    avatar: String,
+    study_year: String,
+    study_cohort: String
   }
 
   type Mentors {
@@ -73,10 +74,15 @@ module.exports = gql`
     addMentors(input: AddMentorsObject): addMentorsResponse!
     signup(input: SignupObject!): SignupResponse!
     signupForm2(input: SignupForm2Object!): SignupForm2Response!
+    updateProfile(input: UpdateProfileObject!): MessageResponse!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+  }
+
+  type MessageResponse {
+    message: String
   }
 
   type deleteUserPortfolioResponse {
@@ -106,6 +112,20 @@ module.exports = gql`
   }
 
   input SignupForm2Object {
+    campus: String,
+    program_name: String,
+    study_year: String,
+    study_cohort: String,
+    role: String,
+    current_job: String,
+    location: String,
+    mentor: Boolean,
+  }
+
+  input UpdateProfileObject {
+    email: String,
+    fullname: String,
+    password: String
     campus: String,
     program_name: String,
     study_year: String,

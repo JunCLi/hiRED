@@ -7,3 +7,20 @@ export const testConnection = gql`
     }
   }
 `
+
+export const getUserProfileQuery = gql`
+  query {
+    getUserProfile {
+      id
+      email
+      fullname
+      campus
+      location
+      role
+      current_job
+      avatar
+      study_year
+      study_cohort
+    }
+  }
+`
