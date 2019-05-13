@@ -5,9 +5,67 @@
 .mentor {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
-  width: 30%;
+  width: 40%;
   margin: 10px auto;
-  border: 1px solid black;
+  border: 0px solid grey;
   padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.mentor_fullname {
+  font-size: 20px;
+  font-weight: bold;
+  align-self: left;
+  color: #8947e6;
+  text-align: left;
+}
+
+
+.mentor_wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.mentor_job {
+  text-align: left;
+  color: #323232;
+  font-size: 15px;
+}
+
+.work-icon {
+  margin-right: 10px;
+}
+
+.location-icon {
+  margin-right: 10px;
+}
+
+.mentor_location {
+  text-align: left;
+  color: #323232;
+  font-size: 15px;
+}
+
+form .btn-search-submit {
+  margin-top: 10px;
+}
+
+.mentor-content-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+
+.search-filter {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-filter > div {
+  width: 20%;
+  margin: 20px;
 }
