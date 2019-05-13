@@ -9,18 +9,12 @@ import { withRouter } from 'react-router'
 
 import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
 
-import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
-
 const initialFormValues = {
 	userEmail: '',
 	userFullname: '',
 	password: '',
 	confirmPassword: '',
 	inviteCode: '',
-	whichCampus: '',
-	whichProgram: '',
-	whichStudyYear: '',
-	whichStudyCohort: '',
 }
 
 function SignupForm(props) {

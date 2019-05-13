@@ -32,8 +32,6 @@ module.exports.createInsertQuery = (inputObject, table, returnValues) => {
       values: queryValues
     }
   }
-
-  
 }
 
 module.exports.createUpdateQuery = (inputObject, selector, table, optSelectorValue) => {  

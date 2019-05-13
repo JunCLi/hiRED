@@ -6,7 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors: [Mentors]!
+    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
     listMyDribbbles: [Dribbble_Items]
   }
@@ -65,11 +65,21 @@ module.exports = gql`
     dribbble_access_token: String
   }
 
+
   type Mentors {
     status: Boolean,
-    user: User
+    user: User,
   }
 
+  input programObject {
+    id: Int,
+    name: String
+  }
+
+  type Programs {
+    id: Int,
+    name: String
+  }
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!

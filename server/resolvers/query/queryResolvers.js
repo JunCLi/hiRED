@@ -1,6 +1,7 @@
 const authenticate = require('../authenticate')
 const { createSelectQuery } = require('../makeQuery')
 const axios = require('axios');
+const Fuse = require("fuse.js")
 
 
 module.exports = {
@@ -34,15 +35,81 @@ module.exports = {
       }
     },
     async getMentors(parent, input, { req, app, postgres }){
-      const mentors = {
-          text: "SELECT * FROM hired.mentors"
+        let getAllMentors;
+        let results;
+
+        const fullnameSearch = input.fullnameSearch
+        const program_name = input.getPrograms
+
+
+        if (program_name) {
+
+          const getProgram = {
+            text: "SELECT * FROM hired.programs WHERE name = $1",
+            values: [program_name]
+          }
+
+          const programs = await postgres.query(getProgram)
+
+
+          const userProgram = {
+                text: "SELECT * FROM hired.program_users WHERE program_id = $1",
+                values: [programs.rows[0].id]
+              }
+
+          const users = await postgres.query(userProgram)
+
+          let user_id = users.rows.map(d=> d.user_id)
+
+           getAllMentors = {
+                  text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                          FROM hired.users
+                          INNER JOIN hired.mentors
+                          ON hired.mentors.user_id = hired.users.id
+                          WHERE hired.users.id = $1 OR hired.users.id = $2
+                          `,
+                  values: user_id
+                }
+
+          results = await postgres.query(getAllMentors)
+
+        } else {
+             getAllMentors = {
+                text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                        FROM hired.users
+                        INNER JOIN hired.mentors
+                        ON hired.mentors.user_id = hired.users.id
+                        `
+              }
+
+
+            results = await postgres.query(getAllMentors)
         }
 
-        const results = await postgres.query(mentors)
+
+
+
+        if (fullnameSearch) {
+          var options = {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [
+              "fullname",
+            ]
+          };
+
+          const fuse = new Fuse(results.rows, options); // "list" is the item array
+          const result = fuse.search(fullnameSearch)
+
+          return result
+        }
 
         return results.rows
     },
-
     async listMyDribbbles(parent, _, { app, req, postgres }) {
 			try {
         let userId = authenticate(app, req)

@@ -41,7 +41,6 @@ export const loginValidation = Yup.object().shape({
     .required('Missing password.')
 })
 
-
 export const signup2Validation = Yup.object().shape({
   whichCareer: Yup.string()
     .max(
