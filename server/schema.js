@@ -6,7 +6,7 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors: [Mentors]!
+    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
   }
 
@@ -58,14 +58,24 @@ module.exports = gql`
     role: String,
     programs: String,
     current_job: String,
-    avatar: String
+    avatar: String,
   }
+
 
   type Mentors {
     status: Boolean,
-    user: User
+    user: User,
   }
 
+  input programObject {
+    id: Int,
+    name: String
+  }
+
+  type Programs {
+    id: Int,
+    name: String
+  }
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
