@@ -58,9 +58,19 @@ module.exports = gql`
     role: String,
     programs: String,
     current_job: String,
-    avatar: String
+    avatar: String,
+    github_api_code: String,
+    github_access_token: String,
+    github_social: GithubSocial
   }
-
+  type GithubSocial {
+    github: GithubItems
+  }
+  type GithubItems{
+    id: ID!
+    token: String
+    date_pulled: Date
+  }
   type Mentors {
     status: Boolean,
     user: User
@@ -77,8 +87,9 @@ module.exports = gql`
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+    saveGithubCode(api_code: String): String
   }
-
+  
   type deleteUserPortfolioResponse {
     message: String
   }

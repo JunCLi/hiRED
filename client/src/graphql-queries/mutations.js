@@ -23,3 +23,7 @@ export const loginMutation = gql`
     }
   }
 `
+export const saveGithubCode = gql`
+  mutation saveGithubCode($api_code: String) {
+    saveGithubCode(api_code: $api_code)
+  }`
