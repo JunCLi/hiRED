@@ -5,6 +5,8 @@ import { Formik } from "formik";
 import { Mutation } from "react-apollo"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { portfolioValidation } from '../../validationSchemas';
+/* import futurestylefile from '../../css/AddPortfolio.css' */
 
 const ADD_USER_PORTFOLIO = gql`
   mutation addUserPortfolio($input: AddUserPortfolioInput!){
@@ -22,6 +24,7 @@ const ADD_USER_PORTFOLIO = gql`
 
 const AddPortfolioItem = (props) => {
 
+  //These styles need to be moved to a styles file
   const styles = {
     container: {
       display: 'flex',
@@ -46,7 +49,6 @@ const AddPortfolioItem = (props) => {
         console.log(error)
       }}
       onCompleted={data => {
-        console.log("Data: ", data)
         alert("You had added a portfolio item!")
       }}
     >
@@ -62,16 +64,12 @@ const AddPortfolioItem = (props) => {
             thumbnail: ""
           }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log("submit detected!");
             addUserPortfolio({ variables: {input: { user_id: values.user_id, title: values.title, description: values.description, type: values.type, custom_link: values.custom_link, api_link: values.api_link, thumbnail: values.thumbnail }}})
             setSubmitting(false);
           }}
-          // validationSchema={Yup.object().shape({
-          //   email: Yup.string()
-          //     .email()
-          //     .required("Email field is required"),
-          //   password: Yup.string().required("Password field is required")
-          // })}
+
+          validationSchema={portfolioValidation}
+
         >
           {props => {
             const {
@@ -106,18 +104,11 @@ const AddPortfolioItem = (props) => {
                   }
                 />
 
-                  {errors.email && touched.email && (
-                    <div className="input-feedback">{errors.email}</div>
+                  {errors.user_id && touched.user_id && (
+                    <div className="input-feedback">{errors.user_id}</div>
                   )}
 
                 <p></p>
-
-                {errors.fullname && touched.fullname && (
-                  <div className="input-feedback">{errors.password}</div>
-                )}
-
-                <p> 
-                </p>
 
                 <TextField
                   id="title"
@@ -130,14 +121,14 @@ const AddPortfolioItem = (props) => {
                   margin="normal"
                   variant="outlined"
                   className={
-                    errors.password && touched.password
+                    errors.title && touched.title
                       ? `text-input error ${styles.TextField}`
                       : `text-input ${styles.Textfield}`
                   }
                 />
 
-                {errors.password && touched.password && (
-                  <div className="input-feedback">{errors.password}</div>
+                {errors.title && touched.title && (
+                  <div className="input-feedback">{errors.title}</div>
                 )}
 
                 <p> 
@@ -154,14 +145,17 @@ const AddPortfolioItem = (props) => {
                   margin="normal"
                   variant="outlined"
                   className={
-                    errors.password && touched.password
+                    errors.description && touched.description
                       ? `text-input error ${styles.TextField}`
                       : `text-input ${styles.Textfield}`
                   }
                 />
 
-                <p> 
-                </p>
+                  {errors.description && touched.description && (
+                  <div className="input-feedback">{errors.description}</div>
+                  )}
+
+                <p></p>
 
                 <TextField
                   id="type"
@@ -174,11 +168,15 @@ const AddPortfolioItem = (props) => {
                   margin="normal"
                   variant="outlined"
                   className={
-                    errors.password && touched.password
+                    errors.type && touched.type
                       ? `text-input error ${styles.TextField}`
                       : `text-input ${styles.Textfield}`
                   }
                 />
+
+                  {errors.type && touched.type && (
+                  <div className="input-feedback">{errors.type}</div>
+                  )}
 
                 <p> 
                 </p>
@@ -220,8 +218,7 @@ const AddPortfolioItem = (props) => {
                   }
                 />
 
-                <p> 
-                </p>
+                <p></p>
 
                 <TextField
                   id="thumbnail"
