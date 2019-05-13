@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
+import { withRouter } from 'react-router'
 
 import '../../css/signup-login.css'
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@material-ui/core'
+import DribbbleChild from './DribbbleChild'
 
-import DribbbleChild from './DribbbleChild';
-
-import {saveDribbbleCode} from '../../graphql-queries/mutations'
-
+import { saveDribbbleCode } from '../../graphql-queries/mutations'
 
 class DribbbleSocial extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
+		console.log('this is DribbbleSocial props:', props)
 	}
 	state = {
 		image: '',
@@ -23,20 +22,18 @@ class DribbbleSocial extends Component {
 		return (
 			<Mutation
 				mutation={saveDribbbleCode}
-				onError={error => {
+				onError={error => {}}
+				onCompleted={response => {
+					this.props.history.push('/mydribbbles')
 				}}
-				onCompleted={(response) => {
-					this.props.history.push('/signup2')					
-				}}
-
-			> 
-			{/* name the variable the name of your mutation and use the variable in your function call
+			>
+				{/* name the variable the name of your mutation and use the variable in your function call
 				pass in the function as to prop to child 
 			*/}
-			{ saveDribbbleCode => <DribbbleChild saveDribbbleCode={saveDribbbleCode} {...this.props}/>}
+				{saveDribbbleCode => <DribbbleChild saveDribbbleCode={saveDribbbleCode} {...this.props} />}
 			</Mutation>
 		)
 	}
 }
 
-export default DribbbleSocial
+export default withRouter(DribbbleSocial)

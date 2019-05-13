@@ -437,7 +437,8 @@ CREATE TABLE hired.users (
     study_year text,
     study_cohort text,
     dribbble_access_token text,
-    dribbble_api_code text
+    dribbble_api_code text,
+    dribbble_connected boolean
 );
 
 

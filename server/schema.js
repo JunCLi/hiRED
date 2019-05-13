@@ -8,6 +8,7 @@ module.exports = gql`
     getUser: User
     getMentors: [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
+    listMyDribbbles: [Dribbble_Items]
   }
 
   type getUserPortfolioResponse {
@@ -53,25 +54,15 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
+    mentor: Boolean,
     location: String,
     role: String,
     programs: String,
     current_job: String,
     avatar: String
+    dribbble_connected: Boolean
     dribbble_api_code: String
     dribbble_access_token: String
-    social: Social
-  }
-
-  type Social {
-    dribbble: Dribbble_Items
-  }
-
-  type Dribbble_Items {
-    id: ID! 
-    token: String
-    date_pulled: Date
   }
 
   type Mentors {
@@ -85,13 +76,12 @@ module.exports = gql`
     LinkedIn(user_id: Int!, date_link: Date, feed_id: Int): LinkedInResponse!
     addMentors(input: AddMentorsObject): addMentorsResponse!
     signup(input: SignupObject!): SignupResponse!
-  signupPage2(input: SignupForm2Object!): SignupForm2Response!
+    signupForm2(input: SignupForm2Object!): SignupForm2Response!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveDribbbleCode (api_code: String): Boolean
-    # listMyDribbbles (id: ID): ListMyDribbbleResponse
   }
 
   type deleteUserPortfolioResponse {
@@ -148,10 +138,31 @@ module.exports = gql`
     message: String
   }
 
-  # type ListMyDribbbleResponse {
-  #   id: ID,
+  type Dribbble_Items {
+    id: ID
+    title: String
+    description: String
+    height: Int
+    width: Int
+    html_url: String
+    published_at: Date
+    updated_at: Date
+    images: Dribbble_Images
+  }
+
+  type Dribbble_Images {
+    hidpi: String
+    normal: String
+    one_x: String
+    teaser: String
+  }
+
+
     
-  # }
+
+  
+
+ 
 
  
 `

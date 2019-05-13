@@ -11,7 +11,7 @@ const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../
 
 module.exports = {
 	Mutation: {
-		async signup(parent, { input }, { req, app, postgres }) {
+		async signup(parent, { input }, { app, req, postgres }) {
 			try {
 				const { email, password, fullname } = input
 
@@ -42,15 +42,15 @@ module.exports = {
 			}
 		},
 
-		async signupPage2(parent, { input }, { req, app, postgres }) {
+		async signupForm2(parent, { input }, { app, req, postgres }) {
 			try {
 				const user_id = authenticate(app, req)
 				const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor } = input
 
 				const updateUserObject = {
 					campus: campus,
-					// 'study_year': study_year,
-					// 'study_cohort': study_cohort,
+					study_year: study_year,
+					study_cohort: study_cohort,
 					role: role,
 					current_job: current_job,
 					location: location,
@@ -68,18 +68,20 @@ module.exports = {
 					await postgres.query(insertMentorQuery)
 				}
 
-				// if (program_name) {
-				//   const insertProgramObject = {
-				//     name: program_name
-				//   }
-				//   const insertProgramQuery = createInsertQuery(insertProgramObject, 'hired.programs')
-				//   const insertProgramResult = cr
+				if (program_name) {
+					const selectProgramColumns = ['id']
+					const programIdQuery = createSelectQuery(selectProgramColumns, 'hired.programs', 'name', program_name)
+					const programIdQueryResult = await postgres.query(programIdQuery)
 
-				//   const insertPorgramsUsersObject = {
-				//     user_id: user_id,
-				//     program_id: program_id
-				//   }
-				// }
+					if (!programIdQueryResult.rows.length) throw 'There is no program of that name'
+
+					const insertProgramsUsersObject = {
+						user_id: user_id,
+						program_id: programIdQueryResult.rows[0].id,
+					}
+					const insertProgramsUsersQuery = createInsertQuery(insertProgramsUsersObject, 'hired.program_users', true)
+					await postgres.query(insertProgramsUsersQuery)
+				}
 				return {
 					message: 'success',
 				}
@@ -87,8 +89,7 @@ module.exports = {
 				throw err
 			}
 		},
-
-		async login(parent, { input }, { req, app, postgres }) {
+		async login(parent, { input }, { app, req, postgres }) {
 			try {
 				let { email, password } = input
 				email = email.toLowerCase()
@@ -115,7 +116,7 @@ module.exports = {
 				throw err
 			}
 		},
-		async addUserPortfolio(parent, { input }, { req, app, postgres }) {
+		async addUserPortfolio(parent, { input }, { app, req, postgres }) {
 			try {
 				const { user_id, title, description, type, custom_link, api_link, thumbnail } = input
 
@@ -147,7 +148,7 @@ module.exports = {
 				throw e.message
 			}
 		},
-		async addMentors(parent, { input }, { req, app, postgres }) {
+		async addMentors(parent, { input }, { app, req, postgres }) {
 			try {
 				let user_id = authenticate(app, req)
 
@@ -168,7 +169,7 @@ module.exports = {
 				throw e.message
 			}
 		},
-		async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
+		async updateUserPortfolio(parent, { input }, { app, req, postgres }) {
 			// Check for auth to update?
 
 			try {
@@ -204,7 +205,7 @@ module.exports = {
 				throw e.message
 			}
 		},
-		async deleteUserPortfolio(parent, input, { req, app, postgres }) {
+		async deleteUserPortfolio(parent, input, { app, req, postgres }) {
 			// Check for auth to delete?
 
 			try {
@@ -226,10 +227,10 @@ module.exports = {
 			}
 		},
 
-		async saveDribbbleCode(parent, { api_code }, { req, app, postgres }) {
+		async saveDribbbleCode(parent, { api_code }, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
-				
+
 				let url =
 					'https://dribbble.com/oauth/token?client_id=97883b392791de1ff6facb092f049a91a1f1590a8e3172b61ef7d06be61651b6&client_secret=421e7b150aa6ec3c3efae5e5f4bee5ef8ea4f66794380a6940f46937e3762b5e&code=' +
 					api_code
@@ -237,8 +238,7 @@ module.exports = {
 				let DribbbleRes = await axios
 					.post(url, {
 						'Access-Control-Allow-Origin': 'http://localhost:3000',
-						'Access-Control-Expose-Headers':
-							'ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset',
+						'Access-Control-Expose-Headers': 'ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset',
 						'Access-Control-Allow-Credentials': 'true',
 					})
 					.catch(err => {
@@ -248,8 +248,8 @@ module.exports = {
 
 				const psql = {
 					text:
-						'UPDATE hired.users SET dribbble_api_code = $1,  dribbble_access_token = $2 WHERE id=$3 RETURNING *;',
-					values: [api_code, DribbbleRes.data.access_token, userId],
+						'UPDATE hired.users SET dribbble_api_code = $1,  dribbble_access_token = $2, dribbble_connected = $3 WHERE id=$4 RETURNING *;',
+					values: [api_code, DribbbleRes.data.access_token, true, userId],
 				}
 
 				let query = await postgres.query(psql)
@@ -257,25 +257,5 @@ module.exports = {
 				throw e.message
 			}
 		},
-
-		// async ListMyDribbbles (parent, input, { req, app, postgres }) {
-		// 	try{
-
-		// let json = await axios.get(
-		// 	'https://api.dribbble.com/v2/user/shots?access_token=' + DribbbleRes.data.access_token
-		// )
-		// 		let userId = authenticate(req, app);
-
-		// 		const psql = {
-		// 			text: 'SELECT token FROM hired.dribbble WHERE user_ID = $1',
-		// 			values: [userId]
-		// 		}
-
-		// 		let query = await postgres.query(psql)
-
-		// 	} catch (e) {
-
-		// 	}
-		// }
 	},
 }

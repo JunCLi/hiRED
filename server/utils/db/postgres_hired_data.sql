@@ -123,10 +123,10 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, dribbble_access_token, dribbble_api_code) FROM stdin;
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N
-4	test	test@test.com	$2b$12$yRRw1tDhkv5bmhMtItcx0OadrjocNYgChH19tYw.P8E/iZvmnpNY.	\N	\N	\N	\N	\N	2019-05-10 17:18:50.914861	\N	\N	\N	\N
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, dribbble_access_token, dribbble_api_code, dribbble_connected) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N
+4	test	test@test.com	$2b$12$yRRw1tDhkv5bmhMtItcx0OadrjocNYgChH19tYw.P8E/iZvmnpNY.	\N	\N	\N	\N	\N	2019-05-10 17:18:50.914861	\N	\N	efe6215efa46ca6111c53716e206666643b8daca5daba553985e92204737964f	5e002065b79f3670b05c2ac54b667901ccb040294c3c5db4a5659ebd65a4d258	\N
 \.
 
 
@@ -135,6 +135,8 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 --
 
 COPY hired.program_users (user_id, program_id) FROM stdin;
+1	2
+1	1
 1	2
 1	1
 \.
