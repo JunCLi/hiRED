@@ -232,12 +232,7 @@ module.exports = {
     },
     async saveGithubCode(parent, input, {req, app, postgres}){
       try {
-        /*
-        
-        Step 1. Redirec tto github auth page, sign up, get code and return
-        Step 2. If theres a code, send that code to the backend 
-        Step 3, Make a POST request with that code to get access token
-        */
+       const userId = authenticate(app, req)
        let url =
        'https://github.com/login/oauth/access_token?client_id=a7ec9ab65600c7fc7e5c&client_secret=9267763cc3035b2c91da699e7c051cb62040d7fc&code=' +
        input.api_code
@@ -250,21 +245,13 @@ module.exports = {
        .catch(err => {
          console.log('this is catch error, :', err)
        })
-      console.log('Github access_token is: ', GithubRes.data)
-
       const githubAccessTokenArray = GithubRes.data.split('access_token=')
-      const githubAccessToken = githubAccessTokenArray[1];
-
-
-      // const token = qs.parse(sGithubRes.data.access_token)
-      // console.log('The parsed code is:  ', token)
-      // if (code !== null) {
-      //   console.log('this is code not null', code)
-      //   this.props.saveGithubCode({ variables: { api_code: code.code } })
-      // }
+      const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
+      const githubAccessToken = githubFilterScope[0];
+      console.log('The access Token is: ', githubAccessToken)
       const insertGithubAPI = {
-        text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=2 RETURNING *',
-        values: [input.api_code, githubAccessToken]
+        text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
+        values: [input.api_code, githubAccessToken, userId]
       }
         const insertedGithubAPI = await postgres.query(insertGithubAPI);        
       } catch (error) {

@@ -16,7 +16,7 @@ const initialFormValues = {
 	inviteCode: '',
 }
 
-function SignupForm({props}) {
+function SignupForm(props) {
 
 	return (
 		<Mutation

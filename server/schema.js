@@ -8,8 +8,26 @@ module.exports = gql`
     getUser: User
     getMentors: [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
+    githubInfo: githubInfo
   }
 
+  type githubInfo{
+    name: String
+    repositories: [Repo]
+  }
+
+  type Repo{
+    name: String,
+    createdAt: Date,
+    updatedAt: Date,
+    description: String,
+    url: String,
+    stargazers: Stars
+  }
+
+  type Stars{
+    totalCount: Int
+  }
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]

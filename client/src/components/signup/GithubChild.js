@@ -10,7 +10,7 @@ export default class GithubChild extends Component {
   constructor(props){
     super(props)
   }
-	githubSignIn = async (e, code) => {
+	githubSignIn = (e, code) => {
 		window.location.href =
 			'https://github.com/login/oauth/authorize?client_id=a7ec9ab65600c7fc7e5c&client_secret=9267763cc3035b2c91da699e7c051cb62040d7fc&scope=public&state=al'
 	}

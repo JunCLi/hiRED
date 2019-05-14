@@ -1,7 +1,6 @@
 import React from 'react'
 
 import SignupForm from './SignupForm'
-import GithubSocial from './GithubSocial'
 import '../../css/signup-login.css'
 
 const Signup = (props) => {
@@ -10,7 +9,6 @@ const Signup = (props) => {
       <h2>Signup</h2>
       <div className='signup-form-container'>
         <SignupForm {...props} />
-        <GithubSocial {...props} />
       </div>
     </div>
   )

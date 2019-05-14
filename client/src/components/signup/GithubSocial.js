@@ -22,7 +22,7 @@ class GithubSocial extends Component {
 					console.log('regular signup error: ', error)
 				}}
 				onCompleted={(response) => {
-					this.props.history.push('/signup')
+					this.props.history.push('/signup3')
 					// console.log('Signup response:', response)
 				}}
 			> 
