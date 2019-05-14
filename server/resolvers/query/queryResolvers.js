@@ -5,19 +5,16 @@ const Fuse = require("fuse.js")
 
 module.exports = {
   Query: {
-    async getUser(parent, input, { req, app, postgres }){
+    async getAllGithubUsers(parent, input, { req, app, postgres }){
       try {
         const selectAllUsers = {
           text: "SELECT * FROM hired.users WHERE github_access_token !=''"
         }
         const allUsers = await postgres.query(selectAllUsers)
         console.log(" List of all users are: ", allUsers)
+	return allUsers.rows
       } catch (error) {
         console.log('Could not find any user! ', error)
-      const id = 13
-      return {
-        id
-      }
     },
     async getUserPortfolio(parent, input, { req, app, postgres }) {
       try {
