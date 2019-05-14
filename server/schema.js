@@ -8,9 +8,27 @@ module.exports = gql`
     getUser: User
     getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
+    githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
   }
 
+  type githubInfo{
+    name: String
+    repositories: [Repo]
+  }
+
+  type Repo{
+    name: String,
+    createdAt: Date,
+    updatedAt: Date,
+    description: String,
+    url: String,
+    stargazers: Stars
+  }
+
+  type Stars{
+    totalCount: Int
+  }
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
@@ -59,12 +77,24 @@ module.exports = gql`
     role: String,
     programs: String,
     current_job: String,
-    avatar: String
-    dribbble_connected: Boolean
-    dribbble_api_code: String
-    dribbble_access_token: String
+    avatar: String,
+    dribbble_connected: Boolean,
+    dribbble_api_code: String,
+    dribbble_access_token: String,
+    github_api_code: String,
+    github_access_token: String,
+    github_social: GithubSocial
   }
 
+  type GithubSocial {
+    github: GithubItems
+  }
+
+  type GithubItems{
+    id: ID!
+    token: String
+    date_pulled: Date
+  }
 
   type Mentors {
     status: Boolean,
@@ -91,9 +121,10 @@ module.exports = gql`
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+    saveGithubCode(api_code: String): String
     saveDribbbleCode (api_code: String): Boolean
   }
-
+  
   type deleteUserPortfolioResponse {
     message: String
   }

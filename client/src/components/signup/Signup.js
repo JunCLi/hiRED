@@ -7,23 +7,16 @@ import '../../css/signup-login.css'
 
 // component imports
 import SignupForm from './SignupForm'
-import SignupForm2 from './SignupForm2'
-
-import DribbbleSocial from './DribbbleSocial'
-import ListMyDribbbles from './ListMyDribbbles';
-
-
-//declaring variables and functions
-
 
 const Signup = (props) => {
-	
-		return (
-			<div>
-				<SignupForm {...props} />
-			</div>
-		)
-	
+  return (
+    <div className='signup-card-container'>
+      <h2>Signup</h2>
+      <div className='signup-form-container'>
+        <SignupForm {...props} />
+      </div>
+    </div>
+  )
 }
 
 

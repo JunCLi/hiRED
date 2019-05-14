@@ -1,8 +1,13 @@
 import React from "react"
-
-function Signup3() {
+import GithubSocial from './GithubSocial'
+function Signup3(props) {
   return (
-  <h1> Link your accounts </h1>
+    <div>
+      <h1> Link your accounts </h1>
+    
+      <GithubSocial {...props} />
+
+    </div> 
   )
 }
 

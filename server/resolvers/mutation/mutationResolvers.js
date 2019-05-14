@@ -10,6 +10,7 @@ const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
 
 module.exports = {
+
 	Mutation: {
 		async signup(parent, { input }, { app, req, postgres }) {
 			try {
@@ -257,5 +258,34 @@ module.exports = {
 				throw e.message
 			}
 		},
+      async saveGithubCode(parent, input, {req, app, postgres}){
+      try {
+       const userId = authenticate(app, req)
+       let url =
+       'https://github.com/login/oauth/access_token?client_id=a7ec9ab65600c7fc7e5c&client_secret=9267763cc3035b2c91da699e7c051cb62040d7fc&code=' +
+       input.api_code
+     let GithubRes = await axios
+       .post(url, {
+         'Access-Control-Allow-Origin': 'http://localhost:3000',
+         'Access-Control-Expose-Headers': 'ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset',
+         'Access-Control-Allow-Credentials': 'true',
+       })
+       .catch(err => {
+         console.log('this is catch error, :', err)
+       })
+      const githubAccessTokenArray = GithubRes.data.split('access_token=')
+      const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
+      const githubAccessToken = githubFilterScope[0];
+      console.log('The access Token is: ', githubAccessToken)
+      const insertGithubAPI = {
+        text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
+        values: [input.api_code, githubAccessToken, userId]
+      }
+        const insertedGithubAPI = await postgres.query(insertGithubAPI);        
+      } catch (error) {
+        console.log(" The error is: ", error);
+      }
+    },
 	},
 }
+

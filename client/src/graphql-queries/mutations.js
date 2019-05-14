@@ -17,15 +17,21 @@ export const signupForm2Mutation = gql`
 `
 
 export const loginMutation = gql`
-	mutation loginVars($input: LoginObject!) {
-		login(input: $input) {
-			message
-		}
-	}
+
+  mutation loginVars($input: LoginObject!){
+    login(input: $input) {
+      message
+    }
+  }
 `
 
 export const saveDribbbleCode = gql`
-	mutation saveDribbbleCode($api_code: String) {
-		saveDribbbleCode(api_code: $api_code)
-	}
-`
+  mutation saveDribbbleCode($api_code: String) {
+    saveDribbbleCode(api_code: $api_code)
+  }`
+
+export const saveGithubCode = gql`
+  mutation saveGithubCode($api_code: String) {
+    saveGithubCode(api_code: $api_code)
+  }`
+
