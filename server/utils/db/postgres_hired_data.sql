@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped from database version 11.2
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,10 +24,10 @@ COPY hired.conversations (id) FROM stdin;
 
 
 --
--- Data for Name: dribbble; Type: TABLE DATA; Schema: hired; Owner: postgres
+-- Data for Name: dribbble_items; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.dribbble (id, user_id, feed_item_id, date_pulled) FROM stdin;
+COPY hired.dribbble_items (id, user_id, date_pulled, token) FROM stdin;
 \.
 
 
@@ -123,9 +123,11 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort) FROM stdin;
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, dribbble_access_token, dribbble_api_code, dribbble_connected) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N
+4	test	test@test.com	$2b$12$yRRw1tDhkv5bmhMtItcx0OadrjocNYgChH19tYw.P8E/iZvmnpNY.	\N	\N	\N	\N	\N	2019-05-10 17:18:50.914861	\N	\N	efe6215efa46ca6111c53716e206666643b8daca5daba553985e92204737964f	5e002065b79f3670b05c2ac54b667901ccb040294c3c5db4a5659ebd65a4d258	\N
+
 \.
 
 
@@ -166,7 +168,7 @@ SELECT pg_catalog.setval('hired.conversations_id_seq', 1, false);
 -- Name: dribbble_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.dribbble_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.dribbble_id_seq', 29, true);
 
 
 --
@@ -236,7 +238,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 7, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 2, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 4, true);
 
 
 --

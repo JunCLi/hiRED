@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped from database version 11.2
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -61,18 +61,18 @@ ALTER SEQUENCE hired.conversations_id_seq OWNED BY hired.conversations.id;
 
 
 --
--- Name: dribbble; Type: TABLE; Schema: hired; Owner: postgres
+-- Name: dribbble_items; Type: TABLE; Schema: hired; Owner: postgres
 --
 
-CREATE TABLE hired.dribbble (
+CREATE TABLE hired.dribbble_items (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    feed_item_id integer NOT NULL,
-    date_pulled timestamp without time zone DEFAULT now() NOT NULL
+    date_pulled timestamp without time zone DEFAULT now() NOT NULL,
+    token character varying(256)
 );
 
 
-ALTER TABLE hired.dribbble OWNER TO postgres;
+ALTER TABLE hired.dribbble_items OWNER TO postgres;
 
 --
 -- Name: dribbble_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
@@ -92,7 +92,7 @@ ALTER TABLE hired.dribbble_id_seq OWNER TO postgres;
 -- Name: dribbble_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
 --
 
-ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble.id;
+ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble_items.id;
 
 
 --
@@ -435,7 +435,10 @@ CREATE TABLE hired.users (
     avatar text,
     date_created timestamp without time zone DEFAULT now() NOT NULL,
     study_year text,
-    study_cohort text
+    study_cohort text,
+    dribbble_access_token text,
+    dribbble_api_code text,
+    dribbble_connected boolean
 );
 
 
@@ -494,10 +497,10 @@ ALTER TABLE ONLY hired.conversations ALTER COLUMN id SET DEFAULT nextval('hired.
 
 
 --
--- Name: dribbble id; Type: DEFAULT; Schema: hired; Owner: postgres
+-- Name: dribbble_items id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.dribbble ALTER COLUMN id SET DEFAULT nextval('hired.dribbble_id_seq'::regclass);
+ALTER TABLE ONLY hired.dribbble_items ALTER COLUMN id SET DEFAULT nextval('hired.dribbble_id_seq'::regclass);
 
 
 --
@@ -572,10 +575,10 @@ ALTER TABLE ONLY hired.conversations
 
 
 --
--- Name: dribbble dribbble_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+-- Name: dribbble_items dribbble_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.dribbble
+ALTER TABLE ONLY hired.dribbble_items
     ADD CONSTRAINT dribbble_pkey PRIMARY KEY (id);
 
 
@@ -641,6 +644,14 @@ ALTER TABLE ONLY hired.programs
 
 ALTER TABLE ONLY hired.tags
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_dribbble_access_token_key; Type: CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.users
+    ADD CONSTRAINT users_dribbble_access_token_key UNIQUE (dribbble_access_token);
 
 
 --

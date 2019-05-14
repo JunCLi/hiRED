@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import SignupForm from './SignupForm'
+// css & styles
 import '../../css/signup-login.css'
+
+
+// component imports
+import SignupForm from './SignupForm'
 
 const Signup = (props) => {
   return (
@@ -13,5 +18,7 @@ const Signup = (props) => {
     </div>
   )
 }
+
+
 
 export default Signup

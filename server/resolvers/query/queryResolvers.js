@@ -1,6 +1,7 @@
 const authenticate = require('../authenticate')
 const { createSelectQuery } = require('../makeQuery')
-const axios = require('axios')
+const axios = require('axios');
+const Fuse = require("fuse.js")
 
 module.exports = {
   Query: {
@@ -13,6 +14,9 @@ module.exports = {
         console.log(" List of all users are: ", allUsers)
       } catch (error) {
         console.log('Could not find any user! ', error)
+      const id = 13
+      return {
+        id
       }
     },
     async getUserPortfolio(parent, input, { req, app, postgres }) {
@@ -36,14 +40,61 @@ module.exports = {
       }
     },
     async getMentors(parent, input, { req, app, postgres }){
-      const mentors = {
-          text: "SELECT * FROM hired.mentors"
+        let getAllMentors;
+        let results;
+        const fullnameSearch = input.fullnameSearch
+        const program_name = input.getPrograms
+        if (program_name) {
+          const getProgram = {
+            text: "SELECT * FROM hired.programs WHERE name = $1",
+            values: [program_name]
+          }
+          const programs = await postgres.query(getProgram)
+          const userProgram = {
+                text: "SELECT * FROM hired.program_users WHERE program_id = $1",
+                values: [programs.rows[0].id]
+              }
+          const users = await postgres.query(userProgram)
+          let user_id = users.rows.map(d=> d.user_id)
+           getAllMentors = {
+                  text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                          FROM hired.users
+                          INNER JOIN hired.mentors
+                          ON hired.mentors.user_id = hired.users.id
+                          WHERE hired.users.id = $1 OR hired.users.id = $2
+                          `,
+                  values: user_id
+                }
+          results = await postgres.query(getAllMentors)
+        } else {
+             getAllMentors = {
+                text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                        FROM hired.users
+                        INNER JOIN hired.mentors
+                        ON hired.mentors.user_id = hired.users.id
+                        `
+              }
+            results = await postgres.query(getAllMentors)
         }
-
-        const results = await postgres.query(mentors)
-
+        if (fullnameSearch) {
+          var options = {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [
+              "fullname",
+            ]
+          };
+          const fuse = new Fuse(results.rows, options); // "list" is the item array
+          const result = fuse.search(fullnameSearch)
+          return result
+        }
         return results.rows
     },
+
     async githubInfo (parent, {input}, {req, app, postgres}){
       const userId = authenticate(app, req)
       const getGithubInfo = {
@@ -52,8 +103,6 @@ module.exports = {
       }
       const postgresResponse = await postgres.query(getGithubInfo)
       const access_token = postgresResponse.rows[0].github_access_token;
-      console.log(" The access token is: ", access_token)
-      console.log("type of access_token: ", typeof(access_token))
       const result = await axios({
         url: 'https://api.github.com/graphql',
         method: 'post',
@@ -80,14 +129,31 @@ module.exports = {
         },
         headers: { 'Authorization': `token ${access_token}` }
       })
-      // console.log("Number of Followers: ", result.data.data.viewer.followers.totalCount)
-      // console.log("Number of Repositories: ", result.data.data.viewer.repositories.totalCount)
-      // console.log("Number of Stars: ", result.data.data.viewer.starredRepositories.totalCount)
-      console.log("The data is ............",result.data.data.viewer.repositories.nodes)
       return{
         name: result.data.data.viewer.name,
         repositories: result.data.data.viewer.repositories.nodes
       }
-    }
+    },
+    async listMyDribbbles(parent, _, { app, req, postgres }) {
+			try {
+        let userId = authenticate(app, req)
+        // let userId = 4
+				// getting the userId dribbble_access_token
+				let psql = {
+					text: 'SELECT dribbble_access_token FROM hired.users where id = $1;',
+					values:[userId]
+				}
+				let query = await postgres.query(psql)
+        let myAccessToken = query.rows[0].dribbble_access_token
+				let dribbbleJson = await axios.get(
+					'https://api.dribbble.com/v2/user/shots?access_token=' + myAccessToken
+				)
+        console.log('this is dribbbleJson.data: ', dribbbleJson.data)
+        return dribbbleJson.data
+			} catch (e) {
+        console.log('Sorry! This returned an error of: ', e.message);
+				throw e.message
+			}
+		},
   },
 }

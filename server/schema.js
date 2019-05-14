@@ -6,9 +6,10 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors: [Mentors]!
+    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
     githubInfo: githubInfo
+    listMyDribbbles: [Dribbble_Items]
   }
 
   type githubInfo{
@@ -71,29 +72,44 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
+    mentor: Boolean,
     location: String,
     role: String,
     programs: String,
     current_job: String,
     avatar: String,
+    dribbble_connected: Boolean,
+    dribbble_api_code: String,
+    dribbble_access_token: String,
     github_api_code: String,
     github_access_token: String,
     github_social: GithubSocial
   }
+
   type GithubSocial {
     github: GithubItems
   }
+
   type GithubItems{
     id: ID!
     token: String
     date_pulled: Date
   }
+
   type Mentors {
     status: Boolean,
-    user: User
+    user: User,
   }
 
+  input programObject {
+    id: Int,
+    name: String
+  }
+
+  type Programs {
+    id: Int,
+    name: String
+  }
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
@@ -106,6 +122,7 @@ module.exports = gql`
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
+    saveDribbbleCode (api_code: String): Boolean
   }
   
   type deleteUserPortfolioResponse {
@@ -161,5 +178,33 @@ module.exports = gql`
   type SignupForm2Response {
     message: String
   }
+
+  type Dribbble_Items {
+    id: ID
+    title: String
+    description: String
+    height: Int
+    width: Int
+    html_url: String
+    published_at: Date
+    updated_at: Date
+    images: Dribbble_Images
+  }
+
+  type Dribbble_Images {
+    hidpi: String
+    normal: String
+    one_x: String
+    teaser: String
+  }
+
+
+    
+
+  
+
+ 
+
+ 
 `
 
