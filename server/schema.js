@@ -8,6 +8,7 @@ module.exports = gql`
     getUser: User
     getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
+    listMyDribbbles: [Dribbble_Items]
   }
 
   type getUserPortfolioResponse {
@@ -53,12 +54,15 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
+    mentor: Boolean,
     location: String,
     role: String,
     programs: String,
     current_job: String,
-    avatar: String,
+    avatar: String
+    dribbble_connected: Boolean
+    dribbble_api_code: String
+    dribbble_access_token: String
   }
 
 
@@ -87,6 +91,7 @@ module.exports = gql`
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+    saveDribbbleCode (api_code: String): Boolean
   }
 
   type deleteUserPortfolioResponse {
@@ -142,5 +147,33 @@ module.exports = gql`
   type SignupForm2Response {
     message: String
   }
+
+  type Dribbble_Items {
+    id: ID
+    title: String
+    description: String
+    height: Int
+    width: Int
+    html_url: String
+    published_at: Date
+    updated_at: Date
+    images: Dribbble_Images
+  }
+
+  type Dribbble_Images {
+    hidpi: String
+    normal: String
+    one_x: String
+    teaser: String
+  }
+
+
+    
+
+  
+
+ 
+
+ 
 `
 

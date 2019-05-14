@@ -53,5 +53,3 @@ export const signup2Validation = Yup.object().shape({
       'This is the max number of characters'
     ),
 })
-
-

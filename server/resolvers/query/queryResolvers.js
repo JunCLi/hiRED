@@ -1,11 +1,14 @@
 const authenticate = require('../authenticate')
 const { createSelectQuery } = require('../makeQuery')
+const axios = require('axios');
 const Fuse = require("fuse.js")
 
 
 module.exports = {
   Query: {
     async getUser(parent, input, { req, app, postgres }){
+      const portfolio = await postgres.query('SELECT  * from hired.users')
+      console.log("portfolio: ", portfolio)
       const id = 13
       return {
         id
@@ -107,5 +110,33 @@ module.exports = {
 
         return results.rows
     },
+    async listMyDribbbles(parent, _, { app, req, postgres }) {
+			try {
+        let userId = authenticate(app, req)
+        // let userId = 4
+    
+        console.log('this is userId: ', userId)
+        
+				// getting the userId dribbble_access_token
+				let psql = {
+					text: 'SELECT dribbble_access_token FROM hired.users where id = $1;',
+					values:[userId]
+				}
+				console.log('this is ListMyDribbbles psql', psql)
+				let query = await postgres.query(psql)
+				console.log('this is ListMyDribbbles query', query.rows[0].dribbble_access_token)
+        
+        let myAccessToken = query.rows[0].dribbble_access_token
+
+				let dribbbleJson = await axios.get(
+					'https://api.dribbble.com/v2/user/shots?access_token=' + myAccessToken
+				)
+        console.log('this is dribbbleJson.data: ', dribbbleJson.data)
+        return dribbbleJson.data
+			} catch (e) {
+        console.log('Sorry! This returned an error of: ', e.message);
+				throw e.message
+			}
+		},
   },
 }

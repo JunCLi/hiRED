@@ -1,18 +1,31 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import SignupForm from './SignupForm'
-
+// css & styles
 import '../../css/signup-login.css'
 
+
+// component imports
+import SignupForm from './SignupForm'
+import SignupForm2 from './SignupForm2'
+
+import DribbbleSocial from './DribbbleSocial'
+import ListMyDribbbles from './ListMyDribbbles';
+
+
+//declaring variables and functions
+
+
 const Signup = (props) => {
-  return (
-    <div className='signup-card-container'>
-      <h2>Signup</h2>
-      <div className='signup-form-container'>
-        <SignupForm props = {props} />
-      </div>
-    </div>
-  )
+	
+		return (
+			<div>
+				<SignupForm {...props} />
+			</div>
+		)
+	
 }
+
+
 
 export default Signup
