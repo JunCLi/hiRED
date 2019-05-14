@@ -27,6 +27,11 @@ module.exports = gql`
     thumbnail: String
   }
 
+  type Program {
+    id: Int,
+    name: String
+  }
+
   input AddUserPortfolioInput {
     user_id: Int,
     title: String,
@@ -59,11 +64,14 @@ module.exports = gql`
     current_job: String,
     avatar: String,
     study_year: String,
-    study_cohort: String
+    study_cohort: String,
+    getMentor: Mentors,
+    getPrograms: [Program]
   }
 
   type Mentors {
     status: Boolean,
+    disabled: Boolean,
     user: User
   }
 

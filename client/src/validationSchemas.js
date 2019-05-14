@@ -57,5 +57,4 @@ export const signup2Validation = Yup.object().shape({
 export const updateProfileValidation = Yup.object().shape({
   editEmail: Yup.string()
     .email()
-    .required('Missing email.'),
 })

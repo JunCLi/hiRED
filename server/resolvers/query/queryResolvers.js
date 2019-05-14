@@ -10,6 +10,7 @@ module.exports = {
         id
       }
     },
+    
     async getUserProfile(parent, input, { req, app, postgres }){
       try {
         const user_id = authenticate(app, req)
@@ -35,6 +36,7 @@ module.exports = {
         throw err
       }
     },
+
     async getUserPortfolio(parent, input, { req, app, postgres }) {
       try {
         let user_id = input.user_id;
