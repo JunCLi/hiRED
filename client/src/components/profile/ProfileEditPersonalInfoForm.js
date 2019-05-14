@@ -9,20 +9,23 @@ import { updateProfileMutation } from '../../graphql-queries/mutations'
 
 import { TextField, Button, FormHelperText, FormLabel, FormControlLabel, MenuItem, Switch } from '@material-ui/core'
 
-const initialFormValues = {
-  editEmail: '',
-  editFullname: '',
-  editCampus: '',
-  editCareer: '',
-  editLocation: '',
-  editRole: '',
-  editProgram: '',
-  editStudyYear: '',
-  editStudyCohort: '',
-  editMentor: '',
-}
+const ProfileEditPersonalInfoForm = (props) => {
 
-const ProfileEditPersonalInfoForm = () => {
+  const initialFormValues = {
+    editEmail: props.profileInfo.email,
+    editFullname: props.profileInfo.fullname,
+    editCampus: props.profileInfo.campus,
+    editCareer: props.profileInfo.current_job,
+    editLocation: props.profileInfo.location,
+    editRole: props.profileInfo.role,
+    editProgram: props.profileInfo.getPrograms[0].name,
+    editStudyYear: props.profileInfo.study_year,
+    editStudyCohort: props.profileInfo.study_cohort,
+    editMentor: props.profileInfo.getMentor,
+  }
+
+
+  console.log(props)
   return (
     <Mutation
       mutation={updateProfileMutation}

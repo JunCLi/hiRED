@@ -12,10 +12,8 @@ const ProfileEdit = () => {
       {({ loading, err, data }) => {
         if (loading) return <div>loading...</div>
         if (err) return <div>error!</div>
-
-        console.log(data)
         return (
-          <ProfileEditPersonalInfoForm />
+          <ProfileEditPersonalInfoForm profileInfo={data.getUserProfile}/>
         )
       }}
 

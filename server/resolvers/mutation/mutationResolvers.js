@@ -89,10 +89,8 @@ module.exports = {
       }
     },
 
-    async updateProfile(parent, input, { req, app, postgres }){
-      console.log(input)
+    async updateProfile(parent, { input }, { req, app, postgres }){
       const user_id = authenticate(app, req)
-      console.log('user id: ', user_id)
       const {campus, current_job, email, fullname, location, mentor, program_name, role, study_year, study_cohort} = input
 
       const updateUserObject = {
@@ -105,7 +103,6 @@ module.exports = {
         'study_year': study_year,
         'study_cohort': study_cohort
       }
-
       const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
       await postgres.query(updateUserQuery)
 
