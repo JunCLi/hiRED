@@ -21,18 +21,10 @@ const ProfileCard = (props) => {
 				return (
 					<Card className='profile-card'>
 						<Avatar className='profile-avatar' />
-        {/* <CardMedia 
-              className='profile-avatar'
-              image='https://via.placeholder.com/500'
-              title='Profile Avatar'
-            /> */}
 						<CardHeader
               title={ 
-              //   <Typography variant='h3' align='center'>
-              //     {data.getUserProfile.fullname}
-              //   </Typography>
-              // }
-              <h3>{data.getUserProfile.fullname}</h3>}
+                <h3>{data.getUserProfile.fullname}</h3>
+              }
               subheader={<h5>{data.getUserProfile.role}</h5>}
             />
             <CardContent className='profile-card-descript'>
