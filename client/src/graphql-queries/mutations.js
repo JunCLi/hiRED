@@ -8,6 +8,14 @@ export const signupMutation = gql`
   }
 `
 
+export const Add_Skills_MUTATION = gql`
+  mutation addSkillsMutation($input: [skillsTags]) {
+    addSkills(input: $input) {
+      message
+    }
+  }
+`
+
 export const signupForm2Mutation = gql`
   mutation signupForm2Vars($input: SignupForm2Object!){
     signupForm2(input: $input) {

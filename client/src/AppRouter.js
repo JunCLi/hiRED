@@ -8,7 +8,7 @@ import Profile from './components/profile/Profile'
 import SignupForm2 from './components/signup/SignupForm2'
 import Mentors from './components/mentors/Mentors'
 import Signup3 from './components/signup/Signup3'
-import Skills from "./components/Skills"
+import Skills from "./components/skills/Skills"
 
 const AppRouter = () => {
   return (

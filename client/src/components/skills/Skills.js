@@ -4,14 +4,16 @@ import { Button } from '@material-ui/core'
 import { Query, Mutation } from "react-apollo"
 import gql from "graphql-tag"
 import Select from 'react-select';
+import { Add_Skills_MUTATION } from '../../graphql-queries/mutations'
 
-const Add_Skills_MUTATION = gql`
-  mutation addSkillsMutation($input: [skillsTags]) {
-    addSkills(input: $input) {
-      message
-    }
-  }
-`
+
+// const Add_Skills_MUTATION = gql`
+//   mutation addSkillsMutation($input: [skillsTags]) {
+//     addSkills(input: $input) {
+//       message
+//     }
+//   }
+// `
 
 function Skills() {
   let skills;
