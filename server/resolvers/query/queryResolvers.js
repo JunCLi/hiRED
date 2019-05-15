@@ -16,7 +16,6 @@ module.exports = {
 				console.log('Could not find any user! ', error)
 			}
 		},
-
 		async getUserPortfolio(parent, input, { req, app, postgres }) {
 			try {
 				let user_id = input.user_id
@@ -208,7 +207,6 @@ module.exports = {
 
       return results.rows
     },
-  },
    async listMyDribbbles(parent, _, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
