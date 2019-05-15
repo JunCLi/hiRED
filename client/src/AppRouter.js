@@ -9,8 +9,9 @@ import Profile from './components/profile/Profile'
 import SignupForm2 from './components/signup/SignupForm2'
 import SignupForm3 from './components/signup/SignupForm3'
 import Mentors from './components/mentors/Mentors'
-import Signup3 from './components/signup/Signup3'
 import Skills from "./components/skills/Skills"
+import Chatbot from "./components/chat/Chatbot"
+import Messages from "./components/chat/Messages"
 
 const AppRouter = () => {
 	return (
@@ -25,7 +26,8 @@ const AppRouter = () => {
 			<Route path='/profile/' exact component={Profile} />
 			<Route path='/mentors/' exact component={Mentors} />
       <Route path = '/skills/' exact component = {Skills} />
-
+      <Route path = '/chatbot/' exact component = {Chatbot} />
+      <Route path = '/messages/' exact component = {Messages} />
 		</Router>
 	)
 }
