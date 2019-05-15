@@ -9,7 +9,7 @@ import { updateProfileMutation } from '../../graphql-queries/mutations'
 
 import { TextField, Button, FormHelperText, FormLabel, FormControlLabel, MenuItem, Switch } from '@material-ui/core'
 
-const ProfileEditPersonalInfoForm = (props) => {
+const EditPersonalInfoForm = (props) => {
 
   const initialFormValues = {
     editEmail: props.profileInfo.email,
@@ -307,4 +307,4 @@ const ProfileEditPersonalInfoForm = (props) => {
   )
 }
 
-export default ProfileEditPersonalInfoForm
+export default EditPersonalInfoForm

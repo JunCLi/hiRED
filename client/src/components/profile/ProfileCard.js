@@ -10,7 +10,7 @@ import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Divider, Ty
 const ProfileCard = (props) => {
   const handleClick = () => {
     console.log(props)
-    props.props.history.push('/profile/edit')
+    props.props.history.push('/dashboard/')
   }
 
 	return (
