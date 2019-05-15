@@ -107,7 +107,6 @@ module.exports = {
 
 				const tokenData = queryResult.rows[0].id
 				let myJWTToken = await createCookie(tokenData, 16)
-				console.log('this is myJWTToken: ', myJWTToken)
 				setCookie('hiRED_app', myJWTToken, req.res)
 
 				return {
@@ -245,7 +244,6 @@ module.exports = {
 					.catch(err => {
 						console.log('this is catch error, :', err)
 					})
-				console.log('Get dribbble access_token, ', DribbbleRes.data.access_token)
 
 				const psql = {
 					text:
@@ -276,7 +274,6 @@ module.exports = {
       const githubAccessTokenArray = GithubRes.data.split('access_token=')
       const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
       const githubAccessToken = githubFilterScope[0];
-      console.log('The access Token is: ', githubAccessToken)
       const insertGithubAPI = {
         text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
         values: [input.api_code, githubAccessToken, userId]

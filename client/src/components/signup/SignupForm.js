@@ -7,7 +7,7 @@ import { Mutation } from 'react-apollo'
 import { signupMutation } from '../../graphql-queries/mutations'
 import { withRouter } from 'react-router'
 
-import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
+import { TextField, Button, FormHelperText } from '@material-ui/core'
 
 const initialFormValues = {
 	userEmail: '',
