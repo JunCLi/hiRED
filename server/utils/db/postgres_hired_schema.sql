@@ -2,6 +2,9 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 11.2
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -91,6 +94,20 @@ ALTER TABLE hired.dribbble_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble_items.id;
 
+
+--
+-- Name: dribbble; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.dribbble (
+    id integer DEFAULT nextval('hired.dribbble_id_seq'::regclass) NOT NULL,
+    user_id integer NOT NULL,
+    feed_item_id integer NOT NULL,
+    date_pulled timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE hired.dribbble OWNER TO postgres;
 
 --
 -- Name: feed_items; Type: TABLE; Schema: hired; Owner: postgres
@@ -388,7 +405,8 @@ ALTER SEQUENCE hired.programs_id_seq OWNED BY hired.programs.id;
 
 CREATE TABLE hired.skills (
     id integer NOT NULL,
-    name text
+    value text,
+    label text
 );
 
 
@@ -399,9 +417,8 @@ ALTER TABLE hired.skills OWNER TO postgres;
 --
 
 CREATE TABLE hired.skills_users (
-    id integer NOT NULL,
     user_id integer,
-    name text
+    skills_id integer
 );
 
 
@@ -420,13 +437,6 @@ CREATE SEQUENCE hired.skills_users_id_seq
 
 
 ALTER TABLE hired.skills_users_id_seq OWNER TO postgres;
-
---
--- Name: skills_users_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
---
-
-ALTER SEQUENCE hired.skills_users_id_seq OWNED BY hired.skills_users.id;
-
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
@@ -466,9 +476,11 @@ CREATE TABLE hired.users (
     date_created timestamp without time zone DEFAULT now() NOT NULL,
     study_year text,
     study_cohort text,
+    github_access_token text,
+    github_api_code text,
     dribbble_access_token text,
     dribbble_api_code text,
-    dribbble_connected boolean
+    dribbble_connected text
 );
 
 
@@ -590,13 +602,6 @@ ALTER TABLE ONLY hired.skills ALTER COLUMN id SET DEFAULT nextval('hired.tags_id
 
 
 --
--- Name: skills_users id; Type: DEFAULT; Schema: hired; Owner: postgres
---
-
-ALTER TABLE ONLY hired.skills_users ALTER COLUMN id SET DEFAULT nextval('hired.skills_users_id_seq'::regclass);
-
-
---
 -- Name: users id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
@@ -612,10 +617,10 @@ ALTER TABLE ONLY hired.conversations
 
 
 --
--- Name: dribbble_items dribbble_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+-- Name: dribbble dribbble_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.dribbble_items
+ALTER TABLE ONLY hired.dribbble
     ADD CONSTRAINT dribbble_pkey PRIMARY KEY (id);
 
 
@@ -676,27 +681,11 @@ ALTER TABLE ONLY hired.programs
 
 
 --
--- Name: skills_users skills_users_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
---
-
-ALTER TABLE ONLY hired.skills_users
-    ADD CONSTRAINT skills_users_pkey PRIMARY KEY (id);
-
-
---
 -- Name: skills tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
 ALTER TABLE ONLY hired.skills
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
-
-
---
--- Name: users users_dribbble_access_token_key; Type: CONSTRAINT; Schema: hired; Owner: postgres
---
-
-ALTER TABLE ONLY hired.users
-    ADD CONSTRAINT users_dribbble_access_token_key UNIQUE (dribbble_access_token);
 
 
 --

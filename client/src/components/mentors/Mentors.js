@@ -155,6 +155,10 @@ function Mentors(){
                  <FontAwesomeIcon className = "location-icon" icon ={faMapMarkerAlt} />
                  <p className = "mentor_location"> {d.user.location} </p>
                </div>
+               <Button
+                    className = "chat mentors button"
+                    variant='contained'
+                    color='primary'> Chat </Button>
              </div> : null
              )
             }

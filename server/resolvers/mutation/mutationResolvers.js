@@ -10,8 +10,8 @@ const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
 
 module.exports = {
-
 	Mutation: {
+
 		async signup(parent, { input }, { app, req, postgres }) {
 			try {
 				const { email, password, fullname } = input
@@ -169,7 +169,7 @@ module.exports = {
 				throw e.message
 			}
 		},
-        async addSkills(parent, {input}, { req, app, postgres }) {
+    async addSkills(parent, {input}, { req, app, postgres }) {
       const user_id = authenticate(app, req)
 
       const skills_id = input.map(d=> d.skills_id)
@@ -279,7 +279,7 @@ module.exports = {
 				throw e.message
 			}
 		},
-      async saveGithubCode(parent, input, {req, app, postgres}){
+    async saveGithubCode(parent, input, {req, app, postgres}){
       try {
        const userId = authenticate(app, req)
        let url =
@@ -301,10 +301,11 @@ module.exports = {
         text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
         values: [input.api_code, githubAccessToken, userId]
       }
-        const insertedGithubAPI = await postgres.query(insertGithubAPI);        
+        const insertedGithubAPI = await postgres.query(insertGithubAPI);
       } catch (error) {
         console.log(" The error is: ", error);
       }
     },
+  }
 }
 
