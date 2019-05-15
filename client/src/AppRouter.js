@@ -8,6 +8,7 @@ import Profile from './components/profile/Profile'
 import SignupForm2 from './components/signup/SignupForm2'
 import Mentors from './components/mentors/Mentors'
 import Signup3 from './components/signup/Signup3'
+import Skills from "./components/Skills"
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
       <Route path='/login/' exact component={Login} />
       <Route path='/profile/' exact component={Profile} />
       <Route path='/mentors/' exact component={Mentors} />
+      <Route path = '/skills/' exact component = {Skills} />
     </Router>
   )
 }

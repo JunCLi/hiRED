@@ -37,7 +37,48 @@ module.exports = {
 
         const fullnameSearch = input.fullnameSearch
         const program_name = input.getPrograms
+        const skills_id =input.getSkills
 
+        /// skills filter ////
+
+
+      if (skills_id.length > 0) {
+        const skills_id_array = input.getSkills.map(d=> d.skills_id)
+
+              const getSkills = {
+               text: "SELECT * FROM hired.skills_users WHERE skills_id = ANY($1)",
+               values: [skills_id_array]
+              }
+
+            const skills = await postgres.query(getSkills)
+
+         // now we have the users with those given skills. We only need the users id.
+
+           let user_id_skills = skills.rows.map((d,i) => d.user_id)
+
+           // get unique values. We don't need all the extra user id's
+
+           user_id_skills = [...new Set(user_id_skills)];
+
+           // join the users to filter out the ones without the required skills
+
+         const getMentorsSkills = {
+             text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                     FROM hired.users
+                     INNER JOIN hired.mentors
+                     ON hired.mentors.user_id = hired.users.id
+                     WHERE hired.users.id = ANY($1)
+                     `,
+             values: [user_id_skills]
+           }
+
+        results = await postgres.query(getMentorsSkills)
+
+
+         // return skillsResult.rows
+      }
+
+      /// program filter ///
 
         if (program_name) {
 
@@ -47,7 +88,6 @@ module.exports = {
           }
 
           const programs = await postgres.query(getProgram)
-
 
           const userProgram = {
                 text: "SELECT * FROM hired.program_users WHERE program_id = $1",
@@ -63,14 +103,15 @@ module.exports = {
                           FROM hired.users
                           INNER JOIN hired.mentors
                           ON hired.mentors.user_id = hired.users.id
-                          WHERE hired.users.id = $1 OR hired.users.id = $2
+                          WHERE hired.users.id = $1
                           `,
-                  values: user_id
+                  values: [user_id[0]]
                 }
 
           results = await postgres.query(getAllMentors)
 
-        } else {
+        }
+        else {
              getAllMentors = {
                 text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
                         FROM hired.users
@@ -84,7 +125,7 @@ module.exports = {
         }
 
 
-
+        /// search filter ///
 
         if (fullnameSearch) {
           var options = {
@@ -106,6 +147,17 @@ module.exports = {
         }
 
         return results.rows
+
+    },
+    async getAllSkills(parent, {input}, { req, app, postgres }) {
+
+      const matchSkills = {
+        text: `SELECT * FROM hired.skills`,
+      }
+
+     const results = await postgres.query(matchSkills)
+
+      return results.rows
     },
   },
 }

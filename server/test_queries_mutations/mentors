@@ -155,5 +155,13 @@ query {
    }
  }
 
+ mutation {
+  addSkills(input: [{
+   skills_id: 1
+  }, {skills_id: 6}]) {
+    message
+  }
+}
+
 
 

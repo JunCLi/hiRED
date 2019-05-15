@@ -229,6 +229,29 @@ module.exports = {
         console.log("Error in deleteUserPortfolio Resolver: ", e.message);
         throw e.message;
       }
+    },
+    async addSkills(parent, {input}, { req, app, postgres }) {
+      const user_id = authenticate(app, req)
+
+      const skills_id = input.map(d=> d.skills_id)
+
+     let insertValues;
+
+     skills_id.forEach(async (skills, i) => {
+        insertValues = {
+         text: `INSERT INTO hired.skills_users (user_id, skills_id) VALUES ($1, $2) RETURNING *`,
+         values: [user_id, skills]
+        }
+
+      const result =  await postgres.query(insertValues);
+
+     })
+
+
+      return {
+        message: "success"
+      }
+
     }
   },
 }

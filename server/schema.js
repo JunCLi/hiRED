@@ -6,13 +6,24 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
+    getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
+    getAllSkills: [Skills]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
   }
 
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
+  }
+
+  input userSkills {
+    skills_id: Int
+  }
+
+  type Skills {
+    id: Int,
+    label: String
+    value: String
   }
 
   type Portfolio {
@@ -87,6 +98,16 @@ module.exports = gql`
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+    addSkills(input: [skillsTags]): addSkillsResponse!
+  }
+
+   input skillsTags {
+    skills_id: Int,
+  }
+
+
+  type addSkillsResponse {
+    message: String
   }
 
   type deleteUserPortfolioResponse {

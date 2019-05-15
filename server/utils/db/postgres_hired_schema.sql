@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.7 (Ubuntu 10.7-0ubuntu0.18.04.1)
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -386,17 +386,50 @@ ALTER SEQUENCE hired.programs_id_seq OWNED BY hired.programs.id;
 
 
 --
--- Name: tags; Type: TABLE; Schema: hired; Owner: postgres
+-- Name: skills; Type: TABLE; Schema: hired; Owner: postgres
 --
 
-CREATE TABLE hired.tags (
+CREATE TABLE hired.skills (
     id integer NOT NULL,
-    type text,
     name text
 );
 
 
-ALTER TABLE hired.tags OWNER TO postgres;
+ALTER TABLE hired.skills OWNER TO postgres;
+
+--
+-- Name: skills_users; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.skills_users (
+    id integer NOT NULL,
+    user_id integer,
+    name text
+);
+
+
+ALTER TABLE hired.skills_users OWNER TO postgres;
+
+--
+-- Name: skills_users_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.skills_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.skills_users_id_seq OWNER TO postgres;
+
+--
+-- Name: skills_users_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
+--
+
+ALTER SEQUENCE hired.skills_users_id_seq OWNED BY hired.skills_users.id;
+
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
@@ -416,7 +449,7 @@ ALTER TABLE hired.tags_id_seq OWNER TO postgres;
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
 --
 
-ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.tags.id;
+ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.skills.id;
 
 
 --
@@ -550,10 +583,17 @@ ALTER TABLE ONLY hired.programs ALTER COLUMN id SET DEFAULT nextval('hired.progr
 
 
 --
--- Name: tags id; Type: DEFAULT; Schema: hired; Owner: postgres
+-- Name: skills id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.tags ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
+ALTER TABLE ONLY hired.skills ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
+
+
+--
+-- Name: skills_users id; Type: DEFAULT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.skills_users ALTER COLUMN id SET DEFAULT nextval('hired.skills_users_id_seq'::regclass);
 
 
 --
@@ -636,10 +676,18 @@ ALTER TABLE ONLY hired.programs
 
 
 --
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+-- Name: skills_users skills_users_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.tags
+ALTER TABLE ONLY hired.skills_users
+    ADD CONSTRAINT skills_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skills tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+--
+
+ALTER TABLE ONLY hired.skills
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
@@ -664,7 +712,7 @@ ALTER TABLE ONLY hired.feed_items_tags
 --
 
 ALTER TABLE ONLY hired.feed_items_tags
-    ADD CONSTRAINT feed_items_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+    ADD CONSTRAINT feed_items_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.skills(id);
 
 
 --
@@ -704,7 +752,7 @@ ALTER TABLE ONLY hired.users_conversation
 --
 
 ALTER TABLE ONLY hired.users_tags
-    ADD CONSTRAINT users_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+    ADD CONSTRAINT users_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.skills(id);
 
 
 --
