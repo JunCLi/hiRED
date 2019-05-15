@@ -7,10 +7,6 @@ export default class OneDribbbleCard extends Component {
 		super(props)
 	}
 
-	// componentDidMount(props) {
-
-	// }
-
 	render() {
 		return (
 			<div className='signup-card-container'>
