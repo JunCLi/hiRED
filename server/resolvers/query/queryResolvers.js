@@ -227,5 +227,25 @@ module.exports = {
 				throw e.message
 			}
 		},
+    async getMessages(parent, input, { req, app, postgres }) {
+          let myMessages = input.conversation_id;
+          // console.log("hello martains",conversation)
+          const messages = {
+            text: "SELECT * FROM hired.messages WHERE conversation_id = $1",
+            values: [myMessages]
+          };
+          const results = await postgres.query(messages);
+          console.log("here is my", results.rows);
+          return results.rows;
+        },
+        async getConversations(parent, input, { req, app, postgres }) {
+
+          const conversation = {
+            text: "SELECT * FROM hired.conversations"
+          };
+          const result = await postgres.query(conversation);
+          console.log(result.rows)
+          return result.rows
+        },
 	},
 }

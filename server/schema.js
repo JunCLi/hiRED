@@ -11,7 +11,19 @@ module.exports = gql`
     getUserPortfolio(user_id: Int!): [Portfolio]!
     githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
+    getMessages(conversation_id:ID):[Messages]
+    getConversations: [ConversationRooms]
   }
+
+  type ConversationRooms{
+      id:Int
+    }
+
+  type Messages{
+      user_id:Int,
+      content:String,
+      date_created:String
+    }
 
   type githubInfo{
     name: String
@@ -145,7 +157,7 @@ module.exports = gql`
   type addSkillsResponse {
     message: String
   }
-  
+
   type deleteUserPortfolioResponse {
     message: String
   }
@@ -220,12 +232,12 @@ module.exports = gql`
   }
 
 
-    
 
-  
 
- 
 
- 
+
+
+
+
 `
 

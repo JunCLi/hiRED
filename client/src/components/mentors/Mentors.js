@@ -27,13 +27,6 @@ function Mentors(){
     setDropdown(e.target.value)
   }
 
- function handleSubmit(event) {
-  setValueSubmit(value)
-  setDropdownSubmit(dropdown)
-  setSkillsSubmit(skills)
-      event.preventDefault()
-  }
-
   function handleSelectChange(e) {
     let skills_array = [];
 
@@ -43,6 +36,15 @@ function Mentors(){
 
     setSkills(skills_array)
   }
+
+ function handleSubmit(event) {
+  setValueSubmit(value)
+  setDropdownSubmit(dropdown)
+  setSkillsSubmit(skills)
+      event.preventDefault()
+  }
+
+
 
   return (
     <div className = "mentors-page">
