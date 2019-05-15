@@ -9,8 +9,27 @@ module.exports = gql`
     getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
     getAllSkills: [Skills]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
+    githubInfo: githubInfo
+    listMyDribbbles: [Dribbble_Items]
   }
 
+  type githubInfo{
+    name: String
+    repositories: [Repo]
+  }
+
+  type Repo{
+    name: String,
+    createdAt: Date,
+    updatedAt: Date,
+    description: String,
+    url: String,
+    stargazers: Stars
+  }
+
+  type Stars{
+    totalCount: Int
+  }
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
@@ -64,14 +83,29 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
+    mentor: Boolean,
     location: String,
     role: String,
     programs: String,
     current_job: String,
     avatar: String,
+    dribbble_connected: Boolean,
+    dribbble_api_code: String,
+    dribbble_access_token: String,
+    github_api_code: String,
+    github_access_token: String,
+    github_social: GithubSocial
   }
 
+  type GithubSocial {
+    github: GithubItems
+  }
+
+  type GithubItems{
+    id: ID!
+    token: String
+    date_pulled: Date
+  }
 
   type Mentors {
     status: Boolean,
@@ -98,6 +132,8 @@ module.exports = gql`
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
+    saveGithubCode(api_code: String): String
+    saveDribbbleCode (api_code: String): Boolean
     addSkills(input: [skillsTags]): addSkillsResponse!
   }
 
@@ -109,7 +145,7 @@ module.exports = gql`
   type addSkillsResponse {
     message: String
   }
-
+  
   type deleteUserPortfolioResponse {
     message: String
   }
@@ -163,5 +199,33 @@ module.exports = gql`
   type SignupForm2Response {
     message: String
   }
+
+  type Dribbble_Items {
+    id: ID
+    title: String
+    description: String
+    height: Int
+    width: Int
+    html_url: String
+    published_at: Date
+    updated_at: Date
+    images: Dribbble_Images
+  }
+
+  type Dribbble_Images {
+    hidpi: String
+    normal: String
+    one_x: String
+    teaser: String
+  }
+
+
+    
+
+  
+
+ 
+
+ 
 `
 

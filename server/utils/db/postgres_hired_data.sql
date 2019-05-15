@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.12
--- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,10 +22,10 @@ COPY hired.conversations (id) FROM stdin;
 
 
 --
--- Data for Name: dribbble; Type: TABLE DATA; Schema: hired; Owner: postgres
+-- Data for Name: dribbble_items; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.dribbble (id, user_id, feed_item_id, date_pulled) FROM stdin;
+COPY hired.dribbble_items (id, user_id, date_pulled, token) FROM stdin;
 \.
 
 
@@ -135,6 +133,7 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N
 1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N
 3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N
+
 \.
 
 
@@ -187,7 +186,7 @@ SELECT pg_catalog.setval('hired.conversations_id_seq', 1, false);
 -- Name: dribbble_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.dribbble_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.dribbble_id_seq', 29, true);
 
 
 --
@@ -264,7 +263,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 2, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 4, true);
 
 
 --

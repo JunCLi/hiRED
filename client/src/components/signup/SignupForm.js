@@ -5,6 +5,7 @@ import { signupValidation } from '../../validationSchemas'
 
 import { Mutation } from 'react-apollo'
 import { signupMutation } from '../../graphql-queries/mutations'
+import { withRouter } from 'react-router'
 
 import { TextField, Button, FormHelperText } from '@material-ui/core'
 
@@ -16,8 +17,7 @@ const initialFormValues = {
 	inviteCode: '',
 }
 
-function SignupForm({props}) {
-
+function SignupForm(props) {
 	return (
 		<Mutation
 			mutation={signupMutation}
@@ -25,7 +25,7 @@ function SignupForm({props}) {
 				console.log('regular signup error: ', error)
 			}}
 			onCompleted={response => {
-				props.history.push("/signup2")
+				props.history.push('/signup2')
 
 				console.log('Signup response:', response)
 			}}
@@ -34,12 +34,16 @@ function SignupForm({props}) {
 				<Formik
 					initialValues={initialFormValues}
 					onSubmit={(values, { setSubmitting }) => {
-            console.log(values)
-            signup({ variables: {input: {
-              email: values.userEmail,
-              fullname: values.userFullname,
-              password: values.password,
-            }}})
+						console.log(values)
+						signup({
+							variables: {
+								input: {
+									email: values.userEmail,
+									fullname: values.userFullname,
+									password: values.password,
+								},
+							},
+						})
 						setSubmitting(false)
 					}}
 					validationSchema={signupValidation}
@@ -71,9 +75,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.userEmail && touched.userEmail ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.userEmail}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.userEmail}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -91,9 +93,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.userFullname && touched.userFullname ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.userFullname}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.userFullname}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -111,9 +111,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.password && touched.password ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.password}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.password}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -131,9 +129,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.confirmPassword && touched.confirmPassword ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.confirmPassword}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.confirmPassword}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -149,12 +145,7 @@ function SignupForm({props}) {
 									>
 										Sign Up
 									</Button>
-									<Button
-										className='btn-reset'
-										type='button'
-										disabled={!dirty || isSubmitting}
-										onClick={handleReset}
-									>
+									<Button className='btn-reset' type='button' disabled={!dirty || isSubmitting} onClick={handleReset}>
 										Reset
 									</Button>
 								</section>
@@ -167,4 +158,4 @@ function SignupForm({props}) {
 	)
 }
 
-export default SignupForm
+export default withRouter(SignupForm)
