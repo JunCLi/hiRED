@@ -123,8 +123,6 @@ module.exports = {
 
         // const selectProgramsusersColumns = ['user_id', 'program_id']
 
-        console.log('program id: ', programIdQueryResult.rows[0].id)
-
         const insertProgramsUsersObject = {
           user_id: user_id,
           program_id: programIdQueryResult.rows[0].id
