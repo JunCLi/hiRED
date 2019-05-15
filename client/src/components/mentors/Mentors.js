@@ -6,12 +6,18 @@ import '../../css/mentor.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { programs } from '../../form-dropdown-values'
+import Select from 'react-select';
 
 
+let options;
 function Mentors(){
   const [value, setValue] = useState("")
-  const [submit, setSubmit] = useState("")
   const [dropdown, setDropdown] = useState("")
+  const [skills, setSkills] = useState([])
+  const [valueSubmit, setValueSubmit] = useState("")
+  const [dropdownSubmit, setDropdownSubmit] = useState("")
+  const [skillsSubmit, setSkillsSubmit] = useState([])
+
 
   function handleChange(e) {
     setValue(e.target.value)
@@ -22,17 +28,51 @@ function Mentors(){
   }
 
  function handleSubmit(event) {
-  setSubmit(value)
+  setValueSubmit(value)
+  setDropdownSubmit(dropdown)
+  setSkillsSubmit(skills)
       event.preventDefault()
-    }
+  }
+
+  function handleSelectChange(e) {
+    let skills_array = [];
+
+    e.forEach(d => {
+      skills_array.push({skills_id: d.id})
+    })
+
+    setSkills(skills_array)
+  }
 
   return (
     <div className = "mentors-page">
     <h1> Mentors </h1>
+    <Query query = {gql`
+          query {
+            getAllSkills{
+              id
+              label
+              value
+              }
+            }
+        `}>
+        {
+          ({loading, errors, data}) => {
+            if(loading) return <div> Loading</div>
+            if(errors) return <div> Errors {JSON.stringify(errors)} </div>
+
+            options = data.getAllSkills
+
+            return (
+              null
+              )
+          }
+        }
+      </Query>
     <Query
     query={gql`
-        query($fullnameSearch: String, $getPrograms: String) {
-          getMentors(fullnameSearch: $fullnameSearch, getPrograms: $getPrograms) {
+        query($fullnameSearch: String, $getPrograms: String, $getSkills: [userSkills]) {
+          getMentors(fullnameSearch: $fullnameSearch, getPrograms: $getPrograms, getSkills: $getSkills) {
             status
             user {
               id
@@ -51,7 +91,7 @@ function Mentors(){
         }
       `
     }
-    variables ={{fullnameSearch: submit, getPrograms: dropdown}}
+    variables ={{fullnameSearch: valueSubmit, getPrograms: dropdownSubmit, getSkills: skillsSubmit}}
     >
     {
       ({loading, errors, data}) => {
@@ -85,6 +125,14 @@ function Mentors(){
                 </MenuItem>
               ))}
             </TextField>
+            <Select
+                isMulti
+                name="colors"
+                options={options}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange = {handleSelectChange}
+              />
           </div>
           <br />
           <Button className='btn-search-submit'

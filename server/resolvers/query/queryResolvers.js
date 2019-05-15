@@ -41,61 +41,6 @@ module.exports = {
 				throw e.message
 			}
 		},
-
-		async getMentors(parent, input, { req, app, postgres }) {
-			let getAllMentors
-			let results
-			const fullnameSearch = input.fullnameSearch
-			const program_name = input.getPrograms
-			if (program_name) {
-				const getProgram = {
-					text: 'SELECT * FROM hired.programs WHERE name = $1',
-					values: [program_name],
-				}
-				const programs = await postgres.query(getProgram)
-				const userProgram = {
-					text: 'SELECT * FROM hired.program_users WHERE program_id = $1',
-					values: [programs.rows[0].id],
-				}
-				const users = await postgres.query(userProgram)
-				let user_id = users.rows.map(d => d.user_id)
-				getAllMentors = {
-					text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
-                          FROM hired.users
-                          INNER JOIN hired.mentors
-                          ON hired.mentors.user_id = hired.users.id
-                          WHERE hired.users.id = $1 OR hired.users.id = $2
-                          `,
-					values: user_id,
-				}
-				results = await postgres.query(getAllMentors)
-			} else {
-				getAllMentors = {
-					text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
-                        FROM hired.users
-                        INNER JOIN hired.mentors
-                        ON hired.mentors.user_id = hired.users.id
-                        `,
-				}
-				results = await postgres.query(getAllMentors)
-			}
-			if (fullnameSearch) {
-				var options = {
-					shouldSort: true,
-					threshold: 0.6,
-					location: 0,
-					distance: 100,
-					maxPatternLength: 32,
-					minMatchCharLength: 1,
-					keys: ['fullname'],
-				}
-				const fuse = new Fuse(results.rows, options) // "list" is the item array
-				const result = fuse.search(fullnameSearch)
-				return result
-			}
-			return results.rows
-		},
-
 		async githubInfo(parent, { input }, { req, app, postgres }) {
 			const userId = authenticate(app, req)
 			const getGithubInfo = {
@@ -125,7 +70,7 @@ module.exports = {
                   }
                 }
               }
-            }
+              }
           `,
 				},
 				headers: { Authorization: `token ${access_token}` },
@@ -135,7 +80,136 @@ module.exports = {
 				repositories: result.data.data.viewer.repositories.nodes,
 			}
 		},
-		async listMyDribbbles(parent, _, { app, req, postgres }) {
+    async getMentors(parent, input, { req, app, postgres }){
+        let getAllMentors;
+        let results;
+
+        const fullnameSearch = input.fullnameSearch
+        const program_name = input.getPrograms
+        const skills_id =input.getSkills
+
+        /// skills filter ////
+
+
+      if (skills_id.length > 0) {
+        const skills_id_array = input.getSkills.map(d=> d.skills_id)
+
+              const getSkills = {
+               text: "SELECT * FROM hired.skills_users WHERE skills_id = ANY($1)",
+               values: [skills_id_array]
+              }
+
+            const skills = await postgres.query(getSkills)
+
+         // now we have the users with those given skills. We only need the users id.
+
+           let user_id_skills = skills.rows.map((d,i) => d.user_id)
+
+           // get unique values. We don't need all the extra user id's
+
+           user_id_skills = [...new Set(user_id_skills)];
+
+           // join the users to filter out the ones without the required skills
+
+         const getMentorsSkills = {
+             text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                     FROM hired.users
+                     INNER JOIN hired.mentors
+                     ON hired.mentors.user_id = hired.users.id
+                     WHERE hired.users.id = ANY($1)
+                     `,
+             values: [user_id_skills]
+           }
+
+        results = await postgres.query(getMentorsSkills)
+
+
+         // return skillsResult.rows
+      }
+
+      /// program filter ///
+
+        if (program_name) {
+
+          const getProgram = {
+            text: "SELECT * FROM hired.programs WHERE name = $1",
+            values: [program_name]
+          }
+
+          const programs = await postgres.query(getProgram)
+
+          const userProgram = {
+                text: "SELECT * FROM hired.program_users WHERE program_id = $1",
+                values: [programs.rows[0].id]
+              }
+
+          const users = await postgres.query(userProgram)
+
+          let user_id = users.rows.map(d=> d.user_id)
+
+           getAllMentors = {
+                  text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                          FROM hired.users
+                          INNER JOIN hired.mentors
+                          ON hired.mentors.user_id = hired.users.id
+                          WHERE hired.users.id = $1
+                          `,
+                  values: [user_id[0]]
+                }
+
+          results = await postgres.query(getAllMentors)
+
+        }
+        else {
+             getAllMentors = {
+                text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
+                        FROM hired.users
+                        INNER JOIN hired.mentors
+                        ON hired.mentors.user_id = hired.users.id
+                        `
+              }
+
+
+            results = await postgres.query(getAllMentors)
+        }
+
+
+        /// search filter ///
+
+        if (fullnameSearch) {
+          var options = {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [
+              "fullname",
+            ]
+          };
+
+          const fuse = new Fuse(results.rows, options); // "list" is the item array
+          const result = fuse.search(fullnameSearch)
+
+          return result
+        }
+
+        return results.rows
+
+    },
+    async getAllSkills(parent, {input}, { req, app, postgres }) {
+
+      const matchSkills = {
+        text: `SELECT * FROM hired.skills`,
+      }
+
+     const results = await postgres.query(matchSkills)
+
+      return results.rows
+    },
+  },
+   async listMyDribbbles(parent, _, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
 				// let userId = 4

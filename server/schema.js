@@ -6,7 +6,8 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
+    getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
+    getAllSkills: [Skills]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
     githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
@@ -32,6 +33,16 @@ module.exports = gql`
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
+  }
+
+  input userSkills {
+    skills_id: Int
+  }
+
+  type Skills {
+    id: Int,
+    label: String
+    value: String
   }
 
   type Portfolio {
@@ -123,6 +134,16 @@ module.exports = gql`
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
     saveDribbbleCode (api_code: String): Boolean
+    addSkills(input: [skillsTags]): addSkillsResponse!
+  }
+
+   input skillsTags {
+    skills_id: Int,
+  }
+
+
+  type addSkillsResponse {
+    message: String
   }
   
   type deleteUserPortfolioResponse {

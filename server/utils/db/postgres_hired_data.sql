@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.2
--- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -40,17 +38,24 @@ COPY hired.feed_items (id, user_id, title, content, likes, location, direct_link
 
 
 --
--- Data for Name: tags; Type: TABLE DATA; Schema: hired; Owner: postgres
+-- Data for Name: skills; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.tags (id, type, name) FROM stdin;
-1	skill	react
-2	skill	graphql
-3	skill	postgres
-4	skill	apollo
-5	skill	marvel lore
-6	skill	react native
-7	skill	redux
+COPY hired.skills (id, name) FROM stdin;
+1	react
+2	graphql
+3	postgres
+4	apollo
+5	marvel lore
+6	react native
+7	redux
+8	formik
+9	javascript
+10	html
+11	css
+12	hooks
+13	d3
+14	flexbox
 \.
 
 
@@ -85,6 +90,7 @@ COPY hired.github (id, user_id, feed_item_id, date_pulled) FROM stdin;
 COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
 1	1	t	\N
 2	2	t	\N
+3	3	t	\N
 \.
 
 
@@ -123,10 +129,10 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, dribbble_access_token, dribbble_api_code, dribbble_connected) FROM stdin;
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N
-4	test	test@test.com	$2b$12$yRRw1tDhkv5bmhMtItcx0OadrjocNYgChH19tYw.P8E/iZvmnpNY.	\N	\N	\N	\N	\N	2019-05-10 17:18:50.914861	\N	\N	efe6215efa46ca6111c53716e206666643b8daca5daba553985e92204737964f	5e002065b79f3670b05c2ac54b667901ccb040294c3c5db4a5659ebd65a4d258	\N
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N
+3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N
 
 \.
 
@@ -138,6 +144,18 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 COPY hired.program_users (user_id, program_id) FROM stdin;
 1	2
 1	1
+3	5
+3	1
+1	2
+1	1
+\.
+
+
+--
+-- Data for Name: skills_users; Type: TABLE DATA; Schema: hired; Owner: postgres
+--
+
+COPY hired.skills_users (id, user_id, name) FROM stdin;
 \.
 
 
@@ -228,10 +246,17 @@ SELECT pg_catalog.setval('hired.programs_id_seq', 7, true);
 
 
 --
+-- Name: skills_users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
+--
+
+SELECT pg_catalog.setval('hired.skills_users_id_seq', 1, false);
+
+
+--
 -- Name: tags_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.tags_id_seq', 7, true);
+SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 
 
 --
