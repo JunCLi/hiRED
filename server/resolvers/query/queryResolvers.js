@@ -16,30 +16,26 @@ module.exports = {
 				console.log('Could not find any user! ', error)
 			}
 		},
-		async getUserPortfolio(parent, input, { req, app, postgres }) {
-			try {
-				let user_id = input.user_id
+    async getUserPortfolio(parent, input, { req, app, postgres }) {
+    //input.user_id is an optional param. If it is undefined the query will use authenticated user
+    try {
+      let user_id;
+      !input.user_id ? user_id = authenticate(app,req) : user_id = input.user_id;
 
-				// Build query string to SELECT * in all rows in porftolio table where user_id = input.user_id
-				const getUserPortfolioQuery = createSelectQuery(
-					['*'],
-					'hired.portfolio',
-					'user_id',
-					user_id
-				)
+      // Build query string to SELECT * in all rows in porftolio table where user_id = input.user_id
+      const getUserPortfolioQuery = createSelectQuery(['*'], 'hired.portfolio', 'user_id', user_id);
 
-				// Run query with query string and get the goods
-				const portfolio = await postgres.query(getUserPortfolioQuery)
+      // Run query with query string and get the goods
+      const portfolio = await postgres.query(getUserPortfolioQuery);
 
-				return {
-					message: `Successfully retreived ${user_id}'s portfolio.`,
-					portfolio: portfolio.rows,
-				}
-			} catch (e) {
-				console.log('Error in getUserPortfolio: ', e.message)
-				throw e.message
-			}
-		},
+      return portfolio.rows
+    }
+    catch (e) {
+      console.log("Error in getUserPortfolio: ", e.message);
+      throw e;
+    }
+  },
+    
 		async githubInfo(parent, { input }, { req, app, postgres }) {
 			const userId = authenticate(app, req)
 			const getGithubInfo = {
@@ -88,8 +84,7 @@ module.exports = {
         const skills_id =input.getSkills
 
         /// skills filter ////
-
-
+        
       if (skills_id.length > 0) {
         const skills_id_array = input.getSkills.map(d=> d.skills_id)
 
@@ -121,11 +116,8 @@ module.exports = {
            }
 
         results = await postgres.query(getMentorsSkills)
-
-
-         // return skillsResult.rows
+        
       }
-
       /// program filter ///
 
         if (program_name) {
@@ -157,9 +149,7 @@ module.exports = {
                 }
 
           results = await postgres.query(getAllMentors)
-
-        }
-        else {
+        } else {
              getAllMentors = {
                 text: `SELECT fullname, email, role, campus, location, current_job, avatar, status, user_id, hired.mentors.id AS mentor_id
                         FROM hired.users
@@ -168,10 +158,8 @@ module.exports = {
                         `
               }
 
-
             results = await postgres.query(getAllMentors)
         }
-
 
         /// search filter ///
 
@@ -196,7 +184,7 @@ module.exports = {
 
         return results.rows
 
-    },
+    }, 
     async getAllSkills(parent, {input}, { req, app, postgres }) {
 
       const matchSkills = {

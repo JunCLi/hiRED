@@ -5,7 +5,6 @@ module.exports = gql`
   scalar Date
 
   type Query {
-    getUser: User
     getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
     getAllSkills: [Skills]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
@@ -13,6 +12,7 @@ module.exports = gql`
     listMyDribbbles: [Dribbble_Items]
     getMessages(conversation_id:ID):[Messages]
     getConversations: [ConversationRooms]
+    getUserPortfolio(user_id: Int): [Portfolio]!
   }
 
   type ConversationRooms{
@@ -42,6 +42,7 @@ module.exports = gql`
   type Stars{
     totalCount: Int
   }
+
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
@@ -69,7 +70,6 @@ module.exports = gql`
   }
 
   input AddUserPortfolioInput {
-    user_id: Int,
     title: String,
     description: String,
     type: String,
