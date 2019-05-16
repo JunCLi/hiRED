@@ -270,15 +270,17 @@ module.exports = {
        })
        .catch(err => {
          console.log('this is catch error, :', err)
-       })
-      const githubAccessTokenArray = GithubRes.data.split('access_token=')
-      const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
-      const githubAccessToken = githubFilterScope[0];
+			 })
+			 console.log('githubres.data: ', GithubRes.data)
+			const githubAccessTokenArray = GithubRes.data.split('access_token=')
+			const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
+			const githubAccessToken = githubFilterScope[0];
+			console.log('githubAccessToken', githubAccessToken)
       const insertGithubAPI = {
         text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
         values: [input.api_code, githubAccessToken, userId]
-      }
-        const insertedGithubAPI = await postgres.query(insertGithubAPI);        
+			}
+				const insertedGithubAPI = await postgres.query(insertGithubAPI);
       } catch (error) {
         console.log(" The error is: ", error);
       }

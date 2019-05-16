@@ -41,27 +41,6 @@ if (process.env.NODE_ENV !== 'production') {
 	app.use(cors(corsConfig))
 }
 
-// try {
-// 	let url =
-//     'https://dribbble.com/oauth/token?client_id=97883b392791de1ff6facb092f049a91a1f1590a8e3172b61ef7d06be61651b6&client_secret=421e7b150aa6ec3c3efae5e5f4bee5ef8ea4f66794380a6940f46937e3762b5e&code=f0a0faa57e5f762e619eb0b6fd4758828259580469680f546c79a307338a2ce1'
-// 	let getDribbble = axios.post(url, {
-// 		'Access-Control-Allow-Origin': '*',
-// 		'Access-Control-Expose-Headers': 'ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset',
-// 		'Access-Control-Allow-Credentials': 'true',
-// 	})
-// 	let dribbble = Promise.resolve(getDribbble)
-// 	dribbble.then(function(res) {
-// 		console.log('this is res', res)
-// 	})
-//   dribbble.catch(function(err){
-//     console.log('this is catch error, :', err)
-//   })
-  
-// 	console.log('this is dribbble from index.js :', dribbble)
-// } catch (e) {
-// 	throw e.message
-// }
-
 resolvers = resolvers()
 
 const schema = makeExecutableSchema({

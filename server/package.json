@@ -26,6 +26,7 @@
 		"fuse.js": "^3.4.4",
 		"graphql": "^14.1.1",
 		"jsonwebtoken": "^8.5.1",
+		"node-cron": "^2.0.3",
 		"node-pg-migrate": "^3.16.0",
 		"pg": "^7.8.0",
 		"squel": "^5.12.2"
