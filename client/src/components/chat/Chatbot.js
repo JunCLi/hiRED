@@ -26,10 +26,11 @@ const Chatbot = props => {
               <Typography variant="h5" component="h2">
                 Conversation Rooms
               </Typography>
-              {data.getConversations.map(element => (
-                <div>
+              {data.getConversations.map((element, i) => (
+                <div key ={i}>
                   <Avatar
                     onClick={response => {
+                      console.log(element)
                       props.history.push("/messages/" + element.id);
                       console.log("Conversation Room", response);
                     }}

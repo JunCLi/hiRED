@@ -1,10 +1,8 @@
 import React from "react"
-import { Button } from '@material-ui/core'
 
-import { Query, Mutation } from "react-apollo"
-import gql from "graphql-tag"
-import Select from 'react-select';
+import { Mutation } from "react-apollo"
 import { Add_Skills_MUTATION } from '../../graphql-queries/mutations'
+import SkillsDropDown from "./SkillsDropDown"
 
 function Skills() {
   let skills;
@@ -42,43 +40,10 @@ function Skills() {
     >
       {
         (addSkills, {dataMutation}) => (
-          <div>
-          <Query query = {gql`
-                  query {
-                    getAllSkills{
-                      id
-                      label
-                      value
-                    }
-                    }
-                    `}>
-                    {
-                      ({loading, errors, data, i}) => {
-                        if(loading) return <div> Loading</div>
-                        if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-                        return(
-                        <div>
-                        <form  onSubmit={(e) => handleSubmit(e, addSkills)}>
-                        <Select
-                            isMulti
-                            name="colors"
-                            options={data.getAllSkills}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            onChange = {handleChange}
-                          />
-                          <Button className='btn-search-submit'
-                                    variant='contained'
-                                    color='primary'
-                                    type="submit"> submit </Button>
-                          </form>
-                          </div>
-                        )
-                      }
-                    }
-                    </Query>
-                  </div>
-                )
+              <div>
+                <SkillsDropDown handleSubmit = {handleSubmit} handleChange = {handleChange} addSkills ={addSkills} />
+              </div>
+            )
           }
       </Mutation>
     </div>

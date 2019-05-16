@@ -30,7 +30,7 @@ const AppRouter = () => {
 			<Route path='/mentors/' exact component={Mentors} />
       <Route path = '/skills/' exact component = {Skills} />
       <Route path = '/chatbot/' exact component = {Chatbot} />
-      <Route path = '/messages/' exact component = {Messages} />
+      <Route path = '/messages:conversation/' exact component = {Messages} />
       <Route path='/portfolio/' exact component={Portfolio} />
       <Route path= '/addportfolioitem/' exact component={AddPortfolioItem} />
 		</Router>

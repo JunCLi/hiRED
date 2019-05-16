@@ -20,9 +20,10 @@ module.exports = gql`
     }
 
   type Messages{
-      user_id:Int,
+      from_user:Int,
       content:String,
       date_created:String
+      fullname:String
     }
 
   type githubInfo{
@@ -147,6 +148,17 @@ module.exports = gql`
     saveGithubCode(api_code: String): String
     saveDribbbleCode (api_code: String): Boolean
     addSkills(input: [skillsTags]): addSkillsResponse!
+    addConversation(user_id_2: Int): addConversationResponse!
+    addMessages(content: String, conversation_id: Int): addMessagesResponse!
+  }
+
+  type addMessagesResponse {
+    message: String
+  }
+
+
+  type addConversationResponse {
+    id: Int
   }
 
    input skillsTags {

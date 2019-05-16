@@ -361,7 +361,62 @@ module.exports = {
         console.log(" The error is: ", error);
       }
     },
-  	async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
+async addConversation(parent, input, {req, app, postgres}) {
+      const user_id_1 = authenticate(app, req)
+      const user_id_2 = input.user_id_2
+
+      const start_convo = [user_id_1, user_id_2]
+      const receive_convo = [user_id_1, user_id_2]
+
+     const checkConversation = {
+        text: "SELECT * FROM hired.conversations WHERE hired.conversations.user_id_1 = ANY($1) AND hired.conversations.user_id_2 = ANY($2)",
+        values: [start_convo, receive_convo]
+      }
+
+      const results = await postgres.query(checkConversation)
+      // check if conversation exists. If it does return conversation id, if not then create a conversation
+        if(results.rows.length > 0) {
+          const conversation_id = results.rows[0].id
+          return {
+            id: conversation_id
+          }
+        }
+        else {
+
+          const newConversation = {
+            text: 'INSERT INTO hired.conversations (user_id_1, user_id_2) VALUES ($1, $2) RETURNING *',
+            values: [user_id_1, user_id_2],
+          }
+
+          const result = await postgres.query(newConversation)
+
+          const new_conversation_id = result.rows[0].id
+
+          return {
+            id: new_conversation_id
+          }
+        }
+    },
+    async addMessages(parent, input, {req, app, postgres}) {
+      const from_user = authenticate(app, req)
+
+      const content = input.content
+      const conversation_id = input.conversation_id
+
+
+      const newMessages = {
+        text: `INSERT INTO hired.messages (content, conversation_id, from_user) VALUES ($1, $2, $3) RETURNING *`,
+        values: [content, conversation_id, from_user]
+      }
+
+      const result = await postgres.query(newMessages)
+
+      return {
+        message: "Yes"
+      }
+
+    },
+ async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
     // Check for auth to delete!!!!
 
     try {
@@ -377,11 +432,11 @@ module.exports = {
       return {
         message: 'Successfully deleted portfolio item'
       }
-		}	
-			catch (e) {
-				console.log("Error in deleteUserPortfolio Resolver: ", e.message);
-				throw e.message;
-			}
-  	},
+    } 
+      catch (e) {
+        console.log("Error in deleteUserPortfolio Resolver: ", e.message);
+        throw e.message;
+      }
+    },
 	}
 }

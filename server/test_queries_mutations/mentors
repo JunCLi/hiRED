@@ -23,6 +23,25 @@ query {
 }
 
 query {
+   getMentors(fullnameSearch: "cool", getSkills: [{skills_id: 1},{skills_id: 2}]) {
+    status
+    user {
+      id
+      email
+      password
+      fullname
+      campus
+      mentor
+      location
+      role
+      current_job
+      avatar
+    }
+   }
+ }
+
+
+query {
    searchMentors(fullnameSearch:"julien") {
      status
     user {
