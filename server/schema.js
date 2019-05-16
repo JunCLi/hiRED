@@ -5,14 +5,14 @@ module.exports = gql`
   scalar Date
 
   type Query {
+    getUser: User
     getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
     getAllSkills: [Skills]!
-    getUserPortfolio(user_id: Int!): [Portfolio]!
+    getUserPortfolio(user_id: Int): [Portfolio]!
     githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
     getMessages(conversation_id:ID):[Messages]
     getConversations: [ConversationRooms]
-    getUserPortfolio(user_id: Int): [Portfolio]!
   }
 
   type ConversationRooms{

@@ -327,8 +327,13 @@ module.exports = {
           custom_link: custom_link,
           api_link: api_link,
           thumbnail: thumbnail
-        }
-      },
+				}
+			}
+			catch (e) {
+				console.log(e.message)
+				throw e.message;
+			}
+    },
      async saveGithubCode(parent, input, {req, app, postgres}){
       try {
        const userId = authenticate(app, req)
@@ -356,7 +361,7 @@ module.exports = {
         console.log(" The error is: ", error);
       }
     },
-  async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
+  	async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
     // Check for auth to delete!!!!
 
     try {
@@ -372,11 +377,11 @@ module.exports = {
       return {
         message: 'Successfully deleted portfolio item'
       }
-    }
-    catch (e) {
-      console.log("Error in deleteUserPortfolio Resolver: ", e.message);
-      throw e.message;
-    }
-  },
+		}	
+			catch (e) {
+				console.log("Error in deleteUserPortfolio Resolver: ", e.message);
+				throw e.message;
+			}
+  	},
+	}
 }
-
