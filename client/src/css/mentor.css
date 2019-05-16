@@ -69,3 +69,9 @@ form .btn-search-submit {
   width: 20%;
   margin: 20px;
 }
+
+.chat.mentors.button {
+  align-self: right;
+  width: 20%;
+  margin-left: auto;
+}
