@@ -228,14 +228,19 @@ module.exports = {
 			}
 		},
     async getMessages(parent, input, { req, app, postgres }) {
-          let myMessages = input.conversation_id;
-          // console.log("hello martains",conversation)
+          let myConversation = input.conversation_id;
+
           const messages = {
-            text: "SELECT * FROM hired.messages WHERE conversation_id = $1",
-            values: [myMessages]
+            text: `SELECT conversation_id, content, from_user, hired.users.fullname AS fullname
+                   FROM hired.messages
+                   INNER JOIN hired.users
+                   ON hired.messages.from_user = hired.users.id
+                   WHERE conversation_id = $1`,
+            values: [myConversation]
           };
+
           const results = await postgres.query(messages);
-          console.log("here is my", results.rows);
+
           return results.rows;
         },
         async getConversations(parent, input, { req, app, postgres }) {
@@ -244,7 +249,6 @@ module.exports = {
             text: "SELECT * FROM hired.conversations"
           };
           const result = await postgres.query(conversation);
-          console.log(result.rows)
           return result.rows
         },
 	},
