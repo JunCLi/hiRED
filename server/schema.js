@@ -9,6 +9,15 @@ module.exports = gql`
     getMentors: [Mentors]!
     getUserPortfolio(user_id: Int!): [Portfolio]!
     githubInfo: githubInfo
+    getStatus(user_id: Int!): Status
+  }
+
+  type Status {
+    id: ID!,
+    user_id: Int,
+    role: String,
+    looking_for: String,
+    location: String
   }
 
   type githubInfo{
@@ -94,6 +103,13 @@ module.exports = gql`
     user: User
   }
 
+  input StatusInput {
+    id: ID,
+    user_id: Int,
+    role: String,
+    looking_for: String,
+    location: String
+  }
 
   type Mutation {
     Appointment(number: Int!, date: Date): AppointmentResponse!
@@ -106,8 +122,12 @@ module.exports = gql`
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
+    addStatus(input: StatusInput): addStatusResponse!
   }
   
+  type addStatusResponse {
+    message: String
+  }
   type deleteUserPortfolioResponse {
     message: String
   }
