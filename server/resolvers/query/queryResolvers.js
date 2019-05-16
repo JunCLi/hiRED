@@ -11,8 +11,10 @@ module.exports = {
       }
     },
     async getUserPortfolio(parent, input, { req, app, postgres }) {
+      //input.user_id is an optional param. If it is undefined the query will use authenticated user
       try {
-        let user_id = input.user_id;
+        let user_id;
+        !input.user_id ? user_id = authenticate(app,req) : user_id = input.user_id;
 
         // Build query string to SELECT * in all rows in porftolio table where user_id = input.user_id
         const getUserPortfolioQuery = createSelectQuery(['*'], 'hired.portfolio', 'user_id', user_id);
@@ -23,7 +25,7 @@ module.exports = {
         return portfolio.rows
       }
       catch (e) {
-        //console.log("Error in getUserPortfolio: ", e.message);
+        console.log("Error in getUserPortfolio: ", e.message);
         throw e;
       }
     },

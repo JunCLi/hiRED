@@ -118,7 +118,9 @@ module.exports = {
     async addUserPortfolio(parent, { input }, { req, app, postgres}){
       try {
 
-        const { user_id, title, description, type, custom_link, api_link, thumbnail } = input;
+        const user_id = authenticate(app, req)
+
+        const { title, description, type, custom_link, api_link, thumbnail } = input;
 
         const newPortfolioObject = {
           user_id: user_id,
@@ -172,10 +174,12 @@ module.exports = {
       }
     },
     async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
-      // Check for auth to update?
 
       try {
-        const { id, user_id, title, description, type, custom_link, api_link, thumbnail } = input;
+
+        const user_id = authenticate(app, req)
+
+        const { id, title, description, type, custom_link, api_link, thumbnail } = input;
 
         const newPortfolioObject = {
           id: id,
@@ -209,7 +213,7 @@ module.exports = {
       }
     },
     async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
-      // Check for auth to delete?
+      // Check for auth to delete!!!!
 
       try {
         const id = input.id;

@@ -7,7 +7,7 @@ module.exports = gql`
   type Query {
     getUser: User
     getMentors: [Mentors]!
-    getUserPortfolio(user_id: Int!): [Portfolio]!
+    getUserPortfolio(user_id: Int): [Portfolio]!
   }
 
   type Portfolio {
@@ -22,7 +22,6 @@ module.exports = gql`
   }
 
   input AddUserPortfolioInput {
-    user_id: Int,
     title: String,
     description: String,
     type: String,

@@ -3,9 +3,10 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag';
 import PortfolioItem from './PortfolioItem'
 
+
 const GET_PORTFOLIO_QUERY=gql`
   query {
-    getUserPortfolio(user_id: 1) {
+    getUserPortfolio {
       id
       user_id
       title
@@ -21,7 +22,7 @@ const GET_PORTFOLIO_QUERY=gql`
 const Portfolio = () => {
   return (
     <Query query={GET_PORTFOLIO_QUERY}>
-   { ({loading, errors, data}) => { 
+   { ({loading, errors, data, refetch}) => { 
      
      // Change this to return a Loading Component that still needs to be built
      if(loading) return <div>Loading...</div>
@@ -32,6 +33,7 @@ const Portfolio = () => {
       <PortfolioItem 
         key={portfolioItem.id}
         data={portfolioItem}
+        refetch={refetch}
       />)
 
      return (
