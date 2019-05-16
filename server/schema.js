@@ -8,7 +8,7 @@ module.exports = gql`
     getUser: User
     getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
     getAllSkills: [Skills]!
-    getUserPortfolio(user_id: Int!): [Portfolio]!
+    getUserPortfolio(user_id: Int): [Portfolio]!
     githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
     getMessages(conversation_id:ID):[Messages]
@@ -43,6 +43,7 @@ module.exports = gql`
   type Stars{
     totalCount: Int
   }
+
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
@@ -70,7 +71,6 @@ module.exports = gql`
   }
 
   input AddUserPortfolioInput {
-    user_id: Int,
     title: String,
     description: String,
     type: String,
