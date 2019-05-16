@@ -20,8 +20,108 @@ query {
       avatar
     }
   }
-
 }
+
+query {
+   searchMentors(fullnameSearch:"julien") {
+     status
+    user {
+      id
+      email
+      password
+      fullname
+      campus
+      mentor
+      location
+      role
+      programs
+      current_job
+      avatar
+    }
+   }
+ }
+
+ # query {
+ #    getMentors(roleFilter: "UX") {
+ #     status
+ #     user {
+ #       id
+ #       email
+ #       password
+ #       fullname
+ #       campus
+ #       mentor
+ #       location
+ #       role
+ #       programs
+ #       current_job
+ #       avatar
+ #     }
+ #    }
+ #  }
+
+ # query {
+ #  searchMentors {
+ #       id
+ #       email
+ #       password
+ #       fullname
+ #       campus
+ #       mentor
+ #       location
+ #       role
+ #       programs
+ #       current_job
+ #       avatar
+ #     }
+ # }
+
+ # mutation {
+ #   signupPage2(input: {
+ #     campus: "VAN",
+ #     program_name: "UI",
+ #     study_year: "2018",
+ #     study_cohort: "Q2",
+ #     role: "person",
+ #     current_job: "Not a Designer",
+ #     location: "Not Vancouver",
+ #     mentor: false,
+ #   }){
+ #     message
+ #   }
+ # }
+
+ # query {
+ #   getMentors {
+ #     status
+
+ #   }
+ # }
+
+ # mutation {
+ #  addUserPortfolio(input: {
+ #    user_id: 1,
+ #    title: "Stuff",
+ #    description: "this is stuff",
+ #    type: "type stuff",
+ #    custom_link: "link.com",
+ #    api_link: "google.com",
+ #    thumbnail: "stuff.com"
+ #  }){
+ #    user_id
+ #    title
+ #    description
+ #    type
+ #  }
+ # }
+
+ # mutation {
+ #   addMentors(input: {
+ #     status: true,
+ #   }) {
+ #     message
+ #   }
+ # }
 
  mutation {
    addMentors(input: {
@@ -30,3 +130,38 @@ query {
      message
    }
  }
+
+query {
+   getMentors(fullnameSearch: "something") {
+    status
+    user {
+      id
+      email
+      password
+      fullname
+      campus
+      mentor
+      location
+      role
+      current_job
+      avatar
+      getPrograms(input: {
+        name: "UX"
+      }) {
+        id
+        name
+      }
+    }
+   }
+ }
+
+ mutation {
+  addSkills(input: [{
+   skills_id: 1
+  }, {skills_id: 6}]) {
+    message
+  }
+}
+
+
+

@@ -1,18 +1,80 @@
-import React from "react"
+import React, { useState} from "react"
 import { Query } from "react-apollo"
-import TextField from '@material-ui/core/TextField'
+import { TextField, Button, MenuItem} from '@material-ui/core'
 import gql from "graphql-tag"
 import '../../css/mentor.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBriefcase, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { programs } from '../../form-dropdown-values'
+import Select from 'react-select';
 
 
-
+let options;
 function Mentors(){
+  const [value, setValue] = useState("")
+  const [dropdown, setDropdown] = useState("")
+  const [skills, setSkills] = useState([])
+  const [valueSubmit, setValueSubmit] = useState("")
+  const [dropdownSubmit, setDropdownSubmit] = useState("")
+  const [skillsSubmit, setSkillsSubmit] = useState([])
+
+
+  function handleChange(e) {
+    setValue(e.target.value)
+  }
+
+  function handleDropDownChange(e){
+    setDropdown(e.target.value)
+  }
+
+  function handleSelectChange(e) {
+    let skills_array = [];
+
+    e.forEach(d => {
+      skills_array.push({skills_id: d.id})
+    })
+
+    setSkills(skills_array)
+  }
+
+ function handleSubmit(event) {
+  setValueSubmit(value)
+  setDropdownSubmit(dropdown)
+  setSkillsSubmit(skills)
+      event.preventDefault()
+  }
+
+
+
   return (
     <div className = "mentors-page">
     <h1> Mentors </h1>
-    <Query query={gql`
-        query {
-          getMentors {
+    <Query query = {gql`
+          query {
+            getAllSkills{
+              id
+              label
+              value
+              }
+            }
+        `}>
+        {
+          ({loading, errors, data}) => {
+            if(loading) return <div> Loading</div>
+            if(errors) return <div> Errors {JSON.stringify(errors)} </div>
+
+            options = data.getAllSkills
+
+            return (
+              null
+              )
+          }
+        }
+      </Query>
+    <Query
+    query={gql`
+        query($fullnameSearch: String, $getPrograms: String, $getSkills: [userSkills]) {
+          getMentors(fullnameSearch: $fullnameSearch, getPrograms: $getPrograms, getSkills: $getSkills) {
             status
             user {
               id
@@ -30,18 +92,79 @@ function Mentors(){
           }
         }
       `
-    }>
+    }
+    variables ={{fullnameSearch: valueSubmit, getPrograms: dropdownSubmit, getSkills: skillsSubmit}}
+    >
     {
       ({loading, errors, data}) => {
         if(loading) return <div> Loading</div>
         if(errors) return <div> Errors {JSON.stringify(errors)} </div>
         return(
-          data.getMentors.map((d,i) =>
-            <div key = {i} className = "mentor">
-              <p> {d.user.fullname} </p>
-              <p> {d.status ? "active" : "inactive"} </p>
+          <div className='mentor-content-container'>
+          <div className = "form-search">
+          <form onSubmit={handleSubmit}>
+          <div className = "search-filter">
+            <TextField
+              id='Search'
+              name='Search'
+              label = {"Search"}
+              value={value}
+              onChange={(e) => handleChange(e)}
+              margin='normal'
+            />
+            <TextField
+              id='whichProgram'
+              select
+              name='whichProgram'
+              label='Filter by program'
+              value={dropdown}
+              onChange={(e) => handleDropDownChange(e)}
+              margin='normal'
+            >
+              {programs.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <Select
+                isMulti
+                name="colors"
+                options={options}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange = {handleSelectChange}
+              />
+          </div>
+          <br />
+          <Button className='btn-search-submit'
+                    variant='contained'
+                    color='primary'
+                    type="submit"> Search </Button>
+          </form>
+          </div>
+          {data.getMentors.map((d,i) =>
+            d.user ? <div key = {i} className = "mentor">
+               <div className = "mentor_wrapper">
+                 <p className = "mentor_fullname"> {d.user.fullname} </p>
+                 <svg width = "30" height = "30"> <circle r={6} cx = {15} cy={15} style={{fill: d.status ? "#26a69a" : "grey"}}> </circle> </svg>
+               </div>
+               <div className = "mentor_wrapper">
+                 <FontAwesomeIcon className = "work-icon" icon={faBriefcase} />
+                 <p className = "mentor_job"> {d.user.current_job} </p>
+               </div>
+               <div className = "mentor_wrapper">
+                 <FontAwesomeIcon className = "location-icon" icon ={faMapMarkerAlt} />
+                 <p className = "mentor_location"> {d.user.location} </p>
+               </div>
+               <Button
+                    className = "chat mentors button"
+                    variant='contained'
+                    color='primary'> Chat </Button>
+             </div> : null
+             )
+            }
             </div>
-            )
           )
       }
     }

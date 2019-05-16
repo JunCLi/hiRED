@@ -1,0 +1,49 @@
+import React from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import { Card, CardContent, Avatar, Typography } from "@material-ui/core/";
+
+const GET_CONVERSATIONS = gql`
+  query {
+    getConversations {
+      id
+    }
+  }
+`;
+
+const Chatbot = props => {
+  console.log("sick of these2", props.match);
+
+  return (
+    <Query query={GET_CONVERSATIONS}>
+      {({ data, loading, errors }) => {
+        if (loading) return <div> Loading...</div>;
+        if (errors) return <div>I have and error</div>;
+
+        return (
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                Conversation Rooms
+              </Typography>
+              {data.getConversations.map(element => (
+                <div>
+                  <Avatar
+                    onClick={response => {
+                      props.history.push("/messages/" + element.id);
+                      console.log("Conversation Room", response);
+                    }}
+                  >
+                    {element.id}
+                  </Avatar>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        );
+      }}
+    </Query>
+  );
+};
+
+export default Chatbot;
