@@ -10,7 +10,6 @@ const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
 
 module.exports = {
-
 	Mutation: {
 		async signup(parent, { input }, { app, req, postgres }) {
 			try {
@@ -116,38 +115,42 @@ module.exports = {
 				throw err
 			}
 		},
-		async addUserPortfolio(parent, { input }, { app, req, postgres }) {
-			try {
-				const { user_id, title, description, type, custom_link, api_link, thumbnail } = input
+		async addUserPortfolio(parent, { input }, { req, app, postgres}){
+      try {
 
-				const newPortfolioObject = {
-					user_id: user_id,
-					title: title,
-					description: description,
-					type: type,
-					custom_link: custom_link,
-					api_link: api_link,
-					thumbnail: thumbnail,
-				}
+        const user_id = authenticate(app, req)
 
-				const addUserPortfolioQuery = createInsertQuery(newPortfolioObject, 'hired.portfolio', true)
+        const { title, description, type, custom_link, api_link, thumbnail } = input;
 
-				const addUserPortfolioQueryResult = await postgres.query(addUserPortfolioQuery)
+        const newPortfolioObject = {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
 
-				return {
-					user_id: user_id,
-					title: title,
-					description: description,
-					type: type,
-					custom_link: custom_link,
-					api_link: api_link,
-					thumbnail: thumbnail,
-				}
-			} catch (e) {
-				console.log('Error in addPortfolio: ', e.message)
-				throw e.message
-			}
-		},
+        const addUserPortfolioQuery = createInsertQuery(newPortfolioObject, 'hired.portfolio', true);
+
+        const addUserPortfolioQueryResult = await postgres.query(addUserPortfolioQuery);
+
+        return {
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+      }
+      catch (e) {
+        console.log("Error in addPortfolio: ", e.message);
+        throw e.message;
+      }
+    },
 		async addMentors(parent, { input }, { app, req, postgres }) {
 			try {
 				let user_id = authenticate(app, req)
@@ -169,9 +172,26 @@ module.exports = {
 				throw e.message
 			}
 		},
+    async addSkills(parent, {input}, { req, app, postgres }) {
+      const user_id = authenticate(app, req)
+
+      const skills_id = input.map(d=> d.skills_id)
+
+     let insertValues;
+
+     skills_id.forEach(async (skills, i) => {
+        insertValues = {
+         text: `INSERT INTO hired.skills_users (user_id, skills_id) VALUES ($1, $2) RETURNING *`,
+         values: [user_id, skills]
+        }
+      const result =  await postgres.query(insertValues);
+     })
+      return {
+        message: "success"
+      }
+    },
 		async updateUserPortfolio(parent, { input }, { app, req, postgres }) {
 			// Check for auth to update?
-
 			try {
 				const { id, user_id, title, description, type, custom_link, api_link, thumbnail } = input
 
@@ -207,7 +227,6 @@ module.exports = {
 		},
 		async deleteUserPortfolio(parent, input, { app, req, postgres }) {
 			// Check for auth to delete?
-
 			try {
 				const id = input.id
 
@@ -226,7 +245,6 @@ module.exports = {
 				throw e.message
 			}
 		},
-
 		async saveDribbbleCode(parent, { api_code }, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
@@ -256,7 +274,67 @@ module.exports = {
 				throw e.message
 			}
 		},
-      async saveGithubCode(parent, input, {req, app, postgres}){
+    async addMentors(parent, {input}, { req, app, postgres }) {
+      try {
+        let user_id =  authenticate(app, req)
+
+        status = input.status
+
+        const newMentor = {
+          text: "INSERT INTO hired.mentors (user_id, status) VALUES ($1, $2) RETURNING *",
+          values: [user_id, status]
+        }
+
+        let result = await postgres.query(newMentor)
+
+        return {
+          message: "Successfully became a mentor!"
+        }
+      }
+      catch (e) {
+        console.log("Error in addMentors: ", e.message);
+        throw e.message;
+      }
+    },
+    async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
+      try {
+
+        const user_id = authenticate(app, req)
+
+        const { id, title, description, type, custom_link, api_link, thumbnail } = input;
+
+        const newPortfolioObject = {
+          id: id,
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+        }
+
+        const portfolioUpdateQuery = createUpdateQuery(newPortfolioObject, 'id','hired.portfolio');
+
+        const portfolioUpdateQueryResult = await postgres.query(portfolioUpdateQuery);
+
+        return {
+          id: id,
+          user_id: user_id,
+          title: title,
+          description: description,
+          type: type,
+          custom_link: custom_link,
+          api_link: api_link,
+          thumbnail: thumbnail
+				}
+			}
+			catch (e) {
+				console.log(e.message)
+				throw e.message;
+			}
+    },
+     async saveGithubCode(parent, input, {req, app, postgres}){
       try {
        const userId = authenticate(app, req)
        let url =
@@ -278,11 +356,87 @@ module.exports = {
         text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
         values: [input.api_code, githubAccessToken, userId]
       }
-        const insertedGithubAPI = await postgres.query(insertGithubAPI);        
+        const insertedGithubAPI = await postgres.query(insertGithubAPI);
       } catch (error) {
         console.log(" The error is: ", error);
       }
     },
-	},
-}
+async addConversation(parent, input, {req, app, postgres}) {
+      const user_id_1 = authenticate(app, req)
+      const user_id_2 = input.user_id_2
 
+      const start_convo = [user_id_1, user_id_2]
+      const receive_convo = [user_id_1, user_id_2]
+
+     const checkConversation = {
+        text: "SELECT * FROM hired.conversations WHERE hired.conversations.user_id_1 = ANY($1) AND hired.conversations.user_id_2 = ANY($2)",
+        values: [start_convo, receive_convo]
+      }
+
+      const results = await postgres.query(checkConversation)
+      // check if conversation exists. If it does return conversation id, if not then create a conversation
+        if(results.rows.length > 0) {
+          const conversation_id = results.rows[0].id
+          return {
+            id: conversation_id
+          }
+        }
+        else {
+
+          const newConversation = {
+            text: 'INSERT INTO hired.conversations (user_id_1, user_id_2) VALUES ($1, $2) RETURNING *',
+            values: [user_id_1, user_id_2],
+          }
+
+          const result = await postgres.query(newConversation)
+
+          const new_conversation_id = result.rows[0].id
+
+          return {
+            id: new_conversation_id
+          }
+        }
+    },
+    async addMessages(parent, input, {req, app, postgres}) {
+      const from_user = authenticate(app, req)
+
+      const content = input.content
+      const conversation_id = input.conversation_id
+
+
+      const newMessages = {
+        text: `INSERT INTO hired.messages (content, conversation_id, from_user) VALUES ($1, $2, $3) RETURNING *`,
+        values: [content, conversation_id, from_user]
+      }
+
+      const result = await postgres.query(newMessages)
+
+      return {
+        message: "Yes"
+      }
+
+    },
+ async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
+    // Check for auth to delete!!!!
+
+    try {
+      const id = input.id;
+
+      const deleteUserPortfolioQuery = {
+        text: 'DELETE FROM hired.portfolio WHERE id = $1 RETURNING *',
+        values: [id]
+      }
+
+      const deleteUserPortfolioQueryResult = await postgres.query(deleteUserPortfolioQuery);
+
+      return {
+        message: 'Successfully deleted portfolio item'
+      }
+    } 
+      catch (e) {
+        console.log("Error in deleteUserPortfolio Resolver: ", e.message);
+        throw e.message;
+      }
+    },
+	}
+}

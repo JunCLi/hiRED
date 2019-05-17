@@ -8,6 +8,30 @@ export const signupMutation = gql`
 	}
 `
 
+export const ADD_MESSAGES = gql`
+  mutation addMessagesMutation($content: String, $conversation_id: Int) {
+    addMessages(content: $content, conversation_id: $conversation_id) {
+      message
+    }
+  }
+`
+
+export const Add_Skills_MUTATION = gql`
+  mutation addSkillsMutation($input: [skillsTags]) {
+    addSkills(input: $input) {
+      message
+    }
+  }
+`
+
+export const ADD_CONVERSATION_MUTATION = gql`
+  mutation addConversationMutation($user_id_2: Int) {
+    addConversation(user_id_2: $user_id_2) {
+      id
+    }
+  }
+`
+
 export const signupForm2Mutation = gql`
 	mutation signupForm2Vars($input: SignupForm2Object!) {
 		signupForm2(input: $input) {

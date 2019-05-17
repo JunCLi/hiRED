@@ -6,11 +6,25 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors(fullnameSearch: String, getPrograms: String): [Mentors]!
-    getUserPortfolio(user_id: Int!): [Portfolio]!
+    getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
+    getAllSkills: [Skills]!
+    getUserPortfolio(user_id: Int): [Portfolio]!
     githubInfo: githubInfo
     listMyDribbbles: [Dribbble_Items]
+    getMessages(conversation_id:ID):[Messages]
+    getConversations: [ConversationRooms]
   }
+
+  type ConversationRooms{
+      id:Int
+    }
+
+  type Messages{
+      from_user:Int,
+      content:String,
+      date_created:String
+      fullname:String
+    }
 
   type githubInfo{
     name: String
@@ -29,9 +43,20 @@ module.exports = gql`
   type Stars{
     totalCount: Int
   }
+
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
+  }
+
+  input userSkills {
+    skills_id: Int
+  }
+
+  type Skills {
+    id: Int,
+    label: String
+    value: String
   }
 
   type Portfolio {
@@ -46,7 +71,6 @@ module.exports = gql`
   }
 
   input AddUserPortfolioInput {
-    user_id: Int,
     title: String,
     description: String,
     type: String,
@@ -123,8 +147,29 @@ module.exports = gql`
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
     saveDribbbleCode (api_code: String): Boolean
+    addSkills(input: [skillsTags]): addSkillsResponse!
+    addConversation(user_id_2: Int): addConversationResponse!
+    addMessages(content: String, conversation_id: Int): addMessagesResponse!
   }
-  
+
+  type addMessagesResponse {
+    message: String
+  }
+
+
+  type addConversationResponse {
+    id: Int
+  }
+
+   input skillsTags {
+    skills_id: Int,
+  }
+
+
+  type addSkillsResponse {
+    message: String
+  }
+
   type deleteUserPortfolioResponse {
     message: String
   }
@@ -199,12 +244,12 @@ module.exports = gql`
   }
 
 
-    
 
-  
 
- 
 
- 
+
+
+
+
 `
 
