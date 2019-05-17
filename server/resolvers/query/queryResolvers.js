@@ -13,7 +13,7 @@ module.exports = {
 				const allUsers = await postgres.query(selectAllUsers)
 				return allUsers.rows
 			} catch (error) {
-				console.log('Could not find any user! ', error)
+				// console.log('Could no`t find any user! ', error)
 			}
 		},
     async getUserPortfolio(parent, input, { req, app, postgres }) {
