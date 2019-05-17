@@ -6,6 +6,7 @@ import Signup from './components/signup/Signup'
 import MyDribbbles from './components/signup/MyDribbbles'
 import Login from './components/login/Login'
 import Profile from './components/profile/Profile'
+import Dashboard from './components/dashboard/Dashboard'
 import SignupForm2 from './components/signup/SignupForm2'
 import SignupForm3 from './components/signup/SignupForm3'
 import Mentors from './components/mentors/Mentors'
@@ -27,6 +28,7 @@ const AppRouter = () => {
 			<Route path='/mydribbbles/' exact component={MyDribbbles} />
 			<Route path='/login/' exact component={Login} />
 			<Route path='/profile/' exact component={Profile} />
+      <Route path='/dashboard/' exact component={Dashboard} />
 			<Route path='/mentors/' exact component={Mentors} />
       <Route path = '/skills/' exact component = {Skills} />
       <Route path = '/chatbot/' exact component = {Chatbot} />

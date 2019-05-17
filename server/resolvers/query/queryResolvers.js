@@ -4,18 +4,40 @@ const axios = require('axios')
 const Fuse = require('fuse.js')
 
 module.exports = {
-	Query: {
-		async getUser(parent, input, { req, app, postgres }) {
-			try {
-				const selectAllUsers = {
-					text: "SELECT * FROM hired.users WHERE github_access_token !=''",
-				}
-				const allUsers = await postgres.query(selectAllUsers)
-				return allUsers.rows
-			} catch (error) {
-				// console.log('Could no`t find any user! ', error)
-			}
-		},
+  Query: {
+    async getUser(parent, input, { req, app, postgres }){
+      const id = 13
+      return {
+        id
+      }
+    },
+    
+    async getUserProfile(parent, input, { req, app, postgres }){
+      try {
+        const user_id = authenticate(app, req)
+
+        const selectColumns = [
+          'id',
+          'email',
+          'fullname',
+          'campus',
+          'location',
+          'role',
+          'current_job',
+          'avatar',
+          'study_year',
+          'study_cohort'
+        ]
+
+        const getUserProfileQuery = createSelectQuery(selectColumns, 'hired.users', 'id', user_id)
+        const getUserProfileResult = await postgres.query(getUserProfileQuery)
+
+        return getUserProfileResult.rows[0]
+      } catch (err) {
+        throw err
+      }
+    },
+
     async getUserPortfolio(parent, input, { req, app, postgres }) {
     //input.user_id is an optional param. If it is undefined the query will use authenticated user
     try {

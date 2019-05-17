@@ -65,3 +65,8 @@ export const portfolioValidation = Yup.object().shape({
   .min(3, "Longer type required.")
   .required("Type is required!"),
 })
+
+export const updateProfileValidation = Yup.object().shape({
+  editEmail: Yup.string()
+    .email()
+})

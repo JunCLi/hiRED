@@ -17,7 +17,7 @@ const initialFormValues = {
 	inviteCode: '',
 }
 
-function SignupForm(props) {
+const SignupForm = (props) => {
 	return (
 		<Mutation
 			mutation={signupMutation}

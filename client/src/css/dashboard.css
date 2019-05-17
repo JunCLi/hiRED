@@ -1,0 +1,42 @@
+/*
+=========================
+General Dashboard Layout
+=========================
+*/
+
+.dashboard.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 20px;
+
+  /* temporary */
+  margin: 50px auto;
+}
+
+/*
+=========================
+Dashboard Menu Layout
+=========================
+*/
+
+.dashboard .dashboard-menu {
+  padding: 20px;
+}
+
+.dashboard-menu button {
+  margin: 10px auto;
+}
+
+.dashboard-menu button span {
+  justify-content: none;
+}
+
+/*
+=========================
+Dashboard Content Layout
+=========================
+*/
+
+.dashboard-content {
+  padding: 20px;
+}

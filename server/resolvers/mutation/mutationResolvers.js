@@ -89,6 +89,54 @@ module.exports = {
 				throw err
 			}
 		},
+
+    async updateProfile(parent, { input }, { req, app, postgres }){
+      const user_id = authenticate(app, req)
+      const {campus, current_job, email, fullname, location, mentor, program_name, role, study_year, study_cohort} = input
+
+      const updateUserObject = {
+        'campus': campus,
+        'current_job': current_job,
+        'email': email,
+        'fullname': fullname,
+        'location': location,
+        'role': role,
+        'study_year': study_year,
+        'study_cohort': study_cohort
+      }
+      const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
+      await postgres.query(updateUserQuery)
+
+      if (mentor) {
+        const updateMentorObject = {
+          status: mentor
+        }
+        const updateMentorQuery = createUpdateQuery(updateMentorObject, 'user_id', 'hired.mentors', user_id)
+        await postgres.query(updateMentorQuery)
+      }
+
+      if (program_name) {
+        const selectProgramColumns = ['id']
+        const programIdQuery = createSelectQuery(selectProgramColumns, 'hired.programs', 'name', program_name)
+        const programIdQueryResult = await postgres.query(programIdQuery)
+
+        if (!programIdQueryResult.rows.length) throw 'There is no program of that name'
+
+        // const selectProgramsusersColumns = ['user_id', 'program_id']
+
+        const insertProgramsUsersObject = {
+          user_id: user_id,
+          program_id: programIdQueryResult.rows[0].id
+        }
+        const insertProgramsUsersQuery = createInsertQuery(insertProgramsUsersObject, 'hired.program_users', true)
+        // await postgres.query(insertProgramsUsersQuery)
+      }
+
+      return {
+        message: 'success'
+      }
+		},
+		
 		async login(parent, { input }, { app, req, postgres }) {
 			try {
 				let { email, password } = input

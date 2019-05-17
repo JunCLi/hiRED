@@ -1,0 +1,59 @@
+
+.profile {
+  --card-width: 350px;
+}
+
+.profile .profile-card {
+  max-width: var(--card-width);
+
+  /* Temporary */
+  margin: 20px
+}
+
+.profile .profile-avatar {
+  width: calc(var(--card-width) / 2.5);
+  height: calc(var(--card-width) / 2.5);
+  margin: 20px auto;
+}
+
+.profile h3 {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.profile h5 {
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.profile .profile-card-descript p {
+  font-size: 1em;
+}
+
+.profile .profile-info-title {
+  display: block;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.profile .profile-card-info {
+  font-size: 0.8em;
+  color: #bbb;
+}
+
+
+.profile .filter-portfolio-card {
+  max-width: var(--card-width);
+
+  /* Temporary */
+  margin: 20px
+}
+
+.profile .chip-container {
+  margin: 20px;
+}
+
+.profile .chip-container > div {
+  margin: 5px;
+  margin-right: 20px;
+}
