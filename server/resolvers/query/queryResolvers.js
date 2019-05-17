@@ -52,16 +52,26 @@ module.exports = {
             query {
               viewer{
                 name
-                repositories(last: 1){
+								repositories(last: 20){
                   nodes {
                     name
                     createdAt
-                    updatedAt
                     description
-                    url
+										forkCount
+										id
+										isLocked
+										isPrivate
+										owner{
+											login
+										}
+										pushedAt
+										resourcePath
                     stargazers{
                       totalCount
                     }
+										sshUrl
+										updatedAt
+										url
                   }
                 }
               }

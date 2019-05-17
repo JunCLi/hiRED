@@ -49,7 +49,6 @@ function SignupForm2(props) {
 							},
 						})
 						console.log(values)
-						alert(values)
 						setSubmitting(false)
 					}}
 					validationSchema={signup2Validation}
