@@ -10,23 +10,11 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const styles = theme => ({
-  container:{
-    justifyContent: "center",
-    border: "1px solid #9E9E9E",
-    borderRadius: "10px"
-  },
-  greeting:{
-    backgroundColor: "#E0E0E0",
-    fontSize: "20px",
-    fontWeight: "bold",
-    color: "#757575",
-    padding: "10px 15px",
-    borderBottom: "1px solid #9E9E9E",
-  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     padding: "10px 15px",
+    backgroundColor: "#FFF",
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -82,9 +70,10 @@ const Status = props => {
               handleSubmit
             } = props;
         return(
-          <div className={classes.container}>
-            <div className={classes.greeting}> 
-              <p> Hey, Bob! What are you looking for today? </p>
+          // <div className={classes.container}>
+          <div className='status-bar'>
+            <div className="greeting"> 
+              Hey, Bob! What are you looking for today?
             </div>
             <div className={classes.root}>
               <FormControl className={classes.formControl}>
@@ -150,7 +139,7 @@ const Status = props => {
               <FormControl className={classes.formControl}>
                 <Button 
                   variant="contained" 
-                  color="secondary" 
+                  color="primary" 
                   type="submit"
                   name="share" 
                   onClick = {() => addStatus()}

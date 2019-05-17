@@ -1,22 +1,18 @@
 import React, {useState} from "react";
+
 import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+
+import { AppBar, Toolbar, IconButton, Typography, Badge, MenuItem, Menu } from '@material-ui/core'
+
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import Chat_bubble from "@material-ui/icons/ChatBubbleRounded"
 import SettingsIcon from "@material-ui/icons/Settings";
-import MoreIcon from "@material-ui/icons/MoreVert";
+
+import '../../css/navigation.css'
 
 const styles = theme => ({
   root: {
@@ -30,15 +26,13 @@ const styles = theme => ({
     marginRight: 20,
   },
   hi: {
-    color: "#D50000",
-    paddingRight: "2px",
-    paddingLeft: "2px",
-    backgroundColor: "white"
+    color: "#C10909",
+    padding: "10px 2px 0px 13px",
+    backgroundColor: "#FFF",
+    borderRadius: "5px",
   },
   title: {
     display: "none",
-    backgroundColor: "#D50000",
-    paddingRight: "2px",
     fontWeight: "bold",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -89,36 +83,13 @@ const styles = theme => ({
       display: "flex",
     },
   },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-  },
 });
 
 const TopBar = props =>{
-  // state = {
-  //   anchorEl: null,
-  //   mobileMoreAnchorEl: null,
-  // };
-  
+ 
   let[myHandleProfileMenuOpen, setMyHandleProfileMenuOpen] = useState("")
   let[myHandleMenuClose, setHandleMenuClose] = useState("")
   let[myHndleMobileMenuClose, setHandleMobileMenuClose] = useState("")
-  // handleMenuClose = () => {
-  //   setState({ anchorEl: null });
-  //   handleMobileMenuClose();
-  // };
-
-  // handleMobileMenuOpen = event => {
-  //   setState({ mobileMoreAnchorEl: event.currentTarget });
-  // };
-
-  // handleMobileMenuClose = () => {
-  //   setState({ mobileMoreAnchorEl: null });
-  // };
-
   
     const { anchorEl, mobileMoreAnchorEl } = useState();
     const { classes } = props;
@@ -149,23 +120,12 @@ const TopBar = props =>{
     );
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="h4" color="inherit" noWrap>
+        <AppBar color='primary' position="static" style={{ height: '100px', background: 'transparent', boxShadow: 'none'}}>
+          <Toolbar className='container'style={{ paddingTop: '30px', height: '100px'}}>
+            <Typography className={classes.title} variant="h4" color="inherit" noWrap style={{ paddingTop: '30px', height: '100px'}}>
               <span className={classes.hi}>hi</span>RED
             </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
+            
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
             <IconButton
@@ -174,28 +134,22 @@ const TopBar = props =>{
                 onClick={(e) => {
                   setMyHandleProfileMenuOpen(e.target.value)}
                 }
+                style={{ fontSize:' 30px '}}
                 color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <Chat_bubble/>
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                  <SettingsIcon />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton 
-                aria-haspopup="true" 
-                onClick={(e) => {
-                  setMyHandleProfileMenuOpen(e.target.value)}
-                } 
-                color="inherit">
-                <MoreIcon />
-              </IconButton>
+            </IconButton>
+            <IconButton color="inherit" style={{ fontSize: '30px' }}>
+              <Badge badgeContent={4} color="secondary">
+                <Chat_bubble/>
+              </Badge>
+            </IconButton>
+            <IconButton color="inherit">
+              <SettingsIcon />
+            </IconButton>
+            <IconButton color="inherit">
+              <SearchIcon />
+            </IconButton>
             </div>
           </Toolbar>
         </AppBar>

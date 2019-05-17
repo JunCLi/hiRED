@@ -1,10 +1,10 @@
 import React from 'react'
 
-function LeftSideBar (){
+function LeftNav (){
     return(
-        <div>
+        <div className='left-nav'>
             <h1> Hello from left side bar </h1>
         </div>
     )
 }
-export default LeftSideBar
+export default LeftNav
