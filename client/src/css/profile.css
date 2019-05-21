@@ -1,3 +1,21 @@
+/* 
+=========================
+Profile General
+=========================
+*/
+
+.profile.container {
+	display: grid;
+	grid-template-columns: 200px 4fr 3fr;
+	grid-gap: 20px;
+}
+
+
+/* 
+=========================
+Profile Card
+=========================
+*/
 
 .profile {
   --card-width: 350px;
@@ -10,50 +28,69 @@
   margin: 20px
 }
 
-.profile .profile-avatar {
-  width: calc(var(--card-width) / 2.5);
-  height: calc(var(--card-width) / 2.5);
+.profile-card .profile-avatar {
+  width: calc(var(--card-width) / 4);
+  height: calc(var(--card-width) / 4);
   margin: 20px auto;
 }
 
-.profile h3 {
-  text-align: center;
-  font-size: 1.5em;
+.profile-card h3 {
+	font-size: 1.75em;
+	text-transform: capitalize
 }
 
-.profile h5 {
-  text-align: center;
+.profile-card h5 {
   font-size: 1.25em;
 }
 
-.profile .profile-card-descript p {
-  font-size: 1em;
+.profile-card .profile-card-descript p {
+	font-size: 1em;
 }
 
-.profile .profile-info-title {
-  display: block;
+.profile-card .card-section {
+	padding: 0.25em 0;
+}
+
+.profile-card .section-name h4 {
+	margin-bottom: 0;
+}
+
+.profile-card .section-content {
+	margin-left: 1em;
+}
+
+.profile-card .profile-info-title {
+  /* display: block; */
   font-weight: bold;
-  font-size: 1.25em;
 }
 
-.profile .profile-card-info {
+.profile-card .profile-card-info {
   font-size: 0.8em;
   color: #bbb;
 }
 
-
-.profile .filter-portfolio-card {
-  max-width: var(--card-width);
-
-  /* Temporary */
-  margin: 20px
+.profile-card .edit-profile-card-info {
+	margin-top: 6px;
+	text-transform: lowercase;
+	justify-content: center;
 }
 
-.profile .chip-container {
-  margin: 20px;
+/* 
+=========================
+Portfolio Filter
+=========================
+*/
+
+.profile .portfolio-filter {
+	display: flex;
+	flex-flow: row nowrap;
+
+	margin: 20px;
+
+	/* border: 1px solid black; */
 }
 
-.profile .chip-container > div {
-  margin: 5px;
-  margin-right: 20px;
+.portfolio-filter button {
+	border-radius: 0px;
+	border: 1px solid black;
 }

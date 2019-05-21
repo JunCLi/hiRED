@@ -29,6 +29,15 @@ export const listMyDribbbles = gql`
   }
 `
 
+export const isAuthenticated = gql`
+	query {
+		getUserProfile {
+			id
+			fullname
+		}
+	}
+`
+
 export const getUserProfileQuery = gql`
   query {
     getUserProfile {
@@ -42,6 +51,10 @@ export const getUserProfileQuery = gql`
       avatar
       study_year
       study_cohort
+      getPrograms {
+        id
+        name
+      }
     }
   }
 `

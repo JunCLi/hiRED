@@ -28,13 +28,13 @@ const AppRouter = () => {
 			<Route path='/mydribbbles/' exact component={MyDribbbles} />
 			<Route path='/login/' exact component={Login} />
 			<Route path='/profile/' exact component={Profile} />
-      <Route path='/dashboard/' exact component={Dashboard} />
+			<Route path='/dashboard/' exact component={Dashboard} />
 			<Route path='/mentors/' exact component={Mentors} />
-      <Route path = '/skills/' exact component = {Skills} />
-      <Route path = '/chatbot/' exact component = {Chatbot} />
-      <Route path = '/messages:conversation/' exact component = {Messages} />
-      <Route path='/portfolio/' exact component={Portfolio} />
-      <Route path= '/addportfolioitem/' exact component={AddPortfolioItem} />
+			<Route path = '/skills/' exact component = {Skills} />
+			<Route path = '/chatbot/' exact component = {Chatbot} />
+			<Route path = '/messages:conversation/' exact component = {Messages} />
+			<Route path='/portfolio/' exact component={Portfolio} />
+			<Route path= '/addportfolioitem/' exact component={AddPortfolioItem} />
 		</Router>
 	)
 }
