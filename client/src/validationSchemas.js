@@ -54,4 +54,14 @@ export const signup2Validation = Yup.object().shape({
     ),
 })
 
-
+export const portfolioValidation = Yup.object().shape({
+  title: Yup.string()
+  .min(1, 'Longer title required.')  
+  .required("Title is required!"),
+  description: Yup.string()
+  .min(4, "Longer description required.")
+  .required("Description is required!"),
+  type: Yup.string()
+  .min(3, "Longer type required.")
+  .required("Type is required!"),
+})

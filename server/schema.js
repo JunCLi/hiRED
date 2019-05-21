@@ -6,10 +6,14 @@ module.exports = gql`
 
   type Query {
     getUser: User
-    getMentors: [Mentors]!
-    getUserPortfolio(user_id: Int!): [Portfolio]!
+    getMentors(fullnameSearch: String, getPrograms: String, getSkills: [userSkills]): [Mentors]!
+    getAllSkills: [Skills]!
+    getUserPortfolio(user_id: Int): [Portfolio]!
     githubInfo: githubInfo
     getStatus(user_id: Int!): Status
+    listMyDribbbles: [Dribbble_Items]
+    getMessages(conversation_id:ID):[Messages]
+    getConversations: [ConversationRooms]
   }
 
   type Status {
@@ -19,6 +23,17 @@ module.exports = gql`
     looking_for: String,
     location: String
   }
+
+  type ConversationRooms{
+      id:Int
+    }
+
+  type Messages{
+      from_user:Int,
+      content:String,
+      date_created:String
+      fullname:String
+    }
 
   type githubInfo{
     name: String
@@ -37,9 +52,20 @@ module.exports = gql`
   type Stars{
     totalCount: Int
   }
+
   type getUserPortfolioResponse {
     message: String,
     portfolio: [Portfolio]
+  }
+
+  input userSkills {
+    skills_id: Int
+  }
+
+  type Skills {
+    id: Int,
+    label: String
+    value: String
   }
 
   type Portfolio {
@@ -54,7 +80,6 @@ module.exports = gql`
   }
 
   input AddUserPortfolioInput {
-    user_id: Int,
     title: String,
     description: String,
     type: String,
@@ -80,27 +105,33 @@ module.exports = gql`
     password: String,
     fullname: String,
     campus: String,
-    mentor: String,
+    mentor: Boolean,
     location: String,
     role: String,
     programs: String,
     current_job: String,
     avatar: String,
+    dribbble_connected: Boolean,
+    dribbble_api_code: String,
+    dribbble_access_token: String,
     github_api_code: String,
     github_access_token: String,
     github_social: GithubSocial
   }
+
   type GithubSocial {
     github: GithubItems
   }
+
   type GithubItems{
     id: ID!
     token: String
     date_pulled: Date
   }
+
   type Mentors {
     status: Boolean,
-    user: User
+    user: User,
   }
 
   input StatusInput {
@@ -109,6 +140,16 @@ module.exports = gql`
     role: String,
     looking_for: String,
     location: String
+}
+
+  input programObject {
+    id: Int,
+    name: String
+  }
+
+  type Programs {
+    id: Int,
+    name: String
   }
 
   type Mutation {
@@ -123,11 +164,34 @@ module.exports = gql`
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
     addStatus(input: StatusInput): addStatusResponse!
+    saveDribbbleCode (api_code: String): Boolean
+    addSkills(input: [skillsTags]): addSkillsResponse!
+    addConversation(user_id_2: Int): addConversationResponse!
+    addMessages(content: String, conversation_id: Int): addMessagesResponse!
   }
   
   type addStatusResponse {
     message: String
   }
+    
+  type addMessagesResponse {
+    message: String
+  }
+
+
+  type addConversationResponse {
+    id: Int
+  }
+
+   input skillsTags {
+    skills_id: Int,
+  }
+
+
+  type addSkillsResponse {
+    message: String
+  }
+
   type deleteUserPortfolioResponse {
     message: String
   }
@@ -181,5 +245,33 @@ module.exports = gql`
   type SignupForm2Response {
     message: String
   }
+
+  type Dribbble_Items {
+    id: ID
+    title: String
+    description: String
+    height: Int
+    width: Int
+    html_url: String
+    published_at: Date
+    updated_at: Date
+    images: Dribbble_Images
+  }
+
+  type Dribbble_Images {
+    hidpi: String
+    normal: String
+    one_x: String
+    teaser: String
+  }
+
+
+
+
+
+
+
+
+
 `
 
