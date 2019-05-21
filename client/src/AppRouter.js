@@ -16,6 +16,7 @@ import AddPortfolioItem from './components/portfolio/AddPortfolioItem'
 import Skills from "./components/skills/Skills"
 import Chatbot from "./components/chat/Chatbot"
 import Messages from "./components/chat/Messages"
+import Home from './components/feed/Home'
 
 const AppRouter = () => {
 	return (
@@ -27,6 +28,7 @@ const AppRouter = () => {
 			<Route path='/signup3/' exact component={SignupForm3} />
 			<Route path='/mydribbbles/' exact component={MyDribbbles} />
 			<Route path='/login/' exact component={Login} />
+      <Route path='/Home/' exact component={Home} />
 			<Route path='/profile/' exact component={Profile} />
 			<Route path='/dashboard/' exact component={Dashboard} />
 			<Route path='/mentors/' exact component={Mentors} />

@@ -10,10 +10,19 @@ module.exports = gql`
     getAllSkills: [Skills]!
     getUserPortfolio(user_id: Int): [Portfolio]!
     githubInfo: githubInfo
+    getStatus(user_id: Int!): Status
     listMyDribbbles: [Dribbble_Items]
     getMessages(conversation_id:ID):[Messages]
     getConversations: [ConversationRooms]
     getUserProfile: User
+  }
+
+  type Status {
+    id: ID!,
+    user_id: Int,
+    role: String,
+    looking_for: String,
+    location: String
   }
 
   type ConversationRooms{
@@ -134,6 +143,14 @@ module.exports = gql`
     user: User,
   }
 
+  input StatusInput {
+    id: ID,
+    user_id: Int,
+    role: String,
+    looking_for: String,
+    location: String
+}
+
   input programObject {
     id: Int,
     name: String
@@ -156,12 +173,17 @@ module.exports = gql`
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
     deleteUserPortfolio(id: Int!): deleteUserPortfolioResponse!
     saveGithubCode(api_code: String): String
+    addStatus(input: StatusInput): addStatusResponse!
     saveDribbbleCode (api_code: String): Boolean
     addSkills(input: [skillsTags]): addSkillsResponse!
     addConversation(user_id_2: Int): addConversationResponse!
     addMessages(content: String, conversation_id: Int): addMessagesResponse!
   }
-
+  
+  type addStatusResponse {
+    message: String
+  }
+    
   type addMessagesResponse {
     message: String
   }

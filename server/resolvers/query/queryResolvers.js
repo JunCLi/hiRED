@@ -74,16 +74,26 @@ module.exports = {
             query {
               viewer{
                 name
-                repositories(last: 1){
+								repositories(last: 20){
                   nodes {
                     name
                     createdAt
-                    updatedAt
                     description
-                    url
+										forkCount
+										id
+										isLocked
+										isPrivate
+										owner{
+											login
+										}
+										pushedAt
+										resourcePath
                     stargazers{
                       totalCount
                     }
+										sshUrl
+										updatedAt
+										url
                   }
                 }
               }
@@ -138,8 +148,23 @@ module.exports = {
            }
 
         results = await postgres.query(getMentorsSkills)
+       
+      }
+    },
+    
+    async getStatus(parent, {input}, {req, app, postgres}){
+      try {
+        const getAllStatus = {
+          text: 'SELECT * FROM hired.status WHERE user_id=1'
+        }
+        const result = await postgres.query(getAllStatus)
+        //console.log(" The result is: ============================ : ", result)
+      } catch (error) {
         
       }
+    }
+  },
+
       /// program filter ///
 
         if (program_name) {
