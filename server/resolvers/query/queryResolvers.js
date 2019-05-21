@@ -16,25 +16,52 @@ module.exports = {
 				console.log('Could not find any user! ', error)
 			}
 		},
+
+		async getUserProfile(parent, input, { req, app, postgres }){
+      try {
+        const user_id = authenticate(app, req)
+
+        const selectColumns = [
+          'id',
+          'email',
+          'fullname',
+          'campus',
+          'location',
+          'role',
+          'current_job',
+          'avatar',
+          'study_year',
+          'study_cohort'
+        ]
+
+        const getUserProfileQuery = createSelectQuery(selectColumns, 'hired.users', 'id', user_id)
+        const getUserProfileResult = await postgres.query(getUserProfileQuery)
+
+        return getUserProfileResult.rows[0]
+      } catch (err) {
+        throw err
+      }
+    },
+
     async getUserPortfolio(parent, input, { req, app, postgres }) {
-    //input.user_id is an optional param. If it is undefined the query will use authenticated user
-    try {
-      let user_id;
-      !input.user_id ? user_id = authenticate(app,req) : user_id = input.user_id;
+			//input.user_id is an optional param. If it is undefined the query will use authenticated user
+			try {
+				let user_id;
+				!input.user_id ? user_id = authenticate(app,req) : user_id = input.user_id;
 
-      // Build query string to SELECT * in all rows in porftolio table where user_id = input.user_id
-      const getUserPortfolioQuery = createSelectQuery(['*'], 'hired.portfolio', 'user_id', user_id);
+				// Build query string to SELECT * in all rows in porftolio table where user_id = input.user_id
+				const getUserPortfolioQuery = createSelectQuery(['*'], 'hired.portfolio', 'user_id', user_id);
 
-      // Run query with query string and get the goods
-      const portfolio = await postgres.query(getUserPortfolioQuery);
+				// Run query with query string and get the goods
+				const portfolio = await postgres.query(getUserPortfolioQuery);
 
-      return portfolio.rows
-    }
-    catch (e) {
-      console.log("Error in getUserPortfolio: ", e.message);
-      throw e;
-    }
-  },
+				return portfolio.rows
+			}
+			catch (e) {
+				console.log("Error in getUserPortfolio: ", e.message);
+				throw e;
+			}
+		},
 
 		async githubInfo(parent, { input }, { req, app, postgres }) {
 			const userId = authenticate(app, req)
@@ -85,16 +112,16 @@ module.exports = {
 				repositories: result.data.data.viewer.repositories.nodes,
 			}
 		},
+
     async getMentors(parent, input, { req, app, postgres }){
-        let getAllMentors;
-        let results;
+			let getAllMentors;
+			let results;
 
-        const fullnameSearch = input.fullnameSearch
-        const program_name = input.getPrograms
-        const skills_id =input.getSkills
+			const fullnameSearch = input.fullnameSearch
+			const program_name = input.getPrograms
+			const skills_id =input.getSkills
 
-        /// skills filter ////
-
+			/// skills filter ////
       if (skills_id.length > 0) {
         const skills_id_array = input.getSkills.map(d=> d.skills_id)
 
@@ -203,7 +230,8 @@ module.exports = {
      const results = await postgres.query(matchSkills)
 
       return results.rows
-    },
+		},
+		
    async listMyDribbbles(parent, _, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
@@ -224,6 +252,7 @@ module.exports = {
 				throw e.message
 			}
 		},
+
     async getStatus(parent, {input}, {req, app, postgres}){
       try {
         const getAllStatus = {
@@ -234,7 +263,8 @@ module.exports = {
       } catch (error) {
         
       }
-    },
+		},
+		
     async getMessages(parent, input, { req, app, postgres }) {
           let myConversation = input.conversation_id;
 

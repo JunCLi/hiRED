@@ -1,7 +1,8 @@
 import React from 'react'
+
+import TopBar from '../navigation/TopBar'
+import LeftNav from '../navigation/LeftNav'
 import Status from './Status'
-import TopBar from './TopBar'
-import LeftNav from './LeftNav'
 import AdsColumn from './AdsColumn'
 import MainColumn from './MainColumn'
 

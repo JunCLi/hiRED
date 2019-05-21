@@ -1,0 +1,106 @@
+/* 
+=========================
+Profile General
+=========================
+*/
+
+.profile .container {
+	display: grid;
+	grid-template-columns: 200px 4fr 3fr;
+	grid-gap: 20px;
+}
+
+
+/* 
+=========================
+Profile Navigation
+=========================
+*/
+
+.profile .nav-bar {
+	color: black;
+}
+
+/* 
+=========================
+Profile Card
+=========================
+*/
+
+.profile {
+  --card-width: 350px;
+}
+
+.profile .profile-card {
+  max-width: var(--card-width);
+
+  /* Temporary */
+  margin: 20px
+}
+
+.profile-card .profile-avatar {
+  width: calc(var(--card-width) / 4);
+  height: calc(var(--card-width) / 4);
+  margin: 20px auto;
+}
+
+.profile-card h3 {
+	font-size: 1.75em;
+	text-transform: capitalize
+}
+
+.profile-card h5 {
+  font-size: 1.25em;
+}
+
+.profile-card .profile-card-descript p {
+	font-size: 1em;
+}
+
+.profile-card .card-section {
+	padding: 0.25em 0;
+}
+
+.profile-card .section-name h4 {
+	margin-bottom: 0;
+}
+
+.profile-card .section-content {
+	margin-left: 1em;
+}
+
+.profile-card .profile-info-title {
+  /* display: block; */
+  font-weight: bold;
+}
+
+.profile-card .profile-card-info {
+  font-size: 0.8em;
+  color: #bbb;
+}
+
+.profile-card .edit-profile-card-info {
+	margin-top: 6px;
+	text-transform: lowercase;
+	justify-content: center;
+}
+
+/* 
+=========================
+Portfolio Filter
+=========================
+*/
+
+.profile .portfolio-filter {
+	display: flex;
+	flex-flow: row nowrap;
+
+	margin: 20px;
+
+	/* border: 1px solid black; */
+}
+
+.portfolio-filter button {
+	border-radius: 0px;
+	border: 1px solid black;
+}

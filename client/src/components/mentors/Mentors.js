@@ -9,7 +9,7 @@ import { programs } from '../../form-dropdown-values'
 import Select from 'react-select';
 import { ADD_CONVERSATION_MUTATION } from '../../graphql-queries/mutations'
 
-
+import LeftNav from '../navigation/LeftNav'
 
 let options;
 function Mentors(props){
@@ -51,6 +51,7 @@ function Mentors(props){
   return (
     <div className = "mentors-page">
     <h1> Mentors </h1>
+		<LeftNav />
     <Mutation
     mutation = {ADD_CONVERSATION_MUTATION}
     onError = {(error) => {
