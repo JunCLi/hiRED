@@ -364,6 +364,28 @@ module.exports = {
         console.log(" The error is: ", error);
       }
     },
+    
+    async addStatus(parent, {input}, {req, app, postgres}){
+      try {
+        let user_id =  1 //authenticate(app, req)
+        console.log('show me value: ', input)
+        const insertStatus = {
+          text: "INSERT INTO hired.status ( user_id, role, looking_for, location) VALUES ($1, $2, $3, $4) RETURNING *",
+          values: [ user_id, input.role, input.looking_for, input.location]
+        }
+        let result = await postgres.query(insertStatus)
+        return {
+          message: "The data is successfully inserted!"
+        }
+      }
+      catch (e) {
+        console.log("Sorry! there is an error: ", e.message);
+        throw e.message;
+      }
+    },
+  },
+}
+
 async addConversation(parent, input, {req, app, postgres}) {
       const user_id_1 = authenticate(app, req)
       const user_id_2 = input.user_id_2

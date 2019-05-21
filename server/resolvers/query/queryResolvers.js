@@ -126,7 +126,6 @@ module.exports = {
            }
 
         results = await postgres.query(getMentorsSkills)
-
       }
       /// program filter ///
 
@@ -225,6 +224,17 @@ module.exports = {
 				throw e.message
 			}
 		},
+    async getStatus(parent, {input}, {req, app, postgres}){
+      try {
+        const getAllStatus = {
+          text: 'SELECT * FROM hired.status WHERE user_id=1'
+        }
+        const result = await postgres.query(getAllStatus)
+        //console.log(" The result is: ============================ : ", result)
+      } catch (error) {
+        
+      }
+    },
     async getMessages(parent, input, { req, app, postgres }) {
           let myConversation = input.conversation_id;
 
