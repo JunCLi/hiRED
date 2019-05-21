@@ -9,11 +9,6 @@ import { Avatar, Button, Card, CardContent, CardHeader, Divider, Modal, Typograp
 
 const ProfileCard = (props) => {
 	const [basicInfoState, setBasicInfoState ] = useState(false)
-
-  // const handleClick = () => {
-  //   console.log(props)
-  //   props.props.history.push('/dashboard/')
-	// }
 	
 	const handleOpenBasicInfoModal = () => {
 		setBasicInfoState(true)
