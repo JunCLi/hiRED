@@ -9,7 +9,7 @@ import { programs } from '../../form-dropdown-values'
 import Select from 'react-select';
 import { ADD_CONVERSATION_MUTATION } from '../../graphql-queries/mutations'
 
-
+import LeftNav from '../navigation/LeftNav'
 
 let options;
 function Mentors(props){
@@ -39,18 +39,17 @@ function Mentors(props){
     setSkills(skills_array)
   }
 
- function handleSubmit(event) {
-  setValueSubmit(value)
-  setDropdownSubmit(dropdown)
-  setSkillsSubmit(skills)
-      event.preventDefault()
+	function handleSubmit(event) {
+		setValueSubmit(value)
+		setDropdownSubmit(dropdown)
+		setSkillsSubmit(skills)
+		event.preventDefault()
   }
-
-
 
   return (
     <div className = "mentors-page">
     <h1> Mentors </h1>
+		<LeftNav />
     <Mutation
     mutation = {ADD_CONVERSATION_MUTATION}
     onError = {(error) => {
@@ -100,7 +99,10 @@ function Mentors(props){
                         mentor
                         location
                         role
-                        programs
+                        getPrograms {
+													id
+													name
+												}
                         current_job
                         avatar
                       }

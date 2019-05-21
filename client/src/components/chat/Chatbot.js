@@ -3,6 +3,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Card, CardContent, Avatar, Typography } from "@material-ui/core/";
 
+import LeftNav from '../navigation/LeftNav'
+
 const GET_CONVERSATIONS = gql`
   query {
     getConversations {
@@ -21,6 +23,8 @@ const Chatbot = props => {
         if (errors) return <div>I have and error</div>;
 
         return (
+				<div>
+					<LeftNav />
           <Card>
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -41,6 +45,7 @@ const Chatbot = props => {
               ))}
             </CardContent>
           </Card>
+				</div>
         );
       }}
     </Query>

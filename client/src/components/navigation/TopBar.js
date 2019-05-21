@@ -119,7 +119,7 @@ const TopBar = props =>{
       </Menu>
     );
     return (
-      <div className={classes.root}>
+      <div className={`${classes.root} nav-bar`}>
         <AppBar color='primary' position="static" style={{ height: '100px', background: 'transparent', boxShadow: 'none'}}>
           <Toolbar className='container'style={{ paddingTop: '30px', height: '100px'}}>
             <Typography className={classes.title} variant="h4" color="inherit" noWrap style={{ paddingTop: '30px', height: '100px'}}>

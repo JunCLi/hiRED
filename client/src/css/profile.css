@@ -4,12 +4,22 @@ Profile General
 =========================
 */
 
-.profile.container {
+.profile .container {
 	display: grid;
 	grid-template-columns: 200px 4fr 3fr;
 	grid-gap: 20px;
 }
 
+
+/* 
+=========================
+Profile Navigation
+=========================
+*/
+
+.profile .nav-bar {
+	color: black;
+}
 
 /* 
 =========================
