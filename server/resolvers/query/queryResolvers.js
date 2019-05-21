@@ -126,8 +126,23 @@ module.exports = {
            }
 
         results = await postgres.query(getMentorsSkills)
+       
+      }
+    },
+    
+    async getStatus(parent, {input}, {req, app, postgres}){
+      try {
+        const getAllStatus = {
+          text: 'SELECT * FROM hired.status WHERE user_id=1'
+        }
+        const result = await postgres.query(getAllStatus)
+        //console.log(" The result is: ============================ : ", result)
+      } catch (error) {
         
       }
+    }
+  },
+
       /// program filter ///
 
         if (program_name) {
