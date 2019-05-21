@@ -32,13 +32,11 @@ module.exports.createInsertQuery = (inputObject, table, returnValues) => {
       values: queryValues
     }
   }
-
-  
 }
 
 module.exports.createUpdateQuery = (inputObject, selector, table, optSelectorValue) => {  
   const queryKeys = Object.keys(inputObject).filter(
-    key => inputObject[key] !== null && key !== selector
+    key => inputObject[key] !== null && inputObject[key] !== undefined && key !== selector
   )
   const queryValues = queryKeys.map(key => inputObject[key])
   const queryString = queryKeys.map((key, index) => {

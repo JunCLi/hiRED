@@ -7,6 +7,7 @@ const authenticate = (app, req) => {
       const jwtCookie = req.cookies['hiRED_app']
 
     const verified_information = jwt.verify(jwtCookie, 'secret')
+   
 
     return verified_information.data
 

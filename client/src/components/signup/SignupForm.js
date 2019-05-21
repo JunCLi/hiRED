@@ -5,11 +5,9 @@ import { signupValidation } from '../../validationSchemas'
 
 import { Mutation } from 'react-apollo'
 import { signupMutation } from '../../graphql-queries/mutations'
+import { withRouter } from 'react-router'
 
-import { TextField, Button, FormHelperText, MenuItem } from '@material-ui/core'
-
-import { programs, campus, studyCohort, studyYear } from '../../form-dropdown-values'
-
+import { TextField, Button, FormHelperText } from '@material-ui/core'
 
 const initialFormValues = {
 	userEmail: '',
@@ -17,14 +15,9 @@ const initialFormValues = {
 	password: '',
 	confirmPassword: '',
 	inviteCode: '',
-	whichCampus: '',
-	whichProgram: '',
-	whichStudyYear: '',
-	whichStudyCohort: '',
 }
 
-function SignupForm({props}) {
-
+const SignupForm = (props) => {
 	return (
 		<Mutation
 			mutation={signupMutation}
@@ -32,7 +25,7 @@ function SignupForm({props}) {
 				console.log('regular signup error: ', error)
 			}}
 			onCompleted={response => {
-				props.history.push("/signup2")
+				props.history.push('/signup2')
 
 				console.log('Signup response:', response)
 			}}
@@ -41,12 +34,16 @@ function SignupForm({props}) {
 				<Formik
 					initialValues={initialFormValues}
 					onSubmit={(values, { setSubmitting }) => {
-            console.log(values)
-            signup({ variables: {input: {
-              email: values.userEmail,
-              fullname: values.userFullname,
-              password: values.password,
-            }}})
+						console.log(values)
+						signup({
+							variables: {
+								input: {
+									email: values.userEmail,
+									fullname: values.userFullname,
+									password: values.password,
+								},
+							},
+						})
 						setSubmitting(false)
 					}}
 					validationSchema={signupValidation}
@@ -78,9 +75,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.userEmail && touched.userEmail ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.userEmail}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.userEmail}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -98,9 +93,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.userFullname && touched.userFullname ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.userFullname}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.userFullname}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -118,9 +111,7 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.password && touched.password ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.password}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.password}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
@@ -138,92 +129,10 @@ function SignupForm({props}) {
 										margin='normal'
 									/>
 									{errors.confirmPassword && touched.confirmPassword ? (
-										<FormHelperText className='form-helper form-error'>
-											{errors.confirmPassword}
-										</FormHelperText>
+										<FormHelperText className='form-helper form-error'>{errors.confirmPassword}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichCampus'
-										select
-										name='whichCampus'
-										label='Campus?'
-										value={values.whichCampus}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which campus did you study at?'
-										margin='normal'
-									>
-										{campus.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichProgram'
-										select
-										name='whichProgram'
-										label='Program?'
-										value={values.whichProgram}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which program did you study at RED?'
-										margin='normal'
-									>
-										{programs.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichStudyYear'
-										select
-										name='whichStudyYear'
-										label='Study Year?'
-										value={values.whichStudyYear}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='What year did you study at RED?'
-										margin='normal'
-									>
-										{studyYear.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
-								</div>
-
-								<div className='form-field'>
-									<TextField
-										id='whichStudyCohort'
-										select
-										name='whichStudyCohort'
-										label='Cohort ?'
-										value={values.whichStudyCohort}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										helperText='Which cohort did you study in?'
-										margin='normal'
-									>
-										{studyCohort.map(option => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.label}
-											</MenuItem>
-										))}
-									</TextField>
 								</div>
 
 								<section className='signup-form-btns'>
@@ -236,12 +145,7 @@ function SignupForm({props}) {
 									>
 										Sign Up
 									</Button>
-									<Button
-										className='btn-reset'
-										type='button'
-										disabled={!dirty || isSubmitting}
-										onClick={handleReset}
-									>
+									<Button className='btn-reset' type='button' disabled={!dirty || isSubmitting} onClick={handleReset}>
 										Reset
 									</Button>
 								</section>
@@ -254,4 +158,4 @@ function SignupForm({props}) {
 	)
 }
 
-export default SignupForm
+export default withRouter(SignupForm)

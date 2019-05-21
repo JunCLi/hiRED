@@ -1,0 +1,32 @@
+.chat-box {
+  width: 50%;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 20px;
+  margin: auto;
+
+}
+
+.input-text {
+  display: flex;
+  max-width: 50%;
+  width: 40%;
+  align-self: center;
+  margin: auto;
+  padding: 5px;
+  padding-left: 10px;
+  background-color: lightgrey;
+}
+
+.from-bubble {
+  background-color: lightblue;
+  padding: 10px;
+  padding-bottom: 0px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.messages {
+  display: flex;
+  justify-content: center;
+}

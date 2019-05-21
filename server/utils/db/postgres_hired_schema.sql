@@ -61,18 +61,18 @@ ALTER SEQUENCE hired.conversations_id_seq OWNED BY hired.conversations.id;
 
 
 --
--- Name: dribbble; Type: TABLE; Schema: hired; Owner: postgres
+-- Name: dribbble_items; Type: TABLE; Schema: hired; Owner: postgres
 --
 
-CREATE TABLE hired.dribbble (
+CREATE TABLE hired.dribbble_items (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    feed_item_id integer NOT NULL,
-    date_pulled timestamp without time zone DEFAULT now() NOT NULL
+    date_pulled timestamp without time zone DEFAULT now() NOT NULL,
+    token character varying(256)
 );
 
 
-ALTER TABLE hired.dribbble OWNER TO postgres;
+ALTER TABLE hired.dribbble_items OWNER TO postgres;
 
 --
 -- Name: dribbble_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
@@ -92,8 +92,22 @@ ALTER TABLE hired.dribbble_id_seq OWNER TO postgres;
 -- Name: dribbble_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
 --
 
-ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble.id;
+ALTER SEQUENCE hired.dribbble_id_seq OWNED BY hired.dribbble_items.id;
 
+
+--
+-- Name: dribbble; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.dribbble (
+    id integer DEFAULT nextval('hired.dribbble_id_seq'::regclass) NOT NULL,
+    user_id integer NOT NULL,
+    feed_item_id integer NOT NULL,
+    date_pulled timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE hired.dribbble OWNER TO postgres;
 
 --
 -- Name: feed_items; Type: TABLE; Schema: hired; Owner: postgres
@@ -386,17 +400,43 @@ ALTER SEQUENCE hired.programs_id_seq OWNED BY hired.programs.id;
 
 
 --
--- Name: tags; Type: TABLE; Schema: hired; Owner: postgres
+-- Name: skills; Type: TABLE; Schema: hired; Owner: postgres
 --
 
-CREATE TABLE hired.tags (
+CREATE TABLE hired.skills (
     id integer NOT NULL,
-    type text,
-    name text
+    value text,
+    label text
 );
 
 
-ALTER TABLE hired.tags OWNER TO postgres;
+ALTER TABLE hired.skills OWNER TO postgres;
+
+--
+-- Name: skills_users; Type: TABLE; Schema: hired; Owner: postgres
+--
+
+CREATE TABLE hired.skills_users (
+    user_id integer,
+    skills_id integer
+);
+
+
+ALTER TABLE hired.skills_users OWNER TO postgres;
+
+--
+-- Name: skills_users_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
+--
+
+CREATE SEQUENCE hired.skills_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hired.skills_users_id_seq OWNER TO postgres;
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: hired; Owner: postgres
@@ -416,7 +456,7 @@ ALTER TABLE hired.tags_id_seq OWNER TO postgres;
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: hired; Owner: postgres
 --
 
-ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.tags.id;
+ALTER SEQUENCE hired.tags_id_seq OWNED BY hired.skills.id;
 
 
 --
@@ -433,7 +473,14 @@ CREATE TABLE hired.users (
     location text,
     current_job text,
     avatar text,
-    date_created timestamp without time zone DEFAULT now() NOT NULL
+    date_created timestamp without time zone DEFAULT now() NOT NULL,
+    study_year text,
+    study_cohort text,
+    github_access_token text,
+    github_api_code text,
+    dribbble_access_token text,
+    dribbble_api_code text,
+    dribbble_connected text
 );
 
 
@@ -492,10 +539,10 @@ ALTER TABLE ONLY hired.conversations ALTER COLUMN id SET DEFAULT nextval('hired.
 
 
 --
--- Name: dribbble id; Type: DEFAULT; Schema: hired; Owner: postgres
+-- Name: dribbble_items id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.dribbble ALTER COLUMN id SET DEFAULT nextval('hired.dribbble_id_seq'::regclass);
+ALTER TABLE ONLY hired.dribbble_items ALTER COLUMN id SET DEFAULT nextval('hired.dribbble_id_seq'::regclass);
 
 
 --
@@ -548,10 +595,10 @@ ALTER TABLE ONLY hired.programs ALTER COLUMN id SET DEFAULT nextval('hired.progr
 
 
 --
--- Name: tags id; Type: DEFAULT; Schema: hired; Owner: postgres
+-- Name: skills id; Type: DEFAULT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.tags ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
+ALTER TABLE ONLY hired.skills ALTER COLUMN id SET DEFAULT nextval('hired.tags_id_seq'::regclass);
 
 
 --
@@ -634,10 +681,10 @@ ALTER TABLE ONLY hired.programs
 
 
 --
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
+-- Name: skills tags_pkey; Type: CONSTRAINT; Schema: hired; Owner: postgres
 --
 
-ALTER TABLE ONLY hired.tags
+ALTER TABLE ONLY hired.skills
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
@@ -662,7 +709,7 @@ ALTER TABLE ONLY hired.feed_items_tags
 --
 
 ALTER TABLE ONLY hired.feed_items_tags
-    ADD CONSTRAINT feed_items_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+    ADD CONSTRAINT feed_items_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.skills(id);
 
 
 --
@@ -702,7 +749,7 @@ ALTER TABLE ONLY hired.users_conversation
 --
 
 ALTER TABLE ONLY hired.users_tags
-    ADD CONSTRAINT users_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.tags(id);
+    ADD CONSTRAINT users_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES hired.skills(id);
 
 
 --

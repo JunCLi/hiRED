@@ -1,0 +1,49 @@
+.home-background {
+  background: url(../components/feed/red-curve.svg) no-repeat;
+  background-position: center 200%;
+  background-size: 150% 120%;
+  
+  /* background-position: center -70%;
+  background-size: 100% 70%; */
+}
+.homepage.container {
+  display: grid;
+  grid-template-columns: 2fr 5fr 3fr;
+  grid-gap: 50px;
+  grid-template-areas: 
+    'left status status'
+    'left main right';
+  padding-top: 25px; 
+}
+
+.homepage .status-bar {
+  grid-area: status;
+  border-radius: 10px;
+}
+
+.homepage .left-nav {
+	grid-area: left;
+	color: white;
+}
+
+.homepage .left-nav span {
+	color: white;
+}
+
+.homepage .ads-column {
+  grid-area: right;
+  background-color: #FFF;
+}
+
+.greeting{
+  background-color: #E0E0E0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 10px 10px 0 0;
+}
+.main-column{
+  background-color: #FFF;
+  
+}
