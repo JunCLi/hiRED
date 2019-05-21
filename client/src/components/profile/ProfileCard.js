@@ -54,7 +54,9 @@ const ProfileCard = (props) => {
 									<h4>Basic Info</h4>
 								}
 								action={
-									<Button className='edit-profile-card-info' onClick={handleOpenBasicInfoModal}>edit</Button>
+									<Button className='edit-profile-card-info' onClick={handleOpenBasicInfoModal}>
+										edit
+									</Button>
 								}
 							/>
 							<section className='section-content'>
