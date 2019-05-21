@@ -35,7 +35,7 @@ module.exports = {
       throw e;
     }
   },
-    
+
 		async githubInfo(parent, { input }, { req, app, postgres }) {
 			const userId = authenticate(app, req)
 			const getGithubInfo = {
@@ -94,7 +94,7 @@ module.exports = {
         const skills_id =input.getSkills
 
         /// skills filter ////
-        
+
       if (skills_id.length > 0) {
         const skills_id_array = input.getSkills.map(d=> d.skills_id)
 
@@ -126,7 +126,7 @@ module.exports = {
            }
 
         results = await postgres.query(getMentorsSkills)
-        
+
       }
       /// program filter ///
 
@@ -153,9 +153,9 @@ module.exports = {
                           FROM hired.users
                           INNER JOIN hired.mentors
                           ON hired.mentors.user_id = hired.users.id
-                          WHERE hired.users.id = $1
+                          WHERE hired.users.id = ANY($1)
                           `,
-                  values: [user_id[0]]
+                  values: [user_id]
                 }
 
           results = await postgres.query(getAllMentors)
@@ -194,7 +194,7 @@ module.exports = {
 
         return results.rows
 
-    }, 
+    },
     async getAllSkills(parent, {input}, { req, app, postgres }) {
 
       const matchSkills = {

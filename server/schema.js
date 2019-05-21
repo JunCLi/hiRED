@@ -21,10 +21,15 @@ module.exports = gql`
 
   type Messages{
       from_user:Int,
+      conversation_id: Int,
       content:String,
       date_created:String
       fullname:String
     }
+
+  type Subscription{
+    messageAdded(conversation_id: ID!): Messages
+  }
 
   type githubInfo{
     name: String
@@ -242,14 +247,6 @@ module.exports = gql`
     one_x: String
     teaser: String
   }
-
-
-
-
-
-
-
-
 
 `
 
