@@ -25,6 +25,7 @@
 		"fuse": "^0.4.0",
 		"fuse.js": "^3.4.4",
 		"graphql": "^14.1.1",
+		"graphql-subscriptions": "^1.1.0",
 		"jsonwebtoken": "^8.5.1",
 		"node-cron": "^2.0.3",
 		"node-pg-migrate": "^3.16.0",

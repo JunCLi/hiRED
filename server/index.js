@@ -12,6 +12,7 @@ const fallback = require('express-history-api-fallback')
 const postgres = require('./config/postgres')
 const typeDefs = require('./schema')
 let resolvers = require('./resolvers')
+const http = require("http")
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -49,7 +50,10 @@ const schema = makeExecutableSchema({
 })
 
 const apolloServer = new ApolloServer({
-	context: ({ req }) => {
+	context: ({ req, connection }) => {
+		if (connection) {
+			return connection.context
+		}
 		if (req.headers.referer === 'http://localhost:8080/graphql' && process.env.NODE_ENV !== 'production') {
 			app.set('SKIP_AUTH', true)
 		} else {
@@ -69,12 +73,16 @@ apolloServer.applyMiddleware({
 	cors: app.get('CORS_CONFIG'),
 })
 
+let server = http.createServer(app)
+
+apolloServer.installSubscriptionHandlers(server)
+
 postgres.on('error', (err, client) => {
 	console.error('Unexpected error on idle postgres client', err)
 	process.exit(-1)
 })
 
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`>> ${chalk.blue('Express running:')} http://localhost:${PORT}`)
 
 	console.log(`>> ${chalk.magenta('GraphQL playground:')} http://localhost:${PORT}/graphql`)

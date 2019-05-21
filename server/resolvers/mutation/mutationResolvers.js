@@ -5,6 +5,7 @@ const crypto = require('crypto')
 const Promise = require('bluebird')
 const authenticate = require('../authenticate')
 const axios = require('axios')
+const pubsub = require("../../utils/pubsub")
 
 const { createCookie, setCookie } = require('./setCookie')
 const { createInsertQuery, createUpdateQuery, createSelectQuery } = require('../makeQuery')
@@ -435,6 +436,8 @@ async addConversation(parent, input, {req, app, postgres}) {
 
       const result = await postgres.query(newMessages)
 
+      pubsub.publish("messageAdded", {messageAdded: result.rows[0]})
+
       return {
         message: "Yes"
       }
@@ -456,7 +459,7 @@ async addConversation(parent, input, {req, app, postgres}) {
       return {
         message: 'Successfully deleted portfolio item'
       }
-    } 
+    }
       catch (e) {
         console.log("Error in deleteUserPortfolio Resolver: ", e.message);
         throw e.message;
