@@ -21,7 +21,6 @@ const LeftNav = (props) => {
 				if (err) return <div>error!</div>
 				return (
 					<div className='nav left-nav'>
-						<h1>Left Nav</h1>
 						<Link to='/home/'>
 							<Button fullWidth={true}>
 								temp go to feeds

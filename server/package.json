@@ -15,7 +15,7 @@
 		"@okgrow/graphql-scalars": "^0.4.5",
 		"apollo-server": "^2.4.8",
 		"apollo-server-express": "^2.4.6",
-		"axios": "^0.18.0",
+		"axios": "^0.19.0",
 		"bcrypt": "^3.0.4",
 		"bluebird": "^3.5.3",
 		"cookie-parser": "^1.4.4",

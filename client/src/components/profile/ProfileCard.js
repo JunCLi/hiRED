@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { Query } from 'react-apollo'
 import { getUserProfileQuery } from '../../graphql-queries/queries'
 
-import { Avatar, Button, Card, CardContent, CardHeader, Divider, Modal, Typography, } from '@material-ui/core'
+import { Avatar, Button, Card, CardContent, CardHeader, Divider, Modal, Typography } from '@material-ui/core'
+
+import SocialIntegrations from './SocialIntegrations'
    
-
-
-const ProfileCard = (props) => {
+const ProfileCard = props => {
 	const [basicInfoState, setBasicInfoState ] = useState(false)
 	
 	const handleOpenBasicInfoModal = () => {
@@ -114,25 +114,7 @@ const ProfileCard = (props) => {
 
             <Divider variant='middle' />
 
-						<CardContent className='card-section'>
-							<CardHeader
-								className='section-name'
-								title={
-									<h4>Social Integrations</h4>
-								}
-							/>
-							<section className='section-content'>
-								<div>
-									Dribbble
-								</div>
-								<div>
-									Github
-								</div>
-								<div>
-									LinkedIn (soon)
-								</div>
-							</section>
-						</CardContent>
+						<SocialIntegrations />
 						
 					</Card>
 				)
