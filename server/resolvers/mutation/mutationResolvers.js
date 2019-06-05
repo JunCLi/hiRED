@@ -201,7 +201,7 @@ module.exports = {
         throw e.message;
       }
 		},
-		
+
 		async addMentors(parent, { input }, { app, req, postgres }) {
 			try {
 				let user_id = authenticate(app, req)
@@ -242,7 +242,7 @@ module.exports = {
         message: "success"
       }
 		},
-		
+
 		async updateUserPortfolio(parent, { input }, { app, req, postgres }) {
 			// Check for auth to update?
 			try {
@@ -352,7 +352,7 @@ module.exports = {
         throw e.message;
       }
 		},
-		
+
     async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
       try {
 
@@ -391,7 +391,7 @@ module.exports = {
 				throw e.message;
 			}
 		},
-		
+
      async saveGithubCode(parent, input, {req, app, postgres}){
       try {
        const userId = authenticate(app, req)
@@ -421,7 +421,7 @@ module.exports = {
         console.log(" The error is: ", error);
       }
     },
-    
+
     async addStatus(parent, {input}, {req, app, postgres}){
       try {
         let user_id =  1 //authenticate(app, req)
@@ -440,8 +440,7 @@ module.exports = {
         throw e.message;
       }
     },
-
-		async addConversation(parent, input, {req, app, postgres}) {
+async addConversation(parent, input, {req, app, postgres}) {
       const user_id_1 = authenticate(app, req)
       const user_id_2 = input.user_id_2
 
@@ -477,7 +476,7 @@ module.exports = {
 				}
 			}
 		},
-		
+
     async addMessages(parent, input, {req, app, postgres}) {
       const from_user = authenticate(app, req)
 
@@ -499,7 +498,7 @@ module.exports = {
       }
 
 		},
-		
+
  		async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
     // Check for auth to delete!!!!
     try {

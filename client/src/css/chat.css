@@ -21,7 +21,7 @@
 .from-bubble {
   position: relative;
   border-radius: .4em;
-  background-color: #00aabb;
+  background-color: #c12c27;
   padding: 10px;
   padding-bottom: 0px;
   margin-bottom: 10px;
@@ -36,7 +36,7 @@
   width: 0;
   height: 0;
   border: 0.656em solid transparent;
-  border-left-color: #00aabb;
+  border-left-color: #c12c27;
   border-right: 0;
   border-bottom: 0;
   margin-top: 0.5em;

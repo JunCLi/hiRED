@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { Query, Mutation } from "react-apollo";
+import { Query, Mutation, Subscription } from "react-apollo";
 import gql from "graphql-tag";
 import { InputBase, IconButton } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send';
@@ -19,6 +19,17 @@ query GetMessages($number:ID){
     }
 	}
 `
+
+const COMMENTS_SUBSCRIPTION = gql`
+  subscription onMessageAdded($conversation_id: ID!) {
+    messageAdded(conversation_id: $conversation_id) {
+      from_user
+      conversation_id
+      content
+      fullname
+    }
+  }
+`;
 
 function Messages(props){
   let number = +props.match.params.conversation
