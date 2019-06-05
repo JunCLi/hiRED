@@ -15,17 +15,22 @@
     'left main right';
   padding-top: 25px; 
 }
-.status-bar {
+
+.homepage .status-bar {
   grid-area: status;
   border-radius: 10px;
 }
 
-.left-nav {
-  grid-area: left;
-  background-color: #FFF;
+.homepage .left-nav {
+	grid-area: left;
+	color: white;
 }
 
-.ads-column {
+.homepage .left-nav span {
+	color: white;
+}
+
+.homepage .ads-column {
   grid-area: right;
   background-color: #FFF;
 }

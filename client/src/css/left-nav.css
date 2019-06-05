@@ -1,0 +1,22 @@
+/*
+=========================
+Left Navigation Layout
+=========================
+*/
+
+.left-nav button {
+	margin: 5px auto;
+}
+
+.left-nav .left-nav-icon {
+	width: 1.5em;
+	padding-right: 5px;
+	font-size: 1.5em;
+}
+
+.left-nav button span {
+	justify-content: left;
+	text-transform: capitalize;
+
+	font-size: 1.25em;
+}

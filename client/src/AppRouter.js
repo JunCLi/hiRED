@@ -9,7 +9,6 @@ import Profile from './components/profile/Profile'
 import SignupForm2 from './components/signup/SignupForm2'
 import SignupForm3 from './components/signup/SignupForm3'
 import Mentors from './components/mentors/Mentors'
-import Signup3 from './components/signup/Signup3'
 import Portfolio from './components/portfolio/Portfolio'
 import AddPortfolioItem from './components/portfolio/AddPortfolioItem'
 import Skills from "./components/skills/Skills"

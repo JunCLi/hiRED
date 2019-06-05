@@ -14,6 +14,7 @@ module.exports = gql`
     listMyDribbbles: [Dribbble_Items]
     getMessages(conversation_id:ID):[Messages]
     getConversations: [ConversationRooms]
+    getUserProfile: User
   }
 
   type Status {
@@ -116,6 +117,10 @@ module.exports = gql`
     programs: String,
     current_job: String,
     avatar: String,
+    study_year: String,
+    study_cohort: String,
+		getMentor: Mentors,
+    getPrograms: [Programs]
     dribbble_connected: Boolean,
     dribbble_api_code: String,
     dribbble_access_token: String,
@@ -151,7 +156,7 @@ module.exports = gql`
     id: Int,
     name: String
   }
-
+	
   type Programs {
     id: Int,
     name: String
@@ -163,6 +168,7 @@ module.exports = gql`
     addMentors(input: AddMentorsObject): addMentorsResponse!
     signup(input: SignupObject!): SignupResponse!
     signupForm2(input: SignupForm2Object!): SignupForm2Response!
+    updateProfile(input: UpdateProfileObject!): MessageResponse!
     login(input: LoginObject!): LoginResponse!
     addUserPortfolio(input: AddUserPortfolioInput!): Portfolio!
     updateUserPortfolio(input: UpdateUserPortfolioInput!): Portfolio!
@@ -197,6 +203,10 @@ module.exports = gql`
     message: String
   }
 
+	type MessageResponse {
+    message: String
+  }
+
   type deleteUserPortfolioResponse {
     message: String
   }
@@ -224,6 +234,20 @@ module.exports = gql`
   }
 
   input SignupForm2Object {
+    campus: String,
+    program_name: String,
+    study_year: String,
+    study_cohort: String,
+    role: String,
+    current_job: String,
+    location: String,
+    mentor: Boolean,
+  }
+
+	input UpdateProfileObject {
+    email: String,
+    fullname: String,
+    password: String
     campus: String,
     program_name: String,
     study_year: String,

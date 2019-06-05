@@ -90,6 +90,54 @@ module.exports = {
 				throw err
 			}
 		},
+
+		async updateProfile(parent, { input }, { req, app, postgres }){
+      const user_id = authenticate(app, req)
+      const {campus, current_job, email, fullname, location, mentor, program_name, role, study_year, study_cohort} = input
+
+      const updateUserObject = {
+        'campus': campus,
+        'current_job': current_job,
+        'email': email,
+        'fullname': fullname,
+        'location': location,
+        'role': role,
+        'study_year': study_year,
+        'study_cohort': study_cohort
+      }
+      const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
+      await postgres.query(updateUserQuery)
+
+      if (mentor) {
+        const updateMentorObject = {
+          status: mentor
+        }
+        const updateMentorQuery = createUpdateQuery(updateMentorObject, 'user_id', 'hired.mentors', user_id)
+        await postgres.query(updateMentorQuery)
+      }
+
+      if (program_name) {
+        const selectProgramColumns = ['id']
+        const programIdQuery = createSelectQuery(selectProgramColumns, 'hired.programs', 'name', program_name)
+        const programIdQueryResult = await postgres.query(programIdQuery)
+
+        if (!programIdQueryResult.rows.length) throw 'There is no program of that name'
+
+        // const selectProgramsusersColumns = ['user_id', 'program_id']
+
+        const insertProgramsUsersObject = {
+          user_id: user_id,
+          program_id: programIdQueryResult.rows[0].id
+        }
+        const insertProgramsUsersQuery = createInsertQuery(insertProgramsUsersObject, 'hired.program_users', true)
+        // await postgres.query(insertProgramsUsersQuery)
+      }
+
+      return {
+        message: 'success'
+      }
+		},
+
 		async login(parent, { input }, { app, req, postgres }) {
 			try {
 				let { email, password } = input
@@ -116,6 +164,7 @@ module.exports = {
 				throw err
 			}
 		},
+
 		async addUserPortfolio(parent, { input }, { req, app, postgres}){
       try {
 
@@ -151,7 +200,8 @@ module.exports = {
         console.log("Error in addPortfolio: ", e.message);
         throw e.message;
       }
-    },
+		},
+		
 		async addMentors(parent, { input }, { app, req, postgres }) {
 			try {
 				let user_id = authenticate(app, req)
@@ -173,6 +223,7 @@ module.exports = {
 				throw e.message
 			}
 		},
+
     async addSkills(parent, {input}, { req, app, postgres }) {
       const user_id = authenticate(app, req)
 
@@ -190,7 +241,8 @@ module.exports = {
       return {
         message: "success"
       }
-    },
+		},
+		
 		async updateUserPortfolio(parent, { input }, { app, req, postgres }) {
 			// Check for auth to update?
 			try {
@@ -226,6 +278,7 @@ module.exports = {
 				throw e.message
 			}
 		},
+
 		async deleteUserPortfolio(parent, input, { app, req, postgres }) {
 			// Check for auth to delete?
 			try {
@@ -246,6 +299,7 @@ module.exports = {
 				throw e.message
 			}
 		},
+
 		async saveDribbbleCode(parent, { api_code }, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
@@ -275,6 +329,7 @@ module.exports = {
 				throw e.message
 			}
 		},
+
     async addMentors(parent, {input}, { req, app, postgres }) {
       try {
         let user_id =  authenticate(app, req)
@@ -296,7 +351,8 @@ module.exports = {
         console.log("Error in addMentors: ", e.message);
         throw e.message;
       }
-    },
+		},
+		
     async updateUserPortfolio(parent, { input }, { req, app, postgres }) {
       try {
 
@@ -334,7 +390,8 @@ module.exports = {
 				console.log(e.message)
 				throw e.message;
 			}
-    },
+		},
+		
      async saveGithubCode(parent, input, {req, app, postgres}){
       try {
        const userId = authenticate(app, req)
@@ -383,45 +440,44 @@ module.exports = {
         throw e.message;
       }
     },
-  },
-}
 
-async addConversation(parent, input, {req, app, postgres}) {
+		async addConversation(parent, input, {req, app, postgres}) {
       const user_id_1 = authenticate(app, req)
       const user_id_2 = input.user_id_2
 
       const start_convo = [user_id_1, user_id_2]
       const receive_convo = [user_id_1, user_id_2]
 
-     const checkConversation = {
+    	const checkConversation = {
         text: "SELECT * FROM hired.conversations WHERE hired.conversations.user_id_1 = ANY($1) AND hired.conversations.user_id_2 = ANY($2)",
         values: [start_convo, receive_convo]
       }
 
       const results = await postgres.query(checkConversation)
       // check if conversation exists. If it does return conversation id, if not then create a conversation
-        if(results.rows.length > 0) {
-          const conversation_id = results.rows[0].id
-          return {
-            id: conversation_id
-          }
-        }
-        else {
+			if(results.rows.length > 0) {
+				const conversation_id = results.rows[0].id
+				return {
+					id: conversation_id
+				}
+			}
+			else {
 
-          const newConversation = {
-            text: 'INSERT INTO hired.conversations (user_id_1, user_id_2) VALUES ($1, $2) RETURNING *',
-            values: [user_id_1, user_id_2],
-          }
+				const newConversation = {
+					text: 'INSERT INTO hired.conversations (user_id_1, user_id_2) VALUES ($1, $2) RETURNING *',
+					values: [user_id_1, user_id_2],
+				}
 
-          const result = await postgres.query(newConversation)
+				const result = await postgres.query(newConversation)
 
-          const new_conversation_id = result.rows[0].id
+				const new_conversation_id = result.rows[0].id
 
-          return {
-            id: new_conversation_id
-          }
-        }
-    },
+				return {
+					id: new_conversation_id
+				}
+			}
+		},
+		
     async addMessages(parent, input, {req, app, postgres}) {
       const from_user = authenticate(app, req)
 
@@ -442,10 +498,10 @@ async addConversation(parent, input, {req, app, postgres}) {
         message: "Yes"
       }
 
-    },
- async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
+		},
+		
+ 		async deleteUserPortfolio(parent,  input, { req, app, postgres }) {
     // Check for auth to delete!!!!
-
     try {
       const id = input.id;
 
@@ -459,8 +515,7 @@ async addConversation(parent, input, {req, app, postgres}) {
       return {
         message: 'Successfully deleted portfolio item'
       }
-    }
-      catch (e) {
+    } catch (e) {
         console.log("Error in deleteUserPortfolio Resolver: ", e.message);
         throw e.message;
       }
