@@ -2,10 +2,6 @@ import React from 'react'
 
 import { Button } from '@material-ui/core';
 
-const handleDelete = () => {
-  console.log('do stuff')
-}
-
 const ProfileFilterPortfolio = () => {
   return (
     <div className='portfolio-filter'>

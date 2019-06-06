@@ -67,6 +67,7 @@ export const getFullProfileQuery = gql`
       id
       email
       fullname
+			description
       campus
       location
       role
