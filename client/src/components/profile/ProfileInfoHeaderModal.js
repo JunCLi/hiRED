@@ -5,25 +5,23 @@ import { Formik } from 'formik'
 import { useMutation } from 'react-apollo-hooks'
 import { updateProfileMutation } from '../../graphql-queries/mutations'
 
-import { Button, Card,  MenuItem, Modal, TextField } from '@material-ui/core'
+import { Button, Card, FormHelperText, MenuItem, Modal, TextField } from '@material-ui/core'
 
-import { programs as programsOptions, campus as campusOptions, studyCohort as studyCohortOptions, studyYear as studyYearOptions } from '../../form-dropdown-values'
+import { programs as programsOptions } from '../../form-dropdown-values'
 
-
-const ProfileRedAcademyModal = props => {
+const ProfileInfoHeaderModal = props => {
 	const { modalState, closeModal } = props
-	const { campus, programName, studyYear, studyCohort } = props
+	const { fullname, programName, description } = props
 	const [completed, setCompleted] = useState(false)
 
-	const updateProfile = useMutation(updateProfileMutation) 
+	const updateProfile = useMutation(updateProfileMutation)
 
 	const initialFormValues = {
-		editCampus: campus,
+		editFullname: fullname,
 		editProgram: programName,
-		editStudyYear: studyYear,
-		editStudyCohort: studyCohort,
+		editDescription: description
 	}
-	
+
 	return (
 		<Modal
 			className='edit-profile-modal'
@@ -35,12 +33,12 @@ const ProfileRedAcademyModal = props => {
 					initialValues={initialFormValues}
 					onSubmit={async (values, { setSubmitting }) => {
 						try {
+							console.log('values', values)
 							const result = await updateProfile({
 								variables: {input: {
-									campus: values.editCampus,
-									program_name: values.editProgramName,
-									study_year: values.editStudyYear,
-									study_cohort: values.editStudyCohort,
+									fullname: values.editFullname,
+									program_name: values.editProgram,
+									description: values.editDescription,
 								}}
 							})
 							if (result) setCompleted(true)
@@ -53,6 +51,8 @@ const ProfileRedAcademyModal = props => {
 					{formikProps => {
 						const {
 							values,
+							touched,
+							errors,
 							dirty,
 							isSubmitting,
 							handleChange,
@@ -63,24 +63,26 @@ const ProfileRedAcademyModal = props => {
 
 						return (
 							<form onSubmit={handleSubmit}>
-								<div className='form-field'>
+								<div>
                   <TextField
-                    id='editCampus'
-                    select
-                    name='editCampus'
-                    label='Campus?'
-                    value={values.editCampus}
+                    type='text'
+                    id='editFullname'
+                    name='editFullname'
+                    label='Fullname'
+                    value={values.editFullname}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    helperText='Which campus did you study at?'
                     margin='normal'
-                  >
-                    {campusOptions.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                  />
+                  {errors.editFullname && touched.editFullname ? (
+                    <FormHelperText className='form-helper form-error'>
+                      {errors.editFullname}
+                    </FormHelperText>
+                  ) : (
+                    <FormHelperText className='form-helper'>
+                      Your first and last name
+                    </FormHelperText>
+                  )}
                 </div>
 
 								<div className='form-field'>
@@ -103,44 +105,26 @@ const ProfileRedAcademyModal = props => {
                   </TextField>
                 </div>
 
-								<div className='form-field'>
+								<div>
                   <TextField
-                    id='editStudyYear'
-                    select
-                    name='editStudyYear'
-                    label='Study Year?'
-                    value={values.editStudyYear}
+                    type='text'
+                    id='editDescription'
+                    name='editDescription'
+                    label='Description'
+                    value={values.editDescription}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    helperText='What year did you study at RED?'
                     margin='normal'
-                  >
-                    {studyYearOptions.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </div>
-
-								<div className='form-field'>
-                  <TextField
-                    id='editStudyCohort'
-                    select
-                    name='editStudyCohort'
-                    label='Cohort ?'
-                    value={values.editStudyCohort}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    helperText='Which cohort did you study in?'
-                    margin='normal'
-                  >
-                    {studyCohortOptions.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                  />
+                  {errors.editDescription && touched.editDescription ? (
+                    <FormHelperText className='form-helper form-error'>
+                      {errors.editDescriptions}
+                    </FormHelperText>
+                  ) : (
+                    <FormHelperText className='form-helper'>
+                      A short decription of yourself
+                    </FormHelperText>
+                  )}
                 </div>
 
 								<section className='signup-form-btns'>
@@ -174,4 +158,4 @@ const ProfileRedAcademyModal = props => {
 	)
 }
 
-export default ProfileRedAcademyModal
+export default ProfileInfoHeaderModal

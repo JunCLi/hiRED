@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 
 import { CardContent, CardHeader } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import { FaGithub, FaDribbble, FaLinkedin } from 'react-icons/fa'
 
 import SocialIntegrationsItem from './SocialIntegrationsItem'
 
-const SocialIntegrations = props => {
+const SocialIntegrations = () => {
 	const [dribbble, setDribbble] = useState(false)
 	const [github, setGithub] = useState(false)
 	const [linkedIn, setLinkedIn] = useState(false)

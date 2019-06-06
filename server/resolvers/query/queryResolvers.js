@@ -24,7 +24,8 @@ module.exports = {
         const selectColumns = [
           'id',
           'email',
-          'fullname',
+					'fullname',
+					'description',
           'campus',
           'location',
           'role',

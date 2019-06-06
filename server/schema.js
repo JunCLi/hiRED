@@ -110,6 +110,7 @@ module.exports = gql`
     email: String,
     password: String,
     fullname: String,
+		description: String,
     campus: String,
     mentor: Boolean,
     location: String,
@@ -245,17 +246,18 @@ module.exports = gql`
   }
 
 	input UpdateProfileObject {
-    email: String,
-    fullname: String,
+    email: String
+    fullname: String
     password: String
-    campus: String,
-    program_name: String,
-    study_year: String,
-    study_cohort: String,
-    role: String,
-    current_job: String,
-    location: String,
-    mentor: Boolean,
+		description: String
+    campus: String
+    program_name: String
+    study_year: String
+    study_cohort: String
+    role: String
+    current_job: String
+    location: String
+    mentor: Boolean
   }
 
   input LoginObject {

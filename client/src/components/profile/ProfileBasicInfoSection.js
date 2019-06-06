@@ -8,7 +8,6 @@ import ProfileBasicInfoModal from './ProfileBasicInfoModal'
 
 const ProfileBasicInfoSection = props => {
 	const { email, currentJob, location } = props
-
 	const [modalState, setModalState ] = useState(false)
 	
 	const handleOpenModal = () => {

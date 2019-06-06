@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Query } from 'react-apollo'
-import { getUserProfileQuery } from '../../graphql-queries/queries'
+import { getFullProfileQuery } from '../../graphql-queries/queries'
 
-import { Avatar, Button, Card, CardContent, CardHeader, Divider, Modal, Typography } from '@material-ui/core'
+import { Card, Divider } from '@material-ui/core'
 
 import ProfileInfoheader from './ProfileInfoHeader'
 import ProfileBasicInfoSection from './ProfileBasicInfoSection'
@@ -13,16 +13,18 @@ import SocialIntegrations from './SocialIntegrations'
    
 const ProfileCard = props => {
 	return (
-		<Query query={getUserProfileQuery}>
+		<Query query={getFullProfileQuery}>
 			{({ loading, err, data }) => {
 				if (loading) return <div>loading...</div>
 				if (err || !data) return <div>error!</div>
 				if (!data) return props.history.push('/login')
+
 				return (
 					<Card className='profile-card'>
 						<ProfileInfoheader
 							fullname={data.getUserProfile.fullname}
-							programName={data.getUserProfile.getPrograms[0].name}
+							programName={data.getUserProfile.getPrograms.length ? data.getUserProfile.getPrograms[0].name : ''}
+							description={data.getUserProfile.description}
 						/>
 
             <Divider variant='middle' />
@@ -35,7 +37,7 @@ const ProfileCard = props => {
 
 						<ProfileRedAcademySection
 							campus={data.getUserProfile.campus}
-							programName={data.getUserProfile.getPrograms[0].name}
+							programName={data.getUserProfile.getPrograms.length ? data.getUserProfile.getPrograms[0].name : ''}
 							studyYear={data.getUserProfile.study_year}
 							studyCohort={data.getUserProfile.study_cohort}
 						/>
