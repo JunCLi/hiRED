@@ -21,9 +21,9 @@ Profile Navigation
 	color: black;
 }
 
-/* 
+/*
 =========================
-Profile Card
+Profile Info Section
 =========================
 */
 
@@ -31,12 +31,19 @@ Profile Card
   --card-width: 350px;
 }
 
+.profile-information {
+	padding: 20px;
+}
+
 .profile .profile-card {
   max-width: var(--card-width);
-
-  /* Temporary */
-  margin: 20px
 }
+
+/* 
+=========================
+Profile Card
+=========================
+*/
 
 .profile-card .profile-avatar {
   width: calc(var(--card-width) / 4);
@@ -85,6 +92,7 @@ Profile Card
 	justify-content: center;
 }
 
+
 /* 
 =========================
 Portfolio Filter
@@ -94,13 +102,44 @@ Portfolio Filter
 .profile .portfolio-filter {
 	display: flex;
 	flex-flow: row nowrap;
+	justify-content: center;
 
-	margin: 20px;
-
+	width: 100%;
+	margin-bottom: 20px;
 	/* border: 1px solid black; */
 }
 
 .portfolio-filter button {
 	border-radius: 0px;
 	border: 1px solid black;
+}
+
+/*
+=========================
+Profile Social Integrations
+=========================
+*/
+
+.social-integrations .social-integrations-item {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.social-integrations .social-integrations-label {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.social-integrations .social-integrations-icon {
+	width: 25px;
+	height: 25px;
+}
+
+.social-integrations .social-integrations-text {
+	margin-left: 1em;
+	margin-bottom: 0;
+	font-size: 1em;
 }

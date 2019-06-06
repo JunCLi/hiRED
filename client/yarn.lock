@@ -8445,6 +8445,13 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-apollo-hooks@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.4.5.tgz#7fe6a8ddfdc92df2da664d399ea77a0da4a10bad"
+  integrity sha512-fq04h88hg4ONtlzxYInmv7Okqqstzk3UCp55jHWOlIO2lFKoZPhQrtCz7A+TrcRu8GGwtG1SsioRKN8kIQaAOQ==
+  dependencies:
+    lodash "^4.17.11"
+
 react-apollo@^2.5.5:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.5.5.tgz#0f27079a8fa9d9ceea8b29a5977eb42885f88fb9"
@@ -8528,6 +8535,13 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-icons@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.7.0.tgz#64fe46231fabfeea27895edeae6c3b78114b8c8f"
+  integrity sha512-7MyPwjIhuyW0D2N3s4DEd0hGPGFf0sK+IIRKhc1FvSpZNVmnUoGvHbmAwzGJU+3my+fvihVWgwU5SDtlAri56Q==
+  dependencies:
+    camelcase "^5.0.0"
 
 react-input-autosize@^2.2.1:
   version "2.2.1"

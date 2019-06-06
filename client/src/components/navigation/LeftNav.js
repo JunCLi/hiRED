@@ -16,12 +16,10 @@ const LeftNav = (props) => {
 	return (
 		<Query query={isAuthenticated}>
 			{({ loading, err, data}) => {
-				console.log(data)
 				if (loading) return <div>loading...</div>
 				if (err) return <div>error!</div>
 				return (
 					<div className='nav left-nav'>
-						<h1>Left Nav</h1>
 						<Link to='/home/'>
 							<Button fullWidth={true}>
 								temp go to feeds

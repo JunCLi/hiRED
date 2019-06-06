@@ -1,0 +1,16 @@
+/*
+=========================
+Profile Modal Styles
+=========================
+*/
+
+.edit-profile-modal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.edit-profile-modal .modal-card {
+	width: 50%;
+	min-width: 300px;
+}
