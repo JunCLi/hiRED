@@ -24,6 +24,8 @@ COPY hired.conversations (id, user_id_1, user_id_2) FROM stdin;
 2	10	2
 3	11	1
 4	15	1
+5	16	5
+6	16	1
 \.
 
 
@@ -157,6 +159,42 @@ COPY hired.messages (id, conversation_id, content, date_created, from_user) FROM
 42	1	test 11	2019-06-06 12:42:59.541064	1
 43	1	test 12	2019-06-06 12:43:59.097939	1
 44	1	it works!!!	2019-06-06 12:49:38.128457	1
+45	1	cool 	2019-06-06 13:37:20.278592	1
+46	5	hi	2019-06-06 13:52:59.144913	16
+47	1	hi 	2019-06-06 14:56:12.862113	16
+48	1	apollo-hooks	2019-06-06 14:57:13.391043	16
+49	1	apollo-hooks 2	2019-06-06 14:58:23.078307	16
+50	1	apollo-hooks 3	2019-06-06 15:01:51.01099	16
+51	1	apollo-hooks 4	2019-06-06 15:08:04.864932	16
+52	1	apollo-hooks 5	2019-06-06 15:10:32.908117	16
+53	1	apollo-hooks 6	2019-06-06 15:11:28.944692	16
+54	1	apollo-hooks 7	2019-06-06 15:16:08.565955	16
+55	1	apollo-hooks 8	2019-06-06 15:23:50.500048	16
+56	1	apollo-hooks 8	2019-06-06 15:24:42.226634	16
+57	1	apollo-hooks 9	2019-06-06 15:25:39.650667	16
+58	1	apollo-hooks 10	2019-06-06 15:27:17.526765	16
+59	1	apollo-hooks 11	2019-06-06 15:30:05.940818	16
+60	1	apollo-hooks 12	2019-06-06 15:31:32.159926	16
+61	1	apollo-hooks 12	2019-06-06 15:33:15.046097	16
+62	1	test 1	2019-06-06 15:35:20.946884	16
+63	1	test 2	2019-06-06 15:42:34.652862	16
+64	1	test 3	2019-06-06 15:48:02.633322	16
+65	1	test 4	2019-06-06 15:50:08.881899	16
+66	1	test 5	2019-06-06 15:51:03.243497	16
+67	1	test 5	2019-06-06 15:51:17.774184	16
+68	1	test 6	2019-06-06 15:51:49.50341	16
+69	1	test 7	2019-06-06 15:54:02.290636	16
+70	1	test 8	2019-06-06 15:58:06.635572	16
+71	1	test 8	2019-06-06 15:59:07.310272	16
+72	1	test 9	2019-06-06 16:00:10.567024	16
+73	1	test 9	2019-06-06 16:00:13.957501	16
+74	1	test 9	2019-06-06 16:00:14.821985	16
+75	1	test 9	2019-06-06 16:00:15.481228	16
+76	1	test 9	2019-06-06 16:00:16.136229	16
+77	1	test 9	2019-06-06 16:00:16.739485	16
+78	1	test 10	2019-06-06 16:00:59.257954	16
+79	1	th	2019-06-06 16:04:40.403977	16
+80	1	hello 	2019-06-06 16:06:53.690005	16
 \.
 
 
@@ -188,22 +226,23 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, github_access_token, github_api_code, dribbble_access_token, dribbble_api_code, dribbble_connected) FROM stdin;
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N	\N	\N
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N	\N	\N
-3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N	\N	\N	\N	\N	\N
-4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N
-5	thing	thing@hotmail.com	$2b$12$fW8sSqAgQghhOdVZXX8QbObskE/YGS3Kh8iDGqXPdJKd7ePVxvLea	ALUMNI	TOR	Wayne Towers	batman	\N	2019-05-14 15:12:49.297095	2015	Q1	\N	\N	\N	\N	\N
-6	sweet	o@well.com	$2b$12$Lbv1oMVGrpP78L0RmBRpbutn81FbnXZocrBEejmoxgJrZKiS4t2q2	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 16:15:36.944306	2014	Q1	\N	\N	\N	\N	\N
-7	lol	lol@noway.com	$2b$12$P88AH8pzG7lmHEJMOFG5j.eI17.LxyU9OfJ1IKns3zBHvT3kXuFVG	STUDENT	LON	hello	something	\N	2019-05-14 16:17:17.842185	2015	Q1	\N	\N	\N	\N	\N
-8	cool	cool@cool.com	$2b$12$FEPaYhn58dpKrSns65sSyuBGwRzgWsH/JdqD9yKgjcbg1GAeALI.y	STUDENT	TOR	cool	nice	\N	2019-05-14 16:44:08.431754	2014	Q2	\N	\N	\N	\N	\N
-9	test	test@test.com	$2b$12$CZ/iMifD/W.ev1HJrFzLo.cjtyfh8A/QyV6qL7D88nD7paK3OlF4a	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-15 15:06:40.005603	2017	Q2	\N	\N	5027312d04a2c8d3cc176b5568ba149314e7fb8d69f0b0cf490518608dc2591f	a3ea6afa74c35fbe26e2ed26ec5025e2eef1000ef2b0f38f0dcb633c8025a4a4	true
-10	Jul	ju3@hotmail.ca	$2b$12$brAqqcUyTncqjDREyoHIRuTRrd40OKRtpLsqzHVAGc7A7N0DEX3EC	\N	\N	\N	\N	\N	2019-05-16 09:28:05.928242	\N	\N	\N	\N	\N	\N	\N
-11	hjh	1993@hotmail.ca	$2b$12$ZWDxgLFES3VT/ZQkqCdNF.YAWCYfdB7pREPpHnzmVzYkgyraOjGgG					\N	2019-05-20 15:23:21.137491			\N	\N	\N	\N	\N
-12	Julehwk	93@hotmail.ca	$2b$12$xGtJ00gQznQgplBT1UuPQOHZMQgQ/d2l56gz5QsbNrdyk4v4QC0Pa	ALUMNI	TOR	cnjksdvk	bvjfbxk	\N	2019-05-21 11:20:08.738213	2017	Q2	\N	\N	\N	\N	\N
-13	Julien Assouline	3@hotmail.ca	$2b$12$EEFjakCQFpe4XEiuLh8v4elFisw3iVPaUBxbswDg4Rl5AhATPqHX6		TOR			\N	2019-05-21 11:21:44.68088			\N	\N	\N	\N	\N
-14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N
-15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, github_access_token, github_api_code, dribbble_access_token, dribbble_api_code, dribbble_connected, description) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N	\N	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N	\N	\N	\N
+3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N	\N	\N	\N	\N	\N	\N
+4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N	\N
+5	thing	thing@hotmail.com	$2b$12$fW8sSqAgQghhOdVZXX8QbObskE/YGS3Kh8iDGqXPdJKd7ePVxvLea	ALUMNI	TOR	Wayne Towers	batman	\N	2019-05-14 15:12:49.297095	2015	Q1	\N	\N	\N	\N	\N	\N
+6	sweet	o@well.com	$2b$12$Lbv1oMVGrpP78L0RmBRpbutn81FbnXZocrBEejmoxgJrZKiS4t2q2	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 16:15:36.944306	2014	Q1	\N	\N	\N	\N	\N	\N
+7	lol	lol@noway.com	$2b$12$P88AH8pzG7lmHEJMOFG5j.eI17.LxyU9OfJ1IKns3zBHvT3kXuFVG	STUDENT	LON	hello	something	\N	2019-05-14 16:17:17.842185	2015	Q1	\N	\N	\N	\N	\N	\N
+8	cool	cool@cool.com	$2b$12$FEPaYhn58dpKrSns65sSyuBGwRzgWsH/JdqD9yKgjcbg1GAeALI.y	STUDENT	TOR	cool	nice	\N	2019-05-14 16:44:08.431754	2014	Q2	\N	\N	\N	\N	\N	\N
+9	test	test@test.com	$2b$12$CZ/iMifD/W.ev1HJrFzLo.cjtyfh8A/QyV6qL7D88nD7paK3OlF4a	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-15 15:06:40.005603	2017	Q2	\N	\N	5027312d04a2c8d3cc176b5568ba149314e7fb8d69f0b0cf490518608dc2591f	a3ea6afa74c35fbe26e2ed26ec5025e2eef1000ef2b0f38f0dcb633c8025a4a4	true	\N
+10	Jul	ju3@hotmail.ca	$2b$12$brAqqcUyTncqjDREyoHIRuTRrd40OKRtpLsqzHVAGc7A7N0DEX3EC	\N	\N	\N	\N	\N	2019-05-16 09:28:05.928242	\N	\N	\N	\N	\N	\N	\N	\N
+11	hjh	1993@hotmail.ca	$2b$12$ZWDxgLFES3VT/ZQkqCdNF.YAWCYfdB7pREPpHnzmVzYkgyraOjGgG					\N	2019-05-20 15:23:21.137491			\N	\N	\N	\N	\N	\N
+12	Julehwk	93@hotmail.ca	$2b$12$xGtJ00gQznQgplBT1UuPQOHZMQgQ/d2l56gz5QsbNrdyk4v4QC0Pa	ALUMNI	TOR	cnjksdvk	bvjfbxk	\N	2019-05-21 11:20:08.738213	2017	Q2	\N	\N	\N	\N	\N	\N
+13	Julien Assouline	3@hotmail.ca	$2b$12$EEFjakCQFpe4XEiuLh8v4elFisw3iVPaUBxbswDg4Rl5AhATPqHX6		TOR			\N	2019-05-21 11:21:44.68088			\N	\N	\N	\N	\N	\N
+14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N	\N
+15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N	\N
+16	Juli	gj3@hotmail.ca	$2b$12$NuqpoelMfiJML6f0fbr05OdresV.86DSOgIpAbDPtlu5DAR1j9U2C					\N	2019-06-06 13:52:39.431745			\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -264,7 +303,7 @@ COPY hired.users_tags (user_id, tag_id) FROM stdin;
 -- Name: conversations_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.conversations_id_seq', 4, true);
+SELECT pg_catalog.setval('hired.conversations_id_seq', 6, true);
 
 
 --
@@ -313,7 +352,7 @@ SELECT pg_catalog.setval('hired.mentors_id_seq', 9, true);
 -- Name: messages_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.messages_id_seq', 44, true);
+SELECT pg_catalog.setval('hired.messages_id_seq', 80, true);
 
 
 --
@@ -348,7 +387,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 15, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 16, true);
 
 
 --

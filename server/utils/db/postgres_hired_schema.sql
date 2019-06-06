@@ -482,7 +482,8 @@ CREATE TABLE hired.users (
     github_api_code text,
     dribbble_access_token text,
     dribbble_api_code text,
-    dribbble_connected text
+    dribbble_connected text,
+    description character varying(256)
 );
 
 
