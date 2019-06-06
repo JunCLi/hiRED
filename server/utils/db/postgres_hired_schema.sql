@@ -33,7 +33,9 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE hired.conversations (
-    id integer NOT NULL
+    id integer NOT NULL,
+    user_id_1 text,
+    user_id_2 text
 );
 
 
@@ -285,10 +287,10 @@ ALTER SEQUENCE hired.mentors_id_seq OWNED BY hired.mentors.id;
 
 CREATE TABLE hired.messages (
     id integer NOT NULL,
-    user_id integer NOT NULL,
     conversation_id integer NOT NULL,
     content text,
-    date_created timestamp without time zone DEFAULT now() NOT NULL
+    date_created timestamp without time zone DEFAULT now() NOT NULL,
+    from_user integer
 );
 
 
