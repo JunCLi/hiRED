@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button, CardContent, CardHeader, Typography } from '@material-ui/core'
 
+import '../../css/editProfileModal.css'
+
+import ProfileRedAcademyModal from './ProfileRedAcademyModal'
+
 const ProfileRedAcademySection = props => {
 	const { campus, programName, studyYear, studyCohort } = props
+
+	const [modalState, setModalState] = useState(false)
+
+	const handleOpenModal = () => {
+		setModalState(true)
+	}
+
+	const handleCloseModal = () => {
+		setModalState(false)
+	}
+
 	return (
 		<CardContent className='card-section'>
 			<CardHeader
@@ -12,7 +27,9 @@ const ProfileRedAcademySection = props => {
 					<h4>Red Academy</h4>
 				}
 				action={
-					<Button className='edit-profile-card-info'>edit</Button>
+					<Button className='edit-profile-card-info' onClick={handleOpenModal}>
+						edit
+					</Button>
 				}
 			/>
 			<section className='section-content'>
@@ -29,6 +46,15 @@ const ProfileRedAcademySection = props => {
 					<span className='profile-info-title'>Cohort: </span>{studyCohort}
 				</Typography>
 			</section>
+
+			<ProfileRedAcademyModal
+				modalState={modalState}
+				closeModal={handleCloseModal}
+				campus={campus}
+				programName={programName}
+				studyYear={studyYear}
+				studyCohort={studyCohort}
+			/>
 		</CardContent>
 	)
 }

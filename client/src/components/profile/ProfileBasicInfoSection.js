@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button, Card, CardContent, CardHeader, Modal, Typography } from '@material-ui/core'
+import { Button, CardContent, CardHeader, Typography } from '@material-ui/core'
 
 import '../../css/editProfileModal.css'
 
@@ -9,14 +9,14 @@ import ProfileBasicInfoModal from './ProfileBasicInfoModal'
 const ProfileBasicInfoSection = props => {
 	const { email, currentJob, location } = props
 
-	const [basicInfoState, setBasicInfoState ] = useState(false)
+	const [modalState, setModalState ] = useState(false)
 	
-	const handleOpenBasicInfoModal = () => {
-		setBasicInfoState(true)
+	const handleOpenModal = () => {
+		setModalState(true)
 	}
 
-	const handleCloseBasicInfoModal = () => {
-		setBasicInfoState(false)
+	const handleCloseModal = () => {
+		setModalState(false)
 	}
 
 	return (
@@ -27,7 +27,7 @@ const ProfileBasicInfoSection = props => {
 					<h4>Basic Info</h4>
 				}
 				action={
-					<Button className='edit-profile-card-info' onClick={handleOpenBasicInfoModal}>
+					<Button className='edit-profile-card-info' onClick={handleOpenModal}>
 						edit
 					</Button>
 				}
@@ -45,8 +45,8 @@ const ProfileBasicInfoSection = props => {
 			</section>
 
 			<ProfileBasicInfoModal
-				modalState={basicInfoState}
-				closeModal={handleCloseBasicInfoModal}
+				modalState={modalState}
+				closeModal={handleCloseModal}
 				email={email}
 				currentJob={currentJob}
 				location={location}

@@ -5,12 +5,12 @@ import { Formik } from 'formik'
 import { useMutation } from 'react-apollo-hooks'
 import { updateProfileMutation } from '../../graphql-queries/mutations'
 
-import { Button, Card, FormHelperText, TextField, Modal} from '@material-ui/core'
+import { Button, Card, FormHelperText, Modal, TextField } from '@material-ui/core'
 
 const ProfileBasicInfoModal = props => {
 	const { modalState, closeModal } = props
 	const { email, currentJob, location } = props
-	const [ completed, setCompleted ] = useState(false)
+	const [completed, setCompleted] = useState(false)
 
 	const updateProfile = useMutation(updateProfileMutation)
 
@@ -21,7 +21,11 @@ const ProfileBasicInfoModal = props => {
 	}
 
 	return (
-		<Modal className='edit-profile-modal' open={modalState} onClose={closeModal}>
+		<Modal
+			className='edit-profile-modal'
+			open={modalState}
+			onClose={closeModal}
+		>
 			<Card className='modal-card'>
 				<Formik
 					initialValues={initialFormValues}
