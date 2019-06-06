@@ -21,6 +21,16 @@
 .from-bubble {
   position: relative;
   border-radius: .4em;
+  background-color: lightgrey;
+  padding: 10px;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.from-bubble-active {
+  position: relative;
+  border-radius: .4em;
   background-color: #c12c27;
   padding: 10px;
   padding-bottom: 0px;
