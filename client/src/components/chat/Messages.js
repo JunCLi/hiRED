@@ -11,7 +11,7 @@ function Messages(props){
   let number = +props.match.params.conversation
 
     const {data: queryData, error, loading} = useQuery(GET_MESSAGES, {variables: { number } });
-    const {data: viewerData, error: viewerError, loading: viewerLoading} = useQuery(isAuthenticated);
+    const {data: viewerData} = useQuery(isAuthenticated);
     useSubscription(COMMENTS_SUBSCRIPTION, {
       variables: {
         conversation_id: number
@@ -32,8 +32,6 @@ function Messages(props){
     });
 
       const addMessages = useMutation(ADD_MESSAGES);
-
-      console.log(viewerData)
 
       if (loading) return <div>Loading...</div>;
       if (error) return <div>I have an error</div>

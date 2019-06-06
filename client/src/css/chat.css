@@ -4,18 +4,24 @@
   border: 1px solid black;
   padding: 20px;
   margin: auto;
-
+  overflow-y: scroll;
+  max-height: 80vh;
+  margin-bottom: 10px;
 }
 
 .input-text {
   display: flex;
-  max-width: 50%;
-  width: 40%;
+  width: 50%;
   align-self: center;
   margin: auto;
   padding: 5px;
   padding-left: 10px;
   background-color: lightgrey;
+  border-radius: 10px;
+}
+
+.input-base {
+  width: 90%;
 }
 
 .from-bubble {
@@ -25,7 +31,7 @@
   padding: 10px;
   padding-bottom: 0px;
   margin-bottom: 10px;
-  color: white;
+  color: black;
 }
 
 .from-bubble-active {
@@ -38,22 +44,16 @@
   color: white;
 }
 
-.from-bubble:after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 0.656em solid transparent;
-  border-left-color: #c12c27;
-  border-right: 0;
-  border-bottom: 0;
-  margin-top: 0.5em;
-  margin-right: -0.656em;
-}
-
 .messages {
   display: flex;
-  justify-content: center;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.messages-active {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
