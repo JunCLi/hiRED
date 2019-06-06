@@ -1,9 +1,8 @@
-import React, { useState} from 'react'
-import { Query, Mutation, Subscription } from "react-apollo";
+import React from 'react'
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { InputBase, IconButton } from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send';
 import { ADD_MESSAGES } from '../../graphql-queries/mutations'
+import MessageInput from "./MessageInput"
 
 
 import '../../css/chat.css'
@@ -24,8 +23,8 @@ const COMMENTS_SUBSCRIPTION = gql`
   subscription onMessageAdded($conversation_id: ID!) {
     messageAdded(conversation_id: $conversation_id) {
       from_user
-      conversation_id
       content
+      date_created
       fullname
     }
   }
@@ -33,18 +32,6 @@ const COMMENTS_SUBSCRIPTION = gql`
 
 function Messages(props){
   let number = +props.match.params.conversation
-
-  const [value, setValue] = useState("");
-  const [submit, setSubmit] = useState("")
-
-  function handleChange(e) {
-    setValue(e.target.value)
-  }
-
-  function handleClick(e, addMessages) {
-    setSubmit(value)
-    addMessages({variables: {content: value, conversation_id: number}})
-  }
 
   return(
     <div>
@@ -60,31 +47,27 @@ function Messages(props){
     >
     {
       (addMessages, {dataMutation}) => (
-      <Query query={GET_MESSAGES} variables={{ number }} pollInterval={500}>
-        {({data, loading, errors}) =>{
+      <Query query={GET_MESSAGES} variables={{ number }}>
+        {({data, loading, errors, subscribeToMore, result}) =>{
           if (loading) return <div>Loading...</div>;
             if (errors) return <div>I have an error</div>
             return(
-              <div className = "chat-box">
-              {data.getMessages.map((d,i) =>
-                <div key = {i} className = "messages">
-                  {d.fullname} <div className = "from-bubble">
-                    <p className = "from-message"> {d.content} </p>
-                  </div>
-                </div>
-                )
-              }
-              <div className = "input-text">
-              <InputBase
-                className={"input-base"}
-                placeholder="Send Message"
-                onChange ={handleChange}
-                value= {value}/>
-                    <IconButton onClick={(e) => handleClick(e, addMessages)} className={"button"} aria-label="Search">
-                      <SendIcon />
-                    </IconButton>
-              </div>
-              </div>
+              <MessageInput data = {data} addMessages = {addMessages} pageNumber = {number}
+                subscribeToNewComments= {() =>
+                  subscribeToMore({
+                    document: COMMENTS_SUBSCRIPTION,
+                    variables: { conversation_id: number },
+                    updateQuery: (prev, {subscriptionData}) => {
+                      if (!subscriptionData.data) return prev;
+                      const newFeedItem = subscriptionData.data.messageAdded
+
+                      return Object.assign({}, prev, {
+                        getMessages: [...prev.getMessages, newFeedItem]
+                      })
+                    }
+                  })
+                }
+              />
             )
         }}
 
