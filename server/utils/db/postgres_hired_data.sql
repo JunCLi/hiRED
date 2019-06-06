@@ -19,7 +19,11 @@ SET row_security = off;
 -- Data for Name: conversations; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.conversations (id) FROM stdin;
+COPY hired.conversations (id, user_id_1, user_id_2) FROM stdin;
+1	10	1
+2	10	2
+3	11	1
+4	15	1
 \.
 
 
@@ -100,6 +104,9 @@ COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
 4	5	t	\N
 5	7	t	\N
 6	8	t	\N
+7	13	t	\N
+8	14	t	\N
+9	15	t	\N
 \.
 
 
@@ -107,7 +114,49 @@ COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
 -- Data for Name: messages; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.messages (id, user_id, conversation_id, content, date_created) FROM stdin;
+COPY hired.messages (id, conversation_id, content, date_created, from_user) FROM stdin;
+1	11	Hello Jeff	2019-05-16 10:44:19.493007	\N
+4	1	hello world	2019-05-16 16:20:41.372049	10
+5	1	hello	2019-05-16 16:40:31.174139	10
+6	1	hello	2019-05-16 16:40:36.959065	10
+7	1	hello	2019-05-16 16:46:47.353592	10
+8	1	hi dude	2019-05-16 17:10:36.970568	1
+9	1	how are u	2019-05-16 17:13:58.938184	1
+10	1	im good man	2019-05-16 17:14:09.407851	10
+11	1	im good man	2019-05-16 17:18:47.943739	10
+12	1	yho	2019-05-16 17:31:31.033855	10
+13	1	lo	2019-05-16 17:31:55.293832	10
+14	1	damn	2019-05-16 17:34:11.781795	10
+15	1	hello	2019-05-16 18:35:09.454606	10
+16	3	hi	2019-05-20 15:48:19.854397	11
+17	1	my subscription	2019-05-21 11:00:02.52529	11
+18	1	my subscription	2019-05-21 11:39:02.828004	14
+19	1	my subscription	2019-05-21 11:40:09.745172	14
+20	1	my subscription2	2019-05-21 11:40:59.302664	14
+21	1	my subscription2	2019-05-21 11:42:56.41055	14
+22	1	my subscription2	2019-05-21 11:43:38.395287	14
+23	1	my subscription2	2019-05-21 11:44:34.903872	14
+24	1	my subscription2	2019-05-21 11:46:16.206452	14
+25	1	my subscription2	2019-05-21 11:47:06.92636	14
+26	1	my subscription2	2019-05-21 11:47:17.157652	14
+27	1	my subscription2	2019-05-21 11:48:16.276491	14
+28	1	person3	2019-05-21 11:51:41.57029	1
+29	1	jul	2019-05-21 11:51:55.453775	10
+30	1	it worked	2019-06-06 12:09:29.339583	1
+31	1	try test	2019-06-06 12:12:03.231642	1
+32	1	test 2	2019-06-06 12:14:30.031924	1
+33	1	test 3	2019-06-06 12:17:22.303661	1
+34	1	test 3	2019-06-06 12:22:19.228602	1
+35	1	test 4	2019-06-06 12:23:28.695005	1
+36	1	test 5	2019-06-06 12:24:55.748041	1
+37	1	test 6	2019-06-06 12:25:42.556484	1
+38	1	test 7	2019-06-06 12:28:35.309504	1
+39	1	test 8	2019-06-06 12:30:59.049785	1
+40	1	test 9	2019-06-06 12:41:06.032216	1
+41	1	test 10	2019-06-06 12:42:10.110987	1
+42	1	test 11	2019-06-06 12:42:59.541064	1
+43	1	test 12	2019-06-06 12:43:59.097939	1
+44	1	it works!!!	2019-06-06 12:49:38.128457	1
 \.
 
 
@@ -116,6 +165,7 @@ COPY hired.messages (id, user_id, conversation_id, content, date_created) FROM s
 --
 
 COPY hired.portfolio (id, user_id, title, description, type, custom_link, api_link, thumbnail) FROM stdin;
+1	11	Julien Assouline	some dude	I don't know what this is			
 \.
 
 
@@ -148,6 +198,12 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 7	lol	lol@noway.com	$2b$12$P88AH8pzG7lmHEJMOFG5j.eI17.LxyU9OfJ1IKns3zBHvT3kXuFVG	STUDENT	LON	hello	something	\N	2019-05-14 16:17:17.842185	2015	Q1	\N	\N	\N	\N	\N
 8	cool	cool@cool.com	$2b$12$FEPaYhn58dpKrSns65sSyuBGwRzgWsH/JdqD9yKgjcbg1GAeALI.y	STUDENT	TOR	cool	nice	\N	2019-05-14 16:44:08.431754	2014	Q2	\N	\N	\N	\N	\N
 9	test	test@test.com	$2b$12$CZ/iMifD/W.ev1HJrFzLo.cjtyfh8A/QyV6qL7D88nD7paK3OlF4a	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-15 15:06:40.005603	2017	Q2	\N	\N	5027312d04a2c8d3cc176b5568ba149314e7fb8d69f0b0cf490518608dc2591f	a3ea6afa74c35fbe26e2ed26ec5025e2eef1000ef2b0f38f0dcb633c8025a4a4	true
+10	Jul	ju3@hotmail.ca	$2b$12$brAqqcUyTncqjDREyoHIRuTRrd40OKRtpLsqzHVAGc7A7N0DEX3EC	\N	\N	\N	\N	\N	2019-05-16 09:28:05.928242	\N	\N	\N	\N	\N	\N	\N
+11	hjh	1993@hotmail.ca	$2b$12$ZWDxgLFES3VT/ZQkqCdNF.YAWCYfdB7pREPpHnzmVzYkgyraOjGgG					\N	2019-05-20 15:23:21.137491			\N	\N	\N	\N	\N
+12	Julehwk	93@hotmail.ca	$2b$12$xGtJ00gQznQgplBT1UuPQOHZMQgQ/d2l56gz5QsbNrdyk4v4QC0Pa	ALUMNI	TOR	cnjksdvk	bvjfbxk	\N	2019-05-21 11:20:08.738213	2017	Q2	\N	\N	\N	\N	\N
+13	Julien Assouline	3@hotmail.ca	$2b$12$EEFjakCQFpe4XEiuLh8v4elFisw3iVPaUBxbswDg4Rl5AhATPqHX6		TOR			\N	2019-05-21 11:21:44.68088			\N	\N	\N	\N	\N
+14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N
+15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N
 \.
 
 
@@ -157,6 +213,9 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 
 COPY hired.program_users (user_id, program_id) FROM stdin;
 9	1
+13	5
+14	1
+15	5
 \.
 
 
@@ -180,6 +239,8 @@ COPY hired.skills_users (user_id, skills_id) FROM stdin;
 8	1
 8	2
 8	3
+9	1
+9	2
 \.
 
 
@@ -203,7 +264,7 @@ COPY hired.users_tags (user_id, tag_id) FROM stdin;
 -- Name: conversations_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.conversations_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.conversations_id_seq', 4, true);
 
 
 --
@@ -245,21 +306,21 @@ SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 -- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.mentors_id_seq', 3, true);
+SELECT pg_catalog.setval('hired.mentors_id_seq', 9, true);
 
 
 --
 -- Name: messages_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.messages_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.messages_id_seq', 44, true);
 
 
 --
 -- Name: portfolio_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, false);
+SELECT pg_catalog.setval('hired.portfolio_id_seq', 1, true);
 
 
 --
@@ -287,7 +348,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 9, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 15, true);
 
 
 --
