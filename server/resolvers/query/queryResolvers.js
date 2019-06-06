@@ -259,7 +259,7 @@ module.exports = {
           text: 'SELECT * FROM hired.status WHERE user_id=1'
         }
         const result = await postgres.query(getAllStatus)
-        //console.log(" The result is: ============================ : ", result)
+
       } catch (error) {
 
       }
