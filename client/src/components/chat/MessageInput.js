@@ -15,14 +15,15 @@ function MessageInput(props) {
       addMessages({variables: {content: value, conversation_id: props.pageNumber}})
     }
 
-    // useEffect(() => {
-    //   props.subscribeToNewComments()
-    // }, [])
+    const viewer = props.viewerData.getUserProfile !== undefined ? props.viewerData.getUserProfile.id : null
+
+    if (props.viewerData.getUserProfile === undefined) return <div> Loading... </div>
+
     return (
         <div className = "chat-box">
         {props.data.getMessages.map((d,i) =>
           <div  key = {i} className = "messages">
-            {d.fullname} <div className = "from-bubble">
+            {d.fullname} <div key = {console.log(viewer)} className = {Number(viewer) === Number(d.from_user) ? "from-bubble-active" : "from-bubble"}>
               <p className = "from-message"> {d.content} </p>
             </div>
           </div>

@@ -156,7 +156,7 @@ module.exports = gql`
     id: Int,
     name: String
   }
-	
+
   type Programs {
     id: Int,
     name: String
@@ -180,11 +180,11 @@ module.exports = gql`
     addConversation(user_id_2: Int): addConversationResponse!
     addMessages(content: String, conversation_id: Int): addMessagesResponse!
   }
-  
+
   type addStatusResponse {
     message: String
   }
-    
+
   type addMessagesResponse {
     message: String
   }
