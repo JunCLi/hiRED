@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 
 import { Button, Card, CardContent, CardHeader, Modal, Typography } from '@material-ui/core'
 
+import '../../css/editProfileModal.css'
+
+import ProfileBasicInfoModal from './ProfileBasicInfoModal'
+
 const ProfileBasicInfoSection = props => {
 	const { email, currentJob, location } = props
 
@@ -40,12 +44,13 @@ const ProfileBasicInfoSection = props => {
 				</Typography>
 			</section>
 
-			<Modal open={basicInfoState} onClose={handleCloseBasicInfoModal}>
-				<Card>
-					stuff
-					<Button onClick={handleCloseBasicInfoModal}>close</Button>
-				</Card>
-			</Modal>
+			<ProfileBasicInfoModal
+				modalState={basicInfoState}
+				closeModal={handleCloseBasicInfoModal}
+				email={email}
+				currentJob={currentJob}
+				location={location}
+			/>
 		</CardContent>
 	)
 }

@@ -16,7 +16,6 @@ const LeftNav = (props) => {
 	return (
 		<Query query={isAuthenticated}>
 			{({ loading, err, data}) => {
-				console.log(data)
 				if (loading) return <div>loading...</div>
 				if (err) return <div>error!</div>
 				return (

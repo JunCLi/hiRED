@@ -18,7 +18,6 @@ const ProfileCard = props => {
 				if (loading) return <div>loading...</div>
 				if (err || !data) return <div>error!</div>
 				if (!data) return props.history.push('/login')
-				console.log(data.getUserProfile)
 				return (
 					<Card className='profile-card'>
 						<ProfileInfoheader

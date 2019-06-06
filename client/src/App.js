@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import apolloclient from './apolloclient'
 
 import AppRouter from './AppRouter'
@@ -15,9 +16,11 @@ import theme from './theme'
 function App() {
   return (
     <ApolloProvider client={apolloclient}>
-      <MuiThemeProvider theme={theme}>
-        <AppRouter />
-      </MuiThemeProvider>
+			<ApolloHooksProvider client={apolloclient}>
+				<MuiThemeProvider theme={theme}>
+					<AppRouter />
+				</MuiThemeProvider>
+			</ApolloHooksProvider>
     </ApolloProvider>
   );
 }

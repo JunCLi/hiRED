@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const SocialIntegrationsItem = props => {
 	const { children, icon, name, state, switchFunction } = props
-	console.log(children)
 	return (
 		<div className='social-integrations-item'>		
 			<div className='social-integrations-label'>
