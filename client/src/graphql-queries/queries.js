@@ -85,3 +85,14 @@ export const getFullProfileQuery = gql`
     }
   }
 `
+
+export const GET_MESSAGES = gql`
+  query GetMessages($number:ID){
+    getMessages(conversation_id:$number){
+      from_user
+      content
+      date_created
+      fullname
+      }
+    }
+  `

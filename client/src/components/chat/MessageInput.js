@@ -15,9 +15,9 @@ function MessageInput(props) {
       addMessages({variables: {content: value, conversation_id: props.pageNumber}})
     }
 
-    useEffect(() => {
-      props.subscribeToNewComments()
-    }, [])
+    // useEffect(() => {
+    //   props.subscribeToNewComments()
+    // }, [])
     return (
         <div className = "chat-box">
         {props.data.getMessages.map((d,i) =>
