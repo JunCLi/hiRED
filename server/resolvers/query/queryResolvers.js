@@ -231,7 +231,7 @@ module.exports = {
 
       return results.rows
 		},
-		
+
    async listMyDribbbles(parent, _, { app, req, postgres }) {
 			try {
 				let userId = authenticate(app, req)
@@ -261,10 +261,10 @@ module.exports = {
         const result = await postgres.query(getAllStatus)
         //console.log(" The result is: ============================ : ", result)
       } catch (error) {
-        
+
       }
 		},
-		
+
     async getMessages(parent, input, { req, app, postgres }) {
           let myConversation = input.conversation_id;
 

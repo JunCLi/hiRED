@@ -491,6 +491,17 @@ async addConversation(parent, input, {req, app, postgres}) {
 
       const result = await postgres.query(newMessages)
 
+      let from_user_id = result.rows[0].from_user
+
+        const checkUserFullName = {
+          text: "SELECT fullname FROM hired.users WHERE hired.users.id = $1",
+          values: [from_user_id]
+        }
+
+      const user_fullname_result = await postgres.query(checkUserFullName)
+
+      result.rows[0].fullname = user_fullname_result.rows[0].fullname
+
       pubsub.publish("messageAdded", {messageAdded: result.rows[0]})
 
       return {
