@@ -15,6 +15,14 @@ module.exports = gql`
     getMessages(conversation_id:ID):[Messages]
     getConversations: [ConversationRooms]
     getUserProfile: User
+    getConversation(id:ID): ConversationRoom
+  }
+
+
+  type ConversationRoom {
+    id:Int
+    user_id_1: Int,
+    user_id_2: Int,
   }
 
   type Status {
@@ -27,6 +35,8 @@ module.exports = gql`
 
   type ConversationRooms{
       id:Int
+      user_id_1: Int,
+      user_id_2: Int,
     }
 
   type Messages{

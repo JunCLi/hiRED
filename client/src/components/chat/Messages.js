@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks';
 import { ADD_MESSAGES } from '../../graphql-queries/mutations'
-import { GET_MESSAGES, isAuthenticated } from '../../graphql-queries/queries'
+import { GET_MESSAGES, isAuthenticated, GET_CONVERSATION } from '../../graphql-queries/queries'
 import { COMMENTS_SUBSCRIPTION } from '../../graphql-queries/subscription'
 import MessageInput from "./MessageInput"
 import '../../css/chat.css'
@@ -11,7 +11,16 @@ function Messages(props){
   let number = +props.match.params.conversation
 
     const {data: queryData, error, loading} = useQuery(GET_MESSAGES, {variables: { number } });
+    const {data: conversationData} = useQuery(GET_CONVERSATION, {variables: { id: number }})
+
     const {data: viewerData} = useQuery(isAuthenticated);
+
+    if (conversationData.getConversation !== undefined && viewerData.getUserProfile !== undefined) {
+      if (conversationData.getConversation.user_id_1 === viewerData.getUserProfile.id) {
+        props.history.push("/mentors")
+      }
+    }
+
     useSubscription(COMMENTS_SUBSCRIPTION, {
       variables: {
         conversation_id: number

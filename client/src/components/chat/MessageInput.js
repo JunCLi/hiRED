@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import { InputBase, IconButton } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send';
 
@@ -19,15 +19,13 @@ function MessageInput(props) {
 
     if (props.viewerData.getUserProfile === undefined) return <div> Loading... </div>
 
-      console.log(props.data.getMessages)
-
     return (
       <>
         <div className = "chat-box">
         {props.data.getMessages.map((d,i) =>
           <div  key = {i} className = {Number(viewer) === Number(d.from_user) ? "messages-active" : "messages"}>
             <h3> {d.fullname}  </h3>
-            <div key = {console.log(viewer)} className = {Number(viewer) === Number(d.from_user) ? "from-bubble-active" : "from-bubble"}>
+            <div className = {Number(viewer) === Number(d.from_user) ? "from-bubble-active" : "from-bubble"}>
               <p className = "from-message"> {d.content} </p>
             </div>
           </div>

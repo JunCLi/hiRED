@@ -269,8 +269,10 @@ module.exports = {
     async getMessages(parent, input, { req, app, postgres }) {
           let myConversation = input.conversation_id;
 
+          let userId = authenticate(app, req);
+
           const messages = {
-            text: `SELECT conversation_id, content, from_user, hired.users.fullname AS fullname
+            text: `SELECT conversation_id, content, hired.messages.date_created, from_user, hired.users.fullname AS fullname
                    FROM hired.messages
                    INNER JOIN hired.users
                    ON hired.messages.from_user = hired.users.id
@@ -288,7 +290,21 @@ module.exports = {
             text: "SELECT * FROM hired.conversations"
           };
           const result = await postgres.query(conversation);
+
           return result.rows
         },
+        async getConversation(parent, input, { req, app, postgres }) {
+          let userId = authenticate(app, req);
+          let myConversation = input.id;
+
+          const conversation = {
+            text: "SELECT * FROM hired.conversations WHERE id = $1",
+            values: [myConversation]
+          };
+          const result = await postgres.query(conversation);
+
+          return result.rows[0]
+
+        }
 	},
 }

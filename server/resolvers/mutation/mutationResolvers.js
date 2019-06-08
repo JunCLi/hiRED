@@ -92,7 +92,6 @@ module.exports = {
 		},
 
 		async updateProfile(parent, { input }, { req, app, postgres }){
-			console.log(input)
 
 			try {
 				const user_id = authenticate(app, req)
