@@ -98,3 +98,12 @@ export const GET_MESSAGES = gql`
     }
   `
 
+  export const GET_CONVERSATION = gql`
+  query GetConversation($id: ID){
+    getConversation(id: $id){
+        id
+        user_id_1
+        user_id_2
+     }
+  }`
+
