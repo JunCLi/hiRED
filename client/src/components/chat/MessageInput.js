@@ -3,6 +3,7 @@ import { InputBase, IconButton } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send';
 
 function MessageInput(props) {
+  const getMessages = props.data.getMessages || []
     const [value, setValue] = useState("");
     const [submit, setSubmit] = useState("")
 
@@ -22,7 +23,7 @@ function MessageInput(props) {
     return (
       <>
         <div className = "chat-box">
-        {props.data.getMessages.map((d,i) =>
+        {getMessages.map((d,i) =>
           <div  key = {i} className = {Number(viewer) === Number(d.from_user) ? "messages-active" : "messages"}>
             <h3> {d.fullname}  </h3>
             <div className = {Number(viewer) === Number(d.from_user) ? "from-bubble-active" : "from-bubble"}>
