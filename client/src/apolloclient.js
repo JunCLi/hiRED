@@ -25,7 +25,7 @@ const stateLink = withClientState({
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: '/graphql',
   credentials: 'include'
 })
 
