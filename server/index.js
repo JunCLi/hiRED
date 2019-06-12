@@ -8,11 +8,11 @@ const { makeExecutableSchema } = require('graphql-tools')
 const axios = require('axios')
 
 const fallback = require('express-history-api-fallback')
+const http = require("http")
 
 const postgres = require('./config/postgres')
 const typeDefs = require('./schema')
 let resolvers = require('./resolvers')
-const http = require("http")
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -23,14 +23,22 @@ app.set('JWT_COOKIE_NAME', 'token')
 app.use(cookieParser())
 
 if (process.env.NODE_ENV === 'production') {
-	const root = path.resolve(__dirname, '../public')
+	const root = path.resolve(__dirname, '../client/build')
 
 	// Serve the static front-end from /public when deployed
 	app.use(express.static(root))
-	app.use(fallback('index.html', { root }))
+
+	app.get("/*", function(req, res){
+		res.sendFile(path.join(__dirname, "../client/build/index.html"), function(err){
+			if(err) {
+				res.status(500).send(err)
+			}
+		})
+	})
+
 }
 
-if (process.env.NODE_ENV !== 'production') {
+
 	// Allow requests from dev server address
 	const corsConfig = {
 		origin: 'http://localhost:3000',
@@ -40,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 	// Allow requests from dev server address
 	app.use(cors(corsConfig))
-}
+
 
 resolvers = resolvers()
 
