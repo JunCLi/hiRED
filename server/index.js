@@ -94,6 +94,8 @@ server.listen(PORT, () => {
 	console.log(`>> ${chalk.blue('Express running:')} http://localhost:${PORT}`)
 
 	console.log(`>> ${chalk.magenta('GraphQL playground:')} http://localhost:${PORT}/graphql`)
+	
+console.log(`>> ${chalk.magenta('Sub Link:')} ws://localhost:${PORT}${apolloServer.subscriptionsPath}`)
 })
 
 server.on('error', err => {

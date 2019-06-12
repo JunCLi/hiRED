@@ -29,14 +29,14 @@ function Messages(props){
         const newFeedItem = subscriptionData.data.messageAdded
 
         const data = client.readQuery({query: GET_MESSAGES, variables: {number}})
-
+        if (newFeedItem) {
         client.writeQuery({
           query: GET_MESSAGES,
           variables: {number},
           data: {
             getMessages: [...data.getMessages, newFeedItem]
           }
-        })
+        })}
       }
     });
 
