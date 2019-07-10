@@ -12,13 +12,15 @@ import './css/normalize.css'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import theme from './theme'
 
-
 function App() {
   return (
     <ApolloProvider client={apolloclient}>
 			<ApolloHooksProvider client={apolloclient}>
 				<MuiThemeProvider theme={theme}>
-					<AppRouter />
+					<AppRouter> 
+					
+					</AppRouter>
+	
 				</MuiThemeProvider>
 			</ApolloHooksProvider>
     </ApolloProvider>

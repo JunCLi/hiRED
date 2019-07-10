@@ -2,13 +2,13 @@ import React from 'react'
 
 import LoginForm from './LoginForm'
 
-import '../../css/signup-login.css'
+// import '../../css/signup-login.css'
 
 const Login = () => {
   return (
-    <div className='login-card-container'>
+    <div>
       <h2>Login</h2>
-      <div className='login-form-container'>
+      <div>
         <LoginForm />
       </div>
     </div>
