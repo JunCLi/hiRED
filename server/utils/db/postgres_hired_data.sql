@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.12
+-- Dumped from database version 9.6.14
 -- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
@@ -109,6 +109,10 @@ COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
 7	13	t	\N
 8	14	t	\N
 9	15	t	\N
+10	18	t	\N
+11	17	t	\N
+12	18	t	\N
+13	19	t	\N
 \.
 
 
@@ -226,23 +230,26 @@ COPY hired.programs (id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: hired; Owner: postgres
 --
 
-COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, github_access_token, github_api_code, dribbble_access_token, dribbble_api_code, dribbble_connected, description) FROM stdin;
-2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N	\N	\N	\N
-1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N	\N	\N	\N
-3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N	\N	\N	\N	\N	\N	\N
-4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N	\N
-5	thing	thing@hotmail.com	$2b$12$fW8sSqAgQghhOdVZXX8QbObskE/YGS3Kh8iDGqXPdJKd7ePVxvLea	ALUMNI	TOR	Wayne Towers	batman	\N	2019-05-14 15:12:49.297095	2015	Q1	\N	\N	\N	\N	\N	\N
-6	sweet	o@well.com	$2b$12$Lbv1oMVGrpP78L0RmBRpbutn81FbnXZocrBEejmoxgJrZKiS4t2q2	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 16:15:36.944306	2014	Q1	\N	\N	\N	\N	\N	\N
-7	lol	lol@noway.com	$2b$12$P88AH8pzG7lmHEJMOFG5j.eI17.LxyU9OfJ1IKns3zBHvT3kXuFVG	STUDENT	LON	hello	something	\N	2019-05-14 16:17:17.842185	2015	Q1	\N	\N	\N	\N	\N	\N
-8	cool	cool@cool.com	$2b$12$FEPaYhn58dpKrSns65sSyuBGwRzgWsH/JdqD9yKgjcbg1GAeALI.y	STUDENT	TOR	cool	nice	\N	2019-05-14 16:44:08.431754	2014	Q2	\N	\N	\N	\N	\N	\N
-9	test	test@test.com	$2b$12$CZ/iMifD/W.ev1HJrFzLo.cjtyfh8A/QyV6qL7D88nD7paK3OlF4a	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-15 15:06:40.005603	2017	Q2	\N	\N	5027312d04a2c8d3cc176b5568ba149314e7fb8d69f0b0cf490518608dc2591f	a3ea6afa74c35fbe26e2ed26ec5025e2eef1000ef2b0f38f0dcb633c8025a4a4	true	\N
-10	Jul	ju3@hotmail.ca	$2b$12$brAqqcUyTncqjDREyoHIRuTRrd40OKRtpLsqzHVAGc7A7N0DEX3EC	\N	\N	\N	\N	\N	2019-05-16 09:28:05.928242	\N	\N	\N	\N	\N	\N	\N	\N
-11	hjh	1993@hotmail.ca	$2b$12$ZWDxgLFES3VT/ZQkqCdNF.YAWCYfdB7pREPpHnzmVzYkgyraOjGgG					\N	2019-05-20 15:23:21.137491			\N	\N	\N	\N	\N	\N
-12	Julehwk	93@hotmail.ca	$2b$12$xGtJ00gQznQgplBT1UuPQOHZMQgQ/d2l56gz5QsbNrdyk4v4QC0Pa	ALUMNI	TOR	cnjksdvk	bvjfbxk	\N	2019-05-21 11:20:08.738213	2017	Q2	\N	\N	\N	\N	\N	\N
-13	Julien Assouline	3@hotmail.ca	$2b$12$EEFjakCQFpe4XEiuLh8v4elFisw3iVPaUBxbswDg4Rl5AhATPqHX6		TOR			\N	2019-05-21 11:21:44.68088			\N	\N	\N	\N	\N	\N
-14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N	\N
-15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N	\N
-16	Juli	gj3@hotmail.ca	$2b$12$NuqpoelMfiJML6f0fbr05OdresV.86DSOgIpAbDPtlu5DAR1j9U2C					\N	2019-06-06 13:52:39.431745			\N	\N	\N	\N	\N	\N
+COPY hired.users (id, fullname, email, password, role, campus, location, current_job, avatar, date_created, study_year, study_cohort, github_access_token, github_api_code, dribbble_access_token, dribbble_api_code, dribbble_connected, description, programs, job_location) FROM stdin;
+2	julien something	julien@something.com	$2b$12$sA31Ve47d2uYQ16g.kGtCutwmxmnDskxu0Rd3peLfaQQ9tDsNh78G	\N	\N	\N	\N	\N	2019-05-08 11:34:59.181124	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+1	person3	person3@person.com	$2b$12$D.8A4BIC724NRtOQH6PXZOanToquS2iJrIxkB/z0Goz6.rOAiQwPu	\N	\N	\N	\N	\N	2019-05-07 17:07:28.874048	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+3	Julien Assouline	julien1993@hotmail.ca	$2b$12$iltwkgmupuzjf9Lx9enH8eXmUydOLv3cmNIy3gYy2W9XTp19T/toG	\N	\N	\N	\N	\N	2019-05-13 13:24:52.410748	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+5	thing	thing@hotmail.com	$2b$12$fW8sSqAgQghhOdVZXX8QbObskE/YGS3Kh8iDGqXPdJKd7ePVxvLea	ALUMNI	TOR	Wayne Towers	batman	\N	2019-05-14 15:12:49.297095	2015	Q1	\N	\N	\N	\N	\N	\N	\N	\N
+6	sweet	o@well.com	$2b$12$Lbv1oMVGrpP78L0RmBRpbutn81FbnXZocrBEejmoxgJrZKiS4t2q2	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 16:15:36.944306	2014	Q1	\N	\N	\N	\N	\N	\N	\N	\N
+7	lol	lol@noway.com	$2b$12$P88AH8pzG7lmHEJMOFG5j.eI17.LxyU9OfJ1IKns3zBHvT3kXuFVG	STUDENT	LON	hello	something	\N	2019-05-14 16:17:17.842185	2015	Q1	\N	\N	\N	\N	\N	\N	\N	\N
+8	cool	cool@cool.com	$2b$12$FEPaYhn58dpKrSns65sSyuBGwRzgWsH/JdqD9yKgjcbg1GAeALI.y	STUDENT	TOR	cool	nice	\N	2019-05-14 16:44:08.431754	2014	Q2	\N	\N	\N	\N	\N	\N	\N	\N
+9	test	test@test.com	$2b$12$CZ/iMifD/W.ev1HJrFzLo.cjtyfh8A/QyV6qL7D88nD7paK3OlF4a	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-15 15:06:40.005603	2017	Q2	\N	\N	5027312d04a2c8d3cc176b5568ba149314e7fb8d69f0b0cf490518608dc2591f	a3ea6afa74c35fbe26e2ed26ec5025e2eef1000ef2b0f38f0dcb633c8025a4a4	true	\N	\N	\N
+10	Jul	ju3@hotmail.ca	$2b$12$brAqqcUyTncqjDREyoHIRuTRrd40OKRtpLsqzHVAGc7A7N0DEX3EC	\N	\N	\N	\N	\N	2019-05-16 09:28:05.928242	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+11	hjh	1993@hotmail.ca	$2b$12$ZWDxgLFES3VT/ZQkqCdNF.YAWCYfdB7pREPpHnzmVzYkgyraOjGgG					\N	2019-05-20 15:23:21.137491			\N	\N	\N	\N	\N	\N	\N	\N
+12	Julehwk	93@hotmail.ca	$2b$12$xGtJ00gQznQgplBT1UuPQOHZMQgQ/d2l56gz5QsbNrdyk4v4QC0Pa	ALUMNI	TOR	cnjksdvk	bvjfbxk	\N	2019-05-21 11:20:08.738213	2017	Q2	\N	\N	\N	\N	\N	\N	\N	\N
+13	Julien Assouline	3@hotmail.ca	$2b$12$EEFjakCQFpe4XEiuLh8v4elFisw3iVPaUBxbswDg4Rl5AhATPqHX6		TOR			\N	2019-05-21 11:21:44.68088			\N	\N	\N	\N	\N	\N	\N	\N
+14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N	\N	\N	\N
+15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N	\N	\N	\N
+16	Juli	gj3@hotmail.ca	$2b$12$NuqpoelMfiJML6f0fbr05OdresV.86DSOgIpAbDPtlu5DAR1j9U2C					\N	2019-06-06 13:52:39.431745			\N	\N	\N	\N	\N	\N	\N	\N
+17	user3	user3@cool.com	$2b$12$cRQXg8dPl5NGV0o.802o9uCxe6Dfvld18zKJjye16wlnMnnoyKWcu	ALUMNI	TOR	canada town 	app developer	\N	2019-07-10 17:28:54.865014	2016	Q2	\N	\N	\N	\N	\N	\N	\N	red academy
+18	user4	user4@hotmail.ca	$2b$12$pG7j9pgri4kmh7eOoFN59OT4P1ol2G/Q3HP.02KAcZw5mb9QdOVWC	ALUMNI	LON	vancouver	web dev	\N	2019-07-10 17:38:20.661613	2014	Q2	\N	\N	\N	\N	\N	\N	\N	red academy
+19	user4	user5@homtail.ca	$2b$12$MX1w3.wQ.nkImzOT0ka5GuTdY9oi64FppFJoD3AQh8g64zZjoPujW	STAFF	LON	montreal	web dev	\N	2019-07-10 17:42:43.91579	2016	Q3	\N	\N	\N	\N	\N	\N	WEBAPP	red academy
+4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N	\N	APP	\N
 \.
 
 
@@ -255,6 +262,9 @@ COPY hired.program_users (user_id, program_id) FROM stdin;
 13	5
 14	1
 15	5
+17	6
+18	6
+19	6
 \.
 
 
@@ -345,7 +355,7 @@ SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 -- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.mentors_id_seq', 9, true);
+SELECT pg_catalog.setval('hired.mentors_id_seq', 13, true);
 
 
 --
@@ -387,7 +397,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 16, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 19, true);
 
 
 --
