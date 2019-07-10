@@ -16,6 +16,7 @@ module.exports = gql`
     getConversations: [ConversationRooms]
     getUserProfile: User
     getConversation(id:ID): ConversationRoom
+    getRedBookUsers: [User!]
   }
 
 
