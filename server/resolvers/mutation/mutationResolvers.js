@@ -59,9 +59,6 @@ module.exports = {
           programs: program_name,
 
 				}
-
-        console.log(updateUserObject)
-
 				const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
 				await postgres.query(updateUserQuery)
 

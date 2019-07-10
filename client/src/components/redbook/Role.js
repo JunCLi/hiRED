@@ -1,5 +1,15 @@
 import React from 'react'
 
+const programs = {
+    APP: 'App Dev',
+    DM: 'Digital Marketing',
+    UX: 'UX Designer',
+    UI: 'UI Designer',
+    WEB: 'Web Dev',
+    WEBAPP: 'Web & App Dev',
+    UXUI: 'UX & UI'
+  }
+
 const Role = (props) => {
 
   const d = props.d
@@ -7,7 +17,7 @@ const Role = (props) => {
   if (d.role === "STUDENT") {
     return (
         <div className = "role-container">
-          <p> Studying {d.programs} </p>
+          <p> Studying {programs[d.programs]} </p>
           <p> @ {d.campus} </p>
         </div>
     );
@@ -23,7 +33,7 @@ const Role = (props) => {
   else if (d.role === "STAFF") {
     return (
         <div className = "role-container">
-          <p> Teaching {d.programs} </p>
+          <p> Teaching {programs[d.programs]} </p>
           <p> @ {d.campus} </p>
         </div>
     );

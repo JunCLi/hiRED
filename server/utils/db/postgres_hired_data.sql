@@ -109,6 +109,10 @@ COPY hired.mentors (id, user_id, status, disabled) FROM stdin;
 7	13	t	\N
 8	14	t	\N
 9	15	t	\N
+10	18	t	\N
+11	17	t	\N
+12	18	t	\N
+13	19	t	\N
 \.
 
 
@@ -242,7 +246,10 @@ COPY hired.users (id, fullname, email, password, role, campus, location, current
 14	j9	j9@hotmail.ca	$2b$12$DW4ac.iM.KpAUWRG0SWYDeSdODHSogCSfIdcw9cp0S8MxwT/HlAd.					\N	2019-05-21 11:31:56.570641			\N	\N	\N	\N	\N	\N	\N	\N
 15	Julien Assouline	ju93@hotmail.ca	$2b$12$GLz6YNjlfuyXH/NWAuZ6xOWisQX.FZKLv4Vr9.16u2wxxbDvUN4E6	STUDENT	TOR	Toronto	developer	\N	2019-06-05 11:43:08.630994	2014	Q2	\N	\N	\N	\N	\N	\N	\N	\N
 16	Juli	gj3@hotmail.ca	$2b$12$NuqpoelMfiJML6f0fbr05OdresV.86DSOgIpAbDPtlu5DAR1j9U2C					\N	2019-06-06 13:52:39.431745			\N	\N	\N	\N	\N	\N	\N	\N
-4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N	\N	App Dev	\N
+17	user3	user3@cool.com	$2b$12$cRQXg8dPl5NGV0o.802o9uCxe6Dfvld18zKJjye16wlnMnnoyKWcu	ALUMNI	TOR	canada town 	app developer	\N	2019-07-10 17:28:54.865014	2016	Q2	\N	\N	\N	\N	\N	\N	\N	red academy
+18	user4	user4@hotmail.ca	$2b$12$pG7j9pgri4kmh7eOoFN59OT4P1ol2G/Q3HP.02KAcZw5mb9QdOVWC	ALUMNI	LON	vancouver	web dev	\N	2019-07-10 17:38:20.661613	2014	Q2	\N	\N	\N	\N	\N	\N	\N	red academy
+19	user4	user5@homtail.ca	$2b$12$MX1w3.wQ.nkImzOT0ka5GuTdY9oi64FppFJoD3AQh8g64zZjoPujW	STAFF	LON	montreal	web dev	\N	2019-07-10 17:42:43.91579	2016	Q3	\N	\N	\N	\N	\N	\N	WEBAPP	red academy
+4	Julienngjienisd	jul@hotmail.ca	$2b$12$DbcsJhKGH1cUwz75qra9d.eCrKFiguoQYVjlBf9m7FpnIMMHr3BlO	STUDENT	TOR	Wayne Towers	batman	\N	2019-05-14 13:38:49.411468	2018	Q2	\N	\N	\N	\N	\N	\N	APP	\N
 \.
 
 
@@ -255,6 +262,9 @@ COPY hired.program_users (user_id, program_id) FROM stdin;
 13	5
 14	1
 15	5
+17	6
+18	6
+19	6
 \.
 
 
@@ -345,7 +355,7 @@ SELECT pg_catalog.setval('hired.linkedin_id_seq', 1, false);
 -- Name: mentors_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.mentors_id_seq', 9, true);
+SELECT pg_catalog.setval('hired.mentors_id_seq', 13, true);
 
 
 --
@@ -387,7 +397,7 @@ SELECT pg_catalog.setval('hired.tags_id_seq', 14, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: hired; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hired.users_id_seq', 16, true);
+SELECT pg_catalog.setval('hired.users_id_seq', 19, true);
 
 
 --
