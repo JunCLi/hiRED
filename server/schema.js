@@ -127,6 +127,7 @@ module.exports = gql`
     location: String,
     role: String,
     programs: String,
+    job_location: String,
     current_job: String,
     avatar: String,
     study_year: String,
@@ -254,6 +255,8 @@ module.exports = gql`
     current_job: String,
     location: String,
     mentor: Boolean,
+    programs: String,
+    job_location: String,
   }
 
 	input UpdateProfileObject {

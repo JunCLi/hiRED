@@ -14,6 +14,8 @@ const Redbook = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>I have an error</div>
 
+  console.log(data.getRedBookUsers)
+
   return (
     <div className = "redbook-page-container">
       <h1> Redbook </h1>

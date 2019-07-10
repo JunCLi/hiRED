@@ -46,7 +46,7 @@ module.exports = {
 		async signupForm2(parent, { input }, { app, req, postgres }) {
 			try {
 				const user_id = authenticate(app, req)
-				const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor } = input
+				const { campus, program_name, study_year, study_cohort, role, current_job, location, mentor, job_location } = input
 
 				const updateUserObject = {
 					campus: campus,
@@ -55,7 +55,12 @@ module.exports = {
 					role: role,
 					current_job: current_job,
 					location: location,
+          job_location: job_location,
+          programs: program_name,
+
 				}
+
+        console.log(updateUserObject)
 
 				const updateUserQuery = createUpdateQuery(updateUserObject, 'id', 'hired.users', user_id)
 				await postgres.query(updateUserQuery)
@@ -414,11 +419,9 @@ module.exports = {
        .catch(err => {
          console.log('this is catch error, :', err)
 			 })
-			 console.log('githubres.data: ', GithubRes.data)
 			const githubAccessTokenArray = GithubRes.data.split('access_token=')
 			const githubFilterScope = githubAccessTokenArray[1].split('&scope=')
 			const githubAccessToken = githubFilterScope[0];
-			console.log('githubAccessToken', githubAccessToken)
       const insertGithubAPI = {
         text: 'UPDATE hired.users SET github_api_code=$1, github_access_token=$2 WHERE id=$3 RETURNING *',
         values: [input.api_code, githubAccessToken, userId]
@@ -432,7 +435,6 @@ module.exports = {
     async addStatus(parent, {input}, {req, app, postgres}){
       try {
         let user_id =  1 //authenticate(app, req)
-        console.log('show me value: ', input)
         const insertStatus = {
           text: "INSERT INTO hired.status ( user_id, role, looking_for, location) VALUES ($1, $2, $3, $4) RETURNING *",
           values: [ user_id, input.role, input.looking_for, input.location]

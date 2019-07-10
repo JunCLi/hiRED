@@ -7,7 +7,7 @@ const Role = (props) => {
   if (d.role === "STUDENT") {
     return (
         <div className = "role-container">
-          <p> Studying programs </p>
+          <p> Studying {d.programs} </p>
           <p> @ {d.campus} </p>
         </div>
     );
@@ -16,14 +16,14 @@ const Role = (props) => {
     return (
         <div className = "role-container">
           <p> {d.current_job} </p>
-          <p> @ {d.campus} </p>
+          <p> @ {d.job_location} </p>
         </div>
     );
   }
   else if (d.role === "STAFF") {
     return (
         <div className = "role-container">
-          <p> Teaching programs </p>
+          <p> Teaching {d.programs} </p>
           <p> @ {d.campus} </p>
         </div>
     );

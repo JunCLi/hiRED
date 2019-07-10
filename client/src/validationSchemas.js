@@ -47,6 +47,11 @@ export const signup2Validation = Yup.object().shape({
       100,
       'This is the max number of characters'
     ),
+  whichCareerLocation: Yup.string()
+    .max(
+      100,
+      'This is the max number of characters'
+    ),
     whichLocation: Yup.string()
       .max(
       100,
@@ -56,7 +61,7 @@ export const signup2Validation = Yup.object().shape({
 
 export const portfolioValidation = Yup.object().shape({
   title: Yup.string()
-  .min(1, 'Longer title required.')  
+  .min(1, 'Longer title required.')
   .required("Title is required!"),
   description: Yup.string()
   .min(4, "Longer description required.")

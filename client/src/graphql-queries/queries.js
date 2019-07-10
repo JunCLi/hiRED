@@ -124,6 +124,7 @@ export const GET_MESSAGES = gql`
         avatar
         study_year
         study_cohort
+        job_location
       }
     }
   `
