@@ -99,11 +99,32 @@ export const GET_MESSAGES = gql`
   `
 
   export const GET_CONVERSATION = gql`
-  query GetConversation($id: ID){
-    getConversation(id: $id){
+    query GetConversation($id: ID){
+      getConversation(id: $id){
+          id
+          user_id_1
+          user_id_2
+       }
+    }`
+
+  export const GET_REDBOOK_USERS = gql`
+    query {
+      getRedBookUsers {
         id
-        user_id_1
-        user_id_2
-     }
-  }`
+        email
+        password
+        fullname
+        description
+        campus
+        mentor
+        location
+        role
+        programs
+        current_job
+        avatar
+        study_year
+        study_cohort
+      }
+    }
+  `
 
