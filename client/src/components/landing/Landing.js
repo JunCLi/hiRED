@@ -1,8 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../../logo.svg'
 
 import { Query } from 'react-apollo'
 import { testConnection } from '../../graphql-queries/queries'
+
+import { Button } from '@material-ui/core'
 
 const Landing = () => {
 	return (
@@ -11,7 +14,6 @@ const Landing = () => {
 				if (loading) return <div>loading...</div>
 				if (err) return <div>error!</div>
 
-				console.log(data)
 				return (
 					<div className='App'>
 						<header className='App-header'>
@@ -19,14 +21,41 @@ const Landing = () => {
 							<p>
 								Edit <code>src/App.js</code> and save to reload.
 							</p>
-							<a
-								className='App-link'
-								href='https://reactjs.org'
-								target='_blank'
-								rel='noopener noreferrer'
-							>
-								Learn React
-							</a>
+							<Link to='/'>
+								<Button>
+									Home
+								</Button>
+							</Link>
+							<Link to='/chatbot/'>
+								<Button>
+									Messages
+								</Button>
+							</Link>
+							<Link to='/profile/'>
+								<Button>
+									Profile
+								</Button>
+							</Link>
+							<Link to='/mentors/'>
+								<Button>
+									Mentors
+								</Button>
+							</Link>
+							<Link to='/home/'>
+								<Button>
+									feed
+								</Button>
+							</Link>
+							<Link to='/login/'>
+								<Button>
+									Login
+								</Button>
+							</Link>
+							<Link to='/signup/'>
+								<Button>
+									signup
+								</Button>
+							</Link>
 						</header>
 					</div>
 				)
