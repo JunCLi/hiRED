@@ -77,7 +77,7 @@ export default function TopNav() {
             </MenuItem>
           </Menu>
           <Typography variant="h6" className={classes.title}>
-            Space Exporer
+            hiRED
           </Typography>
           {/* <AccountCircle /> */}
           <LoginForm />
