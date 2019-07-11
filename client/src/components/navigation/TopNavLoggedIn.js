@@ -1,4 +1,3 @@
-
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,7 +9,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import LoginForm from "../login/LoginForm";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles(theme => ({
@@ -25,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function TopNav() {
+export default function TopNavLoggedIn() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   function handleClick(event) {
@@ -79,8 +77,8 @@ export default function TopNav() {
           <Typography variant="h6" className={classes.title}>
             hiRED
           </Typography>
-          {/* <AccountCircle /> */}
-          <LoginForm />
+          <AccountCircle />
+         
         </Toolbar>
       </AppBar>
     </div>

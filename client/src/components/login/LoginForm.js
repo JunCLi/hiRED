@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import { loginMutation } from "../../graphql-queries/mutations";
 
-import { TextField, Button, FormHelperText } from "@material-ui/core";
+import { TextField, Input, Button, FormHelperText } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -19,18 +19,19 @@ const initialFormValues = {
 const useStyles = makeStyles({
   loginFormContainer: {
 		// backgroundColor: "white",
-		width: "650px",
-		height: "50px",
+		// width: "650px",
+		// height: "10px",
     display: "flex",
 		flexDirection: "row",
-    margin: 10,
+    // margin: 10,
     alignItems: "center",
     justifyContent: 'center',
-    borderRadius: 20,
+    // borderRadius: 20,
 	},
 	formField: {
     backgroundColor: 'white',
     margin: 10,
+    borderRadius: 7,
   },
   loginButton: {
     display: "flex",
@@ -106,10 +107,11 @@ const LoginForm = () => {
                       id="userEmail"
                       name="userEmail"
                       label="Email"
+                      variant="outlined"
                       value={values.userEmail}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      margin="normal"
+                      margin="dense"
                     />
                     {/* {errors.userEmail && touched.userEmail ? (
                       <FormHelperText className="form-helper form-error">
@@ -126,10 +128,11 @@ const LoginForm = () => {
                       id="password"
                       name="password"
                       label="Password"
+                      variant="outlined"
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      margin="normal"
+                      margin="dense"
                     />
                     {/* {errors.password && touched.password ? (
                       <FormHelperText className="form-helper form-error">
@@ -146,7 +149,7 @@ const LoginForm = () => {
                       className={classes.loginButton}
                       type="submit"
                       variant="contained"
-                      color="primary"
+                      // color="white"
                       disabled={isSubmitting}
                     >
                       Log In
