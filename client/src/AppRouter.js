@@ -16,6 +16,7 @@ import Chatbot from "./components/chat/Chatbot"
 import Messages from "./components/chat/Messages"
 import Home from './components/feed/Home'
 import TopNav from './components/navigation/TopNav';
+import Redbook from "./components/redbook/Redbook"
 
 
 const AppRouter = () => {
@@ -37,6 +38,7 @@ const AppRouter = () => {
       <Route path = '/messages:conversation/' exact component = {Messages} />
       <Route path='/portfolio/' exact component={Portfolio} />
       <Route path= '/addportfolioitem/' exact component={AddPortfolioItem} />
+      <Route path= '/redbook/' exact component={Redbook} />
 		</Router>
 	)
 }
