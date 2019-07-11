@@ -10,6 +10,7 @@ const initialFormValues = {
 	whichCampus: '',
 	whichRole: '',
 	whichCareer: '',
+	whichCareerLocation: '',
 	whichLocation: '',
 	whichProgram: '',
 	whichStudyYear: '',
@@ -43,6 +44,7 @@ function SignupForm2(props) {
 									study_cohort: values.whichStudyCohort,
 									role: values.whichRole,
 									current_job: values.whichCareer,
+									job_location: values.whichCareerLocation,
 									location: values.whichLocation,
 									mentor: values.status,
 								},
@@ -90,6 +92,25 @@ function SignupForm2(props) {
 									/>
 									{errors.whichCareer ? (
 										<FormHelperText className='form-helper form-error'>{errors.whichCareer}</FormHelperText>
+									) : (
+										<FormHelperText className='form-helper' />
+									)}
+								</div>
+
+
+								<div className='form-field'>
+									<TextField
+										id='whichCareerLocation'
+										name='whichCareerLocation'
+										label='Career Location?'
+										value={values.whichCareerLocation}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										helperText='What is your current jobs location?'
+										margin='normal'
+									/>
+									{errors.whichCareer ? (
+										<FormHelperText className='form-helper form-error'>{errors.whichCareerLocation}</FormHelperText>
 									) : (
 										<FormHelperText className='form-helper' />
 									)}

@@ -1,41 +1,29 @@
-import React from 'react'
-import logo from '../../logo.svg'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { Query } from 'react-apollo'
-import { testConnection } from '../../graphql-queries/queries'
+import { Query } from "react-apollo";
+import { testConnection } from "../../graphql-queries/queries";
+
+import { Button } from "@material-ui/core";
+
+import LoginForm from "../login/LoginForm";
+import TopNav from "../navigation/TopNav";
 
 const Landing = () => {
-	return (
-		<Query query={ testConnection }>
-			{({ loading, err, data }) => {
-				if (loading) return <div>loading...</div>
-				if (err) return <div>error!</div>
+  return (
+    <Query query={testConnection}>
+      {({ loading, err, data }) => {
+        if (loading) return <div>loading...</div>;
+        if (err) return <div>error!</div>;
 
-				console.log(data)
-				return (
-					<div className='App'>
-						<header className='App-header'>
-							<img src={logo} className='App-logo' alt='logo' />
-							<p>
-								Edit <code>src/App.js</code> and save to reload.
-							</p>
-							<a
-								className='App-link'
-								href='https://reactjs.org'
-								target='_blank'
-								rel='noopener noreferrer'
-							>
-								Learn React
-							</a>
-						</header>
-					</div>
-				)
-			}}
-		</Query>
+        return (
+          <div className="App">
+            <h1>Welecome to hiRED!</h1>
+          </div>
+        );
+      }}
+    </Query>
+  );
+};
 
-
-		
-	)
-}
-
-export default Landing
+export default Landing;
