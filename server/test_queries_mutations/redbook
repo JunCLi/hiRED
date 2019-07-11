@@ -1,0 +1,18 @@
+query {
+  getRedBookUsers {
+    id
+    email
+    password
+    fullname
+    description
+    campus
+    mentor
+    location
+    role
+    programs
+    current_job
+    avatar
+    study_year
+    study_cohort
+  }
+}

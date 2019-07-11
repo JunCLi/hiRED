@@ -305,6 +305,18 @@ module.exports = {
 
           return result.rows[0]
 
-        }
+        },
+        async getRedBookUsers(parent, input, { req, app, postgres }){
+          let userId = authenticate(app, req);
+
+          const getAllUsers = {
+            text: 'SELECT * FROM hired.users'
+          }
+
+          const result = await postgres.query(getAllUsers)
+
+          return result.rows
+
+        },
 	},
 }
