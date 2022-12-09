@@ -20,7 +20,7 @@
 		"bluebird": "^3.5.3",
 		"cookie-parser": "^1.4.4",
 		"cors": "^2.8.5",
-		"express": "^4.16.4",
+		"express": "^4.17.3",
 		"express-history-api-fallback": "^2.2.1",
 		"fuse": "^0.4.0",
 		"fuse.js": "^3.4.4",
